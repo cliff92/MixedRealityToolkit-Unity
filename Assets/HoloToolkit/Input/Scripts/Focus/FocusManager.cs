@@ -434,7 +434,11 @@ namespace HoloToolkit.Unity.InputModule
 
         public PointerInputEventData GetGazePointerEventData()
         {
-            return gazeManagerPointingData.UnityUIPointerData;
+            if (gazeManagerPointingData != null)
+            {
+                return gazeManagerPointingData.UnityUIPointerData;
+            }
+            return null;
         }
 
         public PointerInputEventData GetSpecificPointerEventData(IPointingSource pointer)
