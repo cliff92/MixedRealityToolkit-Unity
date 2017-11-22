@@ -60,12 +60,14 @@ public class TargetManager : MonoBehaviour
             if (timeSinceOldTargettInFocus > 0 && timeSinceOldTargettInFocus < 0.05f)
             {
                 oldFocusedObject.SetActive(false);
+                Debug.Log("HitOld");
             }
             else
             {
                 if (currentFocusedObject != null && currentFocusedObject.tag.Equals("Target"))
                 {
                     currentFocusedObject.SetActive(false);
+                    Debug.Log("HitNew");
                 }
             }
         }
@@ -109,6 +111,7 @@ public class TargetManager : MonoBehaviour
                     Target target = newFocusedObject.GetComponent<Target>();
                     target.State = TargetState.InFocus;
                     newFocusedObject.GetComponent<Renderer>().material = targetInFocus;
+                    Debug.Log("Target {0} in Foucs",target.gameObject);
                     break;
                 case "Object":
                     newFocusedObject.GetComponent<Renderer>().material = objectInFocus;

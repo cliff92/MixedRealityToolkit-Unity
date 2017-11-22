@@ -63,7 +63,7 @@ public class DepthRayManager : MonoBehaviour
         }
         if (stepSizeRight > 0.5f || stepSizeRight < -0.5f)
         {
-            MoveDepthRayRelZ(stepSizeRight * Time.deltaTime);
+            MoveDepthRayRelZ(4 * stepSizeRight * Time.deltaTime);
         }
         MoveDepthMarker();
         MoveRayVisual();

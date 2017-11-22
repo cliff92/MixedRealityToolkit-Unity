@@ -138,15 +138,26 @@ public class HeadRay : MonoBehaviour, IPointingSource
         {
             if(leftControllerModel!=null)
             {
-                startRelativeQuat = leftControllerModel.ControllerParent.transform.localRotation;
+                startRelativeQuat = leftControllerModel.ControllerParent.transform.rotation;
+                GainFunction.Instance.ResetFunction(startRelativeQuat);
             }
         }
         if (Input.GetButtonDown("RelativeRight"))
         {
             if (rightControllerModel != null)
             {
-                startRelativeQuat = rightControllerModel.ControllerParent.transform.localRotation;
+                startRelativeQuat = rightControllerModel.ControllerParent.transform.rotation;
+                GainFunction.Instance.ResetFunction(startRelativeQuat);
             }
+        }
+
+        if (Input.GetButton("RelativeLeft") && leftControllerModel != null)
+        {
+            GainFunction.Instance.UpdateFunction(leftControllerModel.ControllerParent.transform.rotation);
+        }
+        if (Input.GetButton("RelativeRight") && rightControllerModel != null)
+        {
+            GainFunction.Instance.UpdateFunction(rightControllerModel.ControllerParent.transform.rotation);
         }
     }
 
@@ -170,18 +181,18 @@ public class HeadRay : MonoBehaviour, IPointingSource
             if (Input.GetButton("RelativeLeft") && leftControllerModel != null)
             {
                 Quaternion quat;
-                quat = leftControllerModel.ControllerParent.transform.localRotation;
+                quat = leftControllerModel.ControllerParent.transform.rotation;
                 quat *= Quaternion.Inverse(startRelativeQuat);
-                Vector3 gazeDirection = quat * head.transform.forward * relativeFactor;
+                Vector3 gazeDirection = quat * head.transform.forward * GainFunction.Instance.RelativeFactor;
                 Ray ray = new Ray(origin, gazeDirection);
                 rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
             }
             else if (Input.GetButton("RelativeRight") && rightControllerModel != null)
             {
                 Quaternion quat;
-                quat = rightControllerModel.ControllerParent.transform.localRotation;
+                quat = rightControllerModel.ControllerParent.transform.rotation;
                 quat *= Quaternion.Inverse(startRelativeQuat);
-                Vector3 gazeDirection = quat * head.transform.forward * relativeFactor;
+                Vector3 gazeDirection = quat * head.transform.forward * GainFunction.Instance.RelativeFactor;
                 Ray ray = new Ray(origin, gazeDirection);
                 rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
             }
