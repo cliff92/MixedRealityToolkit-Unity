@@ -71,6 +71,14 @@ public class TargetManager : MonoBehaviour
                 }
             }
         }
+
+        if(Input.GetButtonUp("Reset"))
+        {
+            foreach(GameObject obj in targetArray)
+            {
+                obj.SetActive(true);
+            }
+        }
     }
     protected virtual void OnPointerSpecificFocusChanged(IPointingSource pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
     {

@@ -1,18 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using HoloToolkit.Unity.InputModule;
 using UnityEngine.EventSystems;
-using UnityEditor;
 using HoloToolkit.Unity;
 using System;
-using UnityEngine.XR.WSA.Input;
 
 public class HeadRay : MonoBehaviour, IPointingSource
 {
-
-    private MotionControllerInfo leftControllerModel;
-    private MotionControllerInfo rightControllerModel;
+    bool startedRelativeRight;
+    bool startedRelativeLeft;
 
     private BaseRayStabilizer rayStabilizer;
 
@@ -98,66 +93,106 @@ public class HeadRay : MonoBehaviour, IPointingSource
     private void Awake()
     {
         Instance = this;
-        MotionControllerVisualizer.Instance.OnControllerModelLoaded += OnControllerModelLoaded;
-        MotionControllerVisualizer.Instance.OnControllerModelUnloaded += OnControllerModelUnloaded;
+        startedRelativeRight = false;
+        startedRelativeLeft = false;
     }
-
-    private void OnDestroy()
-    {
-        //MotionControllerVisualizer.Instance.OnControllerModelLoaded -= OnControllerModelLoaded;
-        //MotionControllerVisualizer.Instance.OnControllerModelUnloaded -= OnControllerModelUnloaded;
-    }
-
-    private void OnControllerModelUnloaded(MotionControllerInfo obj)
-    {
-        if (obj.Handedness == InteractionSourceHandedness.Left)
-        {
-            leftControllerModel = null;
-        }
-        if (obj.Handedness == InteractionSourceHandedness.Right)
-        {
-            rightControllerModel = null;
-        }
-    }
-
-    private void OnControllerModelLoaded(MotionControllerInfo obj)
-    {
-        if(obj.Handedness == InteractionSourceHandedness.Left)
-        {
-            leftControllerModel = obj;
-        }
-        if(obj.Handedness == InteractionSourceHandedness.Right)
-        {
-            rightControllerModel = obj;
-        }
-    }
+   
 
     private void Update()
     {
-        if (Input.GetButtonDown("RelativeLeft"))
+        Vector3 angularVelocity;
+        Quaternion rotation;
+        if (HandManager.Instance.IsLeftControllerTracked)
         {
-            if(leftControllerModel!=null)
+            if (Input.GetButtonUp("RelativeLeft"))
             {
-                startRelativeQuat = leftControllerModel.ControllerParent.transform.rotation;
-                GainFunction.Instance.ResetFunction(startRelativeQuat);
+                startedRelativeLeft = false;
             }
-        }
-        if (Input.GetButtonDown("RelativeRight"))
-        {
-            if (rightControllerModel != null)
+            if (Input.GetButtonDown("RelativeLeft"))
             {
-                startRelativeQuat = rightControllerModel.ControllerParent.transform.rotation;
-                GainFunction.Instance.ResetFunction(startRelativeQuat);
+                if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
+                {
+                    startRelativeQuat = rotation;
+                    if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
+                    {
+                        GainFunction.Instance.ResetFunction(angularVelocity);
+                    }
+                    else
+                    {
+                        GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                    }
+                    startedRelativeLeft = true;
+                }
+                else
+                {
+                    startRelativeQuat = Quaternion.identity;
+                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                    Debug.LogError("No start rotation data avaiable.");
+                    return;
+                }
             }
-        }
 
-        if (Input.GetButton("RelativeLeft") && leftControllerModel != null)
-        {
-            GainFunction.Instance.UpdateFunction(leftControllerModel.ControllerParent.transform.rotation);
+            if (startedRelativeLeft && Input.GetButton("RelativeLeft"))
+            {
+                if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
+                {
+                    GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
+                }
+                else if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
+                {
+                    GainFunction.Instance.UpdateFunction(rotation, Time.time);
+                }
+                else
+                {
+                    Debug.LogError("No velocity and rotation data avaiable");
+                }
+            }
         }
-        if (Input.GetButton("RelativeRight") && rightControllerModel != null)
+        if (HandManager.Instance.IsRightControllerTracked)
         {
-            GainFunction.Instance.UpdateFunction(rightControllerModel.ControllerParent.transform.rotation);
+            if (Input.GetButtonUp("RelativeRight"))
+            {
+                startedRelativeRight = false;
+            }
+
+            if (Input.GetButtonDown("RelativeRight"))
+            {
+                if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
+                {
+                    startRelativeQuat = rotation;
+                    if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
+                    {
+                        GainFunction.Instance.ResetFunction(angularVelocity);
+                    }
+                    else
+                    {
+                        GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                    }
+                    startedRelativeRight = true;
+                }
+                else
+                {
+                    startRelativeQuat = Quaternion.identity;
+                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                    Debug.LogError("No start rotation data avaiable.");
+                    return;
+                }
+            }
+            if (startedRelativeRight && Input.GetButton("RelativeRight"))
+            {
+                if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
+                {
+                    GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
+                }
+                else if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
+                {
+                    GainFunction.Instance.UpdateFunction(rotation, Time.time);
+                }
+                else
+                {
+                    Debug.LogError("No velocity and rotation data avaiable");
+                }
+            }
         }
     }
 
@@ -176,36 +211,57 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         else
         {
-            Vector3 origin = head.transform.position + offsetDown * Vector3.down;
+            if (Input.GetButton("RelativeLeft") && HandManager.Instance.IsLeftControllerTracked)
+            {
+                Quaternion quat;
+                if (HandManager.Instance.LeftHand.TryGetRotation(out quat))
+                {
+                    quat = Quaternion.Inverse(startRelativeQuat) * quat;
 
-            if (Input.GetButton("RelativeLeft") && leftControllerModel != null)
-            {
-                Quaternion quat;
-                quat = leftControllerModel.ControllerParent.transform.rotation;
-                quat *= Quaternion.Inverse(startRelativeQuat);
-                Vector3 gazeDirection = quat * head.transform.forward * GainFunction.Instance.RelativeFactor;
-                Ray ray = new Ray(origin, gazeDirection);
-                rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
+                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward;
+
+                    SetRays(gazeDirection);
+                }
             }
-            else if (Input.GetButton("RelativeRight") && rightControllerModel != null)
+            else if (Input.GetButton("RelativeRight") && HandManager.Instance.IsRightControllerTracked)
             {
                 Quaternion quat;
-                quat = rightControllerModel.ControllerParent.transform.rotation;
-                quat *= Quaternion.Inverse(startRelativeQuat);
-                Vector3 gazeDirection = quat * head.transform.forward * GainFunction.Instance.RelativeFactor;
-                Ray ray = new Ray(origin, gazeDirection);
-                rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
+                if (HandManager.Instance.RightHand.TryGetRotation(out quat))
+                {
+                    quat = Quaternion.Inverse(startRelativeQuat) * quat;
+
+                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward;
+                    SetRays(gazeDirection);
+                }
             }
             else {
-                Ray ray = new Ray(origin, head.transform.forward);
-                rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
+                SetRays(head.transform.forward);
             }
-            
-            if (RayStabilizer != null)
-            {
-                RayStabilizer.UpdateStability(rays[0].origin, rays[0].direction);
-                rays[0].CopyRay(RayStabilizer.StableRay, FocusManager.Instance.GetPointingExtent(this));
-            }
+        }
+    }
+
+    private void SetRays(Vector3 direction)
+    {
+        float spreadFactor = 0.02f;
+        Vector3 origin = head.transform.position + offsetDown * Vector3.down;
+
+        Ray ray = new Ray(origin, direction);
+        Ray rayUp = new Ray(origin + head.transform.up * spreadFactor, direction);
+        Ray rayDown = new Ray(origin - head.transform.up * spreadFactor, direction);
+        Ray rayRight = new Ray(origin + head.transform.right * spreadFactor, direction);
+        Ray rayLeft = new Ray(origin - head.transform.right * spreadFactor, direction);
+
+        rays = new RayStep[5];
+        rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));
+        rays[1].CopyRay(rayUp, FocusManager.Instance.GetPointingExtent(this));
+        rays[2].CopyRay(rayDown, FocusManager.Instance.GetPointingExtent(this));
+        rays[3].CopyRay(rayRight, FocusManager.Instance.GetPointingExtent(this));
+        rays[4].CopyRay(rayLeft, FocusManager.Instance.GetPointingExtent(this));
+
+        if (RayStabilizer != null)
+        {
+            RayStabilizer.UpdateStability(rays[0].origin, rays[0].direction);
+            rays[0].CopyRay(RayStabilizer.StableRay, FocusManager.Instance.GetPointingExtent(this));
         }
     }
 
@@ -223,7 +279,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
     {
         var inputData = (eventData as IInputSourceInfoProvider);
 
-        return (inputData != null)
-            && ((inputData.InputSource == rightControllerModel) || (inputData.InputSource == leftControllerModel));
+        return (inputData != null);
+            //&& ((inputData.InputSource == rightController) || (inputData.InputSource == leftController));
     }
 }

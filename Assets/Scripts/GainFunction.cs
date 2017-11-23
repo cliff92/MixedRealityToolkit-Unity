@@ -10,29 +10,24 @@ public class GainFunction : MonoBehaviour
     public int StoredSamples = 20;
 
     private AnimationCurve functionCurve = new AnimationCurve(new Keyframe[] 
-    { new Keyframe(0,0.25f), new Keyframe(0.25f, 1.5f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.05f), new Keyframe(1, 0.25f) });
+    { new Keyframe(0,0.1f), new Keyframe(0.25f, 1f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.01f), new Keyframe(1, 0.05f) });
 
     /// <summary>
     /// Calculates standard deviation and averages for the gaze position.
     /// </summary>
     private readonly FloatRollingStatistics velocityRollingStats = new FloatRollingStatistics();
-    private readonly FloatRollingStatistics timeRollingStats = new FloatRollingStatistics();
 
     private MovementState state;
     private float currentVelocity;
     private float oldVelocity;
     private float currentAcceleration;
 
-    private Quaternion oldRotation;
-    private Quaternion currentRotation;
-
-    private float currentTime;
-    private float oldTime;
+    private Quaternion lastRotationData;
+    private float lastTimeStep;
 
     public Text text;
 
     private int counter;
-    private int resetCounter;
 
     public float CurrentVelocity
     {
@@ -58,46 +53,58 @@ public class GainFunction : MonoBehaviour
     private void Start()
     {
         velocityRollingStats.Init(StoredSamples);
-        timeRollingStats.Init(StoredSamples);
         Reset();
     }
 
-    public void ResetFunction(Quaternion startRotationValue)
+    public void ResetFunction(Vector3 currentAngularVelocity)
     {
         velocityRollingStats.Reset();
-        timeRollingStats.Reset();
-        timeRollingStats.AddSample(Time.time);
-        currentRotation = oldRotation = startRotationValue;
-        oldTime = Time.time;
-        oldVelocity = 0;
+        velocityRollingStats.AddSample(currentAngularVelocity.magnitude);
+        oldVelocity = currentAngularVelocity.magnitude;
         Reset();
-        Debug.Log("Reset Function");
+        Debug.Log("Reset Function Velocity");
+    }
+    public void ResetFunction(Quaternion currentRotation, float time)
+    {
+        lastRotationData = currentRotation;
+        lastTimeStep = time;
+        velocityRollingStats.Reset();
+        Reset();
+        Debug.Log("Reset Function Rotation");
     }
 
     private void Reset()
     {
         state = MovementState.Idle;
         counter = 0;
-        resetCounter = 0;
     }
 
-    public void UpdateFunction(Quaternion rotationValue)
+
+    public void UpdateFunction(Quaternion currentRotation, float time)
     {
-        currentRotation = rotationValue;
-        currentTime = Time.time;
-        timeRollingStats.AddSample(Time.time);
-        if (currentTime != oldTime)
-        {
-            currentVelocity = Mathf.Abs(Quaternion.Angle(currentRotation, oldRotation)) / (currentTime - oldTime);
-            velocityRollingStats.AddSample(currentVelocity);
-        }
+        float angleDelta = Mathf.Deg2Rad * Quaternion.Angle(currentRotation, lastRotationData);
+
+        float currentAngularVelocity = angleDelta / (time - lastTimeStep);
+
+        UpdateFunction(currentAngularVelocity);
+
+        lastRotationData = currentRotation;
+        lastTimeStep = time;
+    }
+
+    //Angularvelocity in rad/s
+    public void UpdateFunction(float currentAngularVelocity)
+    {
+        currentVelocity = currentAngularVelocity;
+        velocityRollingStats.AddSample(currentVelocity);
+
         float std = velocityRollingStats.CurrentStandardDeviation;
         float avgVelocity = velocityRollingStats.Average;
 
         switch (state)
         {
             case MovementState.Idle:
-                if((currentVelocity > avgVelocity && currentVelocity >50)|| avgVelocity > 90)
+                if((currentVelocity > avgVelocity && currentVelocity > 0.85f)|| avgVelocity > 1.5f)
                 {
                     counter++;
                 }
@@ -113,7 +120,7 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
             case MovementState.PrimarySubMovBegin:
-                if (currentVelocity < avgVelocity || avgVelocity < 50)
+                if (currentVelocity < avgVelocity || avgVelocity < 0.85f)
                 {
                     counter++;
                 }
@@ -135,7 +142,7 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
             case MovementState.PrimarySubMaxAfterMax:
-                if (currentVelocity < 50)
+                if (currentVelocity < 0.85f)
                 {
                     counter++;
                 }
@@ -157,21 +164,21 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
             case MovementState.PrimarySubMovEnd:
-                if (avgVelocity < 10)
+                if (avgVelocity < 0.2f)
                 {
                     counter++;
                 }
-                else if(avgVelocity > 50)
+                else if(avgVelocity > 0.85f)
                 {
                     counter--;
                 }
-                if (counter > 30)
+                if (counter > 0.5f)
                 {
                     state = MovementState.MovEnd;
                     Debug.Log("4. Change state from primary primary end to secondary end");
                     counter = 0;
                 } 
-                else if(counter < -10)
+                else if(counter < -0.2f)
                 {
                     state = MovementState.PrimarySubMaxAfterMax;
                     Debug.Log("4.1 Change state from primary primary end to primary after max");
@@ -179,7 +186,7 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
             case MovementState.MovEnd:
-                if (avgVelocity < 5)
+                if (avgVelocity < 0.1)
                 {
                     counter++;
                 }
@@ -202,9 +209,8 @@ public class GainFunction : MonoBehaviour
                 break;
         }
         oldVelocity = currentVelocity;
-        oldTime = currentTime;
-        oldRotation = currentRotation;
         text.text = "State: " +state.ToString();
+
         //Debug.Log("Current: " + CurrentVelocity + " vs avg: " + avgVelocity+" Std: "+std);
     }
 

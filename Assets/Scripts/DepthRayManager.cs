@@ -57,11 +57,11 @@ public class DepthRayManager : MonoBehaviour
 
         float stepSizeLeft = Input.GetAxis("TouchPadYLeft");
         float stepSizeRight = Input.GetAxis("TouchPadYRight");
-        if (stepSizeLeft > 0.5f || stepSizeLeft < -0.5f)
+        if (stepSizeLeft > 0.5f || stepSizeLeft < -0.8f)
         {
-            MoveDepthRayRelZ(stepSizeLeft * Time.deltaTime);
+            MoveDepthRayRelZ(4* stepSizeLeft * Time.deltaTime);
         }
-        if (stepSizeRight > 0.5f || stepSizeRight < -0.5f)
+        if (stepSizeRight > 0.5f || stepSizeRight < -0.8f)
         {
             MoveDepthRayRelZ(4 * stepSizeRight * Time.deltaTime);
         }
