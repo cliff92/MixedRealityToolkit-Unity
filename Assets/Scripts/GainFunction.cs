@@ -19,8 +19,6 @@ public class GainFunction : MonoBehaviour
 
     private MovementState state;
     private float currentVelocity;
-    private float oldVelocity;
-    private float currentAcceleration;
 
     private Quaternion lastRotationData;
     private float lastTimeStep;
@@ -34,14 +32,6 @@ public class GainFunction : MonoBehaviour
         get
         {
             return currentVelocity;
-        }
-    }
-
-    public float CurrentAcceleration
-    {
-        get
-        {
-            return currentAcceleration;
         }
     }
 
@@ -60,7 +50,6 @@ public class GainFunction : MonoBehaviour
     {
         velocityRollingStats.Reset();
         velocityRollingStats.AddSample(currentAngularVelocity.magnitude);
-        oldVelocity = currentAngularVelocity.magnitude;
         Reset();
         Debug.Log("Reset Function Velocity");
     }
@@ -98,7 +87,6 @@ public class GainFunction : MonoBehaviour
         currentVelocity = currentAngularVelocity;
         velocityRollingStats.AddSample(currentVelocity);
 
-        float std = velocityRollingStats.CurrentStandardDeviation;
         float avgVelocity = velocityRollingStats.Average;
 
         switch (state)
@@ -208,7 +196,6 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
         }
-        oldVelocity = currentVelocity;
         text.text = "State: " +state.ToString();
 
         //Debug.Log("Current: " + CurrentVelocity + " vs avg: " + avgVelocity+" Std: "+std);

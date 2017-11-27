@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using HoloToolkit.Unity;
+using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
 public class HandManager : MonoBehaviour
@@ -111,44 +112,38 @@ public class HandManager : MonoBehaviour
 
     private void UpdateHand(Hand hand, InteractionSourceState sourceState)
     {
-        sourceState.sourcePose.TryGetPosition(out hand.pos);
-        sourceState.sourcePose.TryGetRotation(out hand.rotation,InteractionSourceNode.Pointer);
-        sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
+        hand.source = sourceState.source;
+        hand.isPosAvaiable = sourceState.sourcePose.TryGetPosition(out hand.pos);
+        hand.isRotAvaiable = sourceState.sourcePose.TryGetRotation(out hand.rotation,InteractionSourceNode.Pointer);
+        hand.isAngularVelAvaiable = sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
     }
 }
 
 public class Hand
 {
+    internal InteractionSource source;
     internal Vector3 pos;
     internal Quaternion rotation;
     internal Vector3 angularVelocity;
+    internal bool isPosAvaiable;
+    internal bool isRotAvaiable;
+    internal bool isAngularVelAvaiable;
+
 
     public bool TryGetPos(out Vector3 position)
     {
         position = pos;
-        if (pos == null)
-        {
-            return false;
-        }
-        return true;
+        return isPosAvaiable;
     }
     public bool TryGetRotation(out Quaternion rotation)
     {
         rotation = this.rotation;
-        if (pos == null)
-        {
-            return false;
-        }
-        return true;
+        return isRotAvaiable;
     }
     public bool TryGetAngularVelocity(out Vector3 angularVelocity)
     {
         angularVelocity = this.angularVelocity;
-        if (pos == null)
-        {
-            return false;
-        }
-        return true;
+        return isAngularVelAvaiable;
     }
 
     public bool TryGetRotationAroundZ(out float angle)
@@ -161,6 +156,12 @@ public class Hand
         }
         angle = 0;
         return false;
+    }
+
+    public void Virbrate(float intensity, float durationInSeconds)
+    {
+        InteractionSourceExtensions.StopHaptics(source);
+        InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
     }
 }
 

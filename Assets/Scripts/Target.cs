@@ -6,6 +6,13 @@ public class Target : MonoBehaviour
     private TargetState state;
     private TargetState oldState;
 
+    private Transform parent;
+
+    private void Start()
+    {
+        parent = transform.parent;
+    }
+
     public Material DefaultMat
     {
         get
@@ -36,11 +43,19 @@ public class Target : MonoBehaviour
         }
     }
 
+    public Transform Parent
+    {
+        get
+        {
+            return parent;
+        }
+    }
+
     private void Awake()
     {
         defaultMat = gameObject.GetComponent<Renderer>().material;
         state = TargetState.Default;
     }
 }
-public enum TargetState { Default, InFocus, Transparent, Disabled }
+public enum TargetState { Default, InFocus, Disabled, Drag}
 

@@ -218,7 +218,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                 {
                     quat = Quaternion.Inverse(startRelativeQuat) * quat;
 
-                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward;
+                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward * GainFunction.Instance.RelativeFactor;
 
                     SetRays(gazeDirection);
                 }
@@ -230,7 +230,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                 {
                     quat = Quaternion.Inverse(startRelativeQuat) * quat;
 
-                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward;
+                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward * GainFunction.Instance.RelativeFactor;
                     SetRays(gazeDirection);
                 }
             }

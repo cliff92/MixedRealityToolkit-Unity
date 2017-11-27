@@ -31,7 +31,7 @@ public class DepthRayManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        pointingRaycastLayerMasks = new LayerMask[]{ LayerMask.GetMask("TargetLayer"),Physics.DefaultRaycastLayers};
+        pointingRaycastLayerMasks = new LayerMask[] { LayerMask.GetMask("TargetLayer"), Physics.DefaultRaycastLayers };
     }
 
     private void Start()
@@ -55,16 +55,17 @@ public class DepthRayManager : MonoBehaviour
     {
         headRay.OnPreRaycast();
 
-        float stepSizeLeft = Input.GetAxis("TouchPadYLeft");
-        float stepSizeRight = Input.GetAxis("TouchPadYRight");
-        if (stepSizeLeft > 0.5f || stepSizeLeft < -0.8f)
+        float rotationAngle;
+        if (HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
         {
-            MoveDepthRayRelZ(4* stepSizeLeft * Time.deltaTime);
+            MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
         }
-        if (stepSizeRight > 0.5f || stepSizeRight < -0.8f)
+
+        if (Input.GetButtonUp("JumpToFocus"))
         {
-            MoveDepthRayRelZ(4 * stepSizeRight * Time.deltaTime);
+            MoveDepthMarkerToFocus();
         }
+
         MoveDepthMarker();
         MoveRayVisual();
         SelectObject();
@@ -89,18 +90,38 @@ public class DepthRayManager : MonoBehaviour
         rayVisual.transform.position = origin;
     }
 
-    private void MoveDepthRayRelZ(float stepSize)
+    private void MoveDepthRayRelZ(int rotationAngle)
     {
+        float stepsize = 0;
+        if (rotationAngle > 20 && rotationAngle < 180)
+        {
+            stepsize = -2 * (rotationAngle / 180.0f) * Time.deltaTime;
+        }
+        if (rotationAngle > 180 && rotationAngle < 340)
+        {
+            stepsize = 2 * ((360 - rotationAngle) / 180.0f) * Time.deltaTime;
+        }
         Vector3 origin = headRay.Rays[0].origin;
-        depthMarker.transform.position = Vector3.MoveTowards(depthMarker.transform.position, origin, stepSize);
+        depthMarker.transform.position = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
         UpdateTransparency();
+    }
+
+    private void MoveDepthMarkerToFocus()
+    {
+        if (pointer.End.Object == null)
+            return;
+        Vector3 origin = headRay.Rays[0].origin;
+        Vector3 direction = headRay.Rays[0].direction;
+        float distance = Vector3.Distance(pointer.End.Object.transform.position, origin);
+        Vector3 newPos = origin + direction * distance;
+        depthMarker.transform.position = newPos;
     }
 
     private void UpdateTransparency()
     {
-        Vector3 bubblePos = depthMarker.transform.position;
+        Vector3 depthMarkerPos = depthMarker.transform.position;
         Vector3 headPos = headRay.Rays[0].origin;
-        TargetManager.Instance.UpdateTransparency(bubblePos,headPos);
+        TargetManager.Instance.UpdateTransparency(depthMarkerPos, headPos, pointer.PointingSource.Rays[0].direction);
     }
 
     private void SelectObject()
@@ -227,7 +248,7 @@ public class DepthRayManager : MonoBehaviour
                 RaycastHit hit = hits[hitIdx];
                 if (hit.transform.gameObject.layer.IsInLayerMask(layerMasks[layerMaskIdx]))
                 {
-                    if(minHit == null)
+                    if (minHit == null)
                     {
                         minHit = hit;
                     }
@@ -235,7 +256,7 @@ public class DepthRayManager : MonoBehaviour
                     {
                         float newDist = Vector3.Distance(hit.point, depthMarker.transform.position);
                         float minDist = Vector3.Distance(minHit.Value.point, depthMarker.transform.position);
-                        if(newDist<minDist)
+                        if (newDist < minDist)
                         {
                             minHit = hit;
                         }
@@ -297,7 +318,7 @@ public class DepthRayManager : MonoBehaviour
 
     private void RaisePointerSpecificFocusChangedEvents(IPointingSource pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
     {
-        
+
         InputManager.Instance.RaisePointerSpecificFocusChangedEvents(pointer, oldFocusedObject, newFocusedObject);
 
         if (PointerSpecificFocusChanged != null)
@@ -305,6 +326,14 @@ public class DepthRayManager : MonoBehaviour
             PointerSpecificFocusChanged(pointer, oldFocusedObject, newFocusedObject);
         }
     }
+
+    public float DistanceHeadDepthMarker{
+        get
+        {
+            return Vector3.Distance(depthMarker.transform.position, pointer.StartPoint);
+        }
+    }
+
     #endregion
 
     private class PointerData : PointerResult
