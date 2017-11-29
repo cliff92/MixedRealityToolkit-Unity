@@ -104,11 +104,11 @@ public class HeadRay : MonoBehaviour, IPointingSource
         Quaternion rotation;
         if (HandManager.Instance.IsLeftControllerTracked)
         {
-            if (Input.GetButtonUp("RelativeLeft"))
+            if (Input.GetButtonUp("RelativeLeft") || MyoPoseManager.Instance.FistUp)
             {
                 startedRelativeLeft = false;
             }
-            if (Input.GetButtonDown("RelativeLeft"))
+            if (Input.GetButtonDown("RelativeLeft") || MyoPoseManager.Instance.FistDown)
             {
                 if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
                 {
@@ -132,7 +132,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                 }
             }
 
-            if (startedRelativeLeft && Input.GetButton("RelativeLeft"))
+            if (startedRelativeLeft && (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Fist))
             {
                 if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
                 {
@@ -150,12 +150,12 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         if (HandManager.Instance.IsRightControllerTracked)
         {
-            if (Input.GetButtonUp("RelativeRight"))
+            if (Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.FistUp)
             {
                 startedRelativeRight = false;
             }
 
-            if (Input.GetButtonDown("RelativeRight"))
+            if (Input.GetButtonDown("RelativeRight") || MyoPoseManager.Instance.FistDown)
             {
                 if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
                 {
@@ -178,7 +178,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                     return;
                 }
             }
-            if (startedRelativeRight && Input.GetButton("RelativeRight"))
+            if (startedRelativeRight && (Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist))
             {
                 if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
                 {
@@ -211,7 +211,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         else
         {
-            if (Input.GetButton("RelativeLeft") && HandManager.Instance.IsLeftControllerTracked)
+            if ((Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Fist) && HandManager.Instance.IsLeftControllerTracked)
             {
                 Quaternion quat;
                 if (HandManager.Instance.LeftHand.TryGetRotation(out quat))
@@ -223,7 +223,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                     SetRays(gazeDirection);
                 }
             }
-            else if (Input.GetButton("RelativeRight") && HandManager.Instance.IsRightControllerTracked)
+            else if ((Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist) && HandManager.Instance.IsRightControllerTracked)
             {
                 Quaternion quat;
                 if (HandManager.Instance.RightHand.TryGetRotation(out quat))

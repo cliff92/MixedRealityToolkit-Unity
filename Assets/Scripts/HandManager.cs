@@ -62,7 +62,23 @@ public class HandManager : MonoBehaviour
 
     private void Update()
     {
-        UpdateControllers();
+        if (MyoPoseManager.Instance.useMyo)
+        {
+            UpdateMyo();
+            if (MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
+            {
+                isLeftControllerTracked = true;
+                isRightControllerTracked = false;
+            } else if(MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Right)
+            {
+                isLeftControllerTracked = false;
+                isRightControllerTracked = true;
+            }
+        }
+        else
+        {
+            UpdateControllers();
+        }
     }
 
     private void UpdateControllers()
@@ -85,6 +101,29 @@ public class HandManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void UpdateMyo()
+    {
+        leftHand.Reset();
+        rightHand.Reset();
+        if (MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
+        {
+            UpdateHandWithMyo(leftHand);
+        }
+        else if(MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Right)
+        {
+            UpdateHandWithMyo(rightHand);
+        }
+    }
+    private void UpdateHandWithMyo(Hand hand)
+    {
+        hand.rotation = MyoPoseManager.Instance.Rotation;
+        hand.isRotAvaiable = true;
+        hand.angularVelocity = MyoPoseManager.Instance.AngularVelocity;
+        hand.isAngularVelAvaiable = true;
+        hand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
+        hand.isRollAroundz = true;
     }
 
     private void InteractionManager_InteractionSourceLost(InteractionSourceLostEventArgs obj)
@@ -125,9 +164,11 @@ public class Hand
     internal Vector3 pos;
     internal Quaternion rotation;
     internal Vector3 angularVelocity;
+    internal float rollAroundZ;
     internal bool isPosAvaiable;
     internal bool isRotAvaiable;
     internal bool isAngularVelAvaiable;
+    internal bool isRollAroundz;
     internal Handeness handeness;
 
     public Hand(Handeness handeness)
@@ -153,6 +194,11 @@ public class Hand
 
     public bool TryGetRotationAroundZ(out float angle)
     {
+        if (isRollAroundz)
+        {
+            angle = rollAroundZ;
+            return true;
+        }
         Quaternion quat;
         if(TryGetRotation(out quat))
         {
@@ -167,6 +213,14 @@ public class Hand
     {
         InteractionSourceExtensions.StopHaptics(source);
         InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
+    }
+
+    public void Reset()
+    {
+        isPosAvaiable = false;
+        isRotAvaiable = false;
+        isAngularVelAvaiable = false;
+        isRollAroundz = false;
     }
 }
 

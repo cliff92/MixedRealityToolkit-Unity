@@ -1,6 +1,5 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class ClickManager : MonoBehaviour
 {
@@ -72,7 +71,7 @@ public class ClickManager : MonoBehaviour
 
     private void CheckReset()
     {
-        if (Input.GetButtonUp("Reset"))
+        if (Input.GetButtonUp("Reset") || MyoPoseManager.Instance.DoubleTapUp)
         {
             OnReset();
         }
@@ -80,7 +79,7 @@ public class ClickManager : MonoBehaviour
 
     private void CheckLeftClick()
     {
-        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))
+        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.FistUp)
         {
             timeTargetInFocusAndButtonDown = 0;
             if (timeSinceOldTargetInFocus > 0 && timeSinceOldTargetInFocus < delayClickTime)
@@ -102,7 +101,7 @@ public class ClickManager : MonoBehaviour
 
     private void CheckRightClick()
     {
-        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight"))
+        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist)
         {
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
             if (timeTargetInFocusAndButtonDown >= 0)
