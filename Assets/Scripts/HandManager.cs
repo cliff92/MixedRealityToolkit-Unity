@@ -47,8 +47,8 @@ public class HandManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        leftHand = new Hand();
-        rightHand = new Hand();
+        leftHand = new Hand(Handeness.Left);
+        rightHand = new Hand(Handeness.Right);
         InteractionManager.InteractionSourceDetected += InteractionManager_InteractionSourceDetected;
         InteractionManager.InteractionSourceLost += InteractionManager_InteractionSourceLost;
         UpdateControllers();
@@ -128,7 +128,12 @@ public class Hand
     internal bool isPosAvaiable;
     internal bool isRotAvaiable;
     internal bool isAngularVelAvaiable;
+    internal Handeness handeness;
 
+    public Hand(Handeness handeness)
+    {
+        this.handeness = handeness;
+    }
 
     public bool TryGetPos(out Vector3 position)
     {
@@ -163,5 +168,10 @@ public class Hand
         InteractionSourceExtensions.StopHaptics(source);
         InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
     }
+}
+
+public enum Handeness
+{
+    Left, Right, Unknown
 }
 

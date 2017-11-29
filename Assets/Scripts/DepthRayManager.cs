@@ -78,7 +78,9 @@ public class DepthRayManager : MonoBehaviour
         Vector3 direction = headRay.Rays[0].direction;
         float distance = Vector3.Distance(depthMarker.transform.position, origin);
         Vector3 newPos = origin + direction * distance;
+
         depthMarker.transform.position = newPos;
+        depthMarker.transform.rotation = Quaternion.LookRotation(direction);
     }
 
     private void MoveRayVisual()
@@ -95,18 +97,18 @@ public class DepthRayManager : MonoBehaviour
         float stepsize = 0;
         if (rotationAngle > 20 && rotationAngle < 180)
         {
-            stepsize = -2 * (rotationAngle / 180.0f) * Time.deltaTime;
+            stepsize = -4 * (rotationAngle / 180.0f) * Time.deltaTime;
         }
         if (rotationAngle > 180 && rotationAngle < 340)
         {
-            stepsize = 2 * ((360 - rotationAngle) / 180.0f) * Time.deltaTime;
+            stepsize = 4 * ((360 - rotationAngle) / 180.0f) * Time.deltaTime;
         }
         Vector3 origin = headRay.Rays[0].origin;
         depthMarker.transform.position = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
         UpdateTransparency();
     }
 
-    private void MoveDepthMarkerToFocus()
+    public void MoveDepthMarkerToFocus()
     {
         if (pointer.End.Object == null)
             return;

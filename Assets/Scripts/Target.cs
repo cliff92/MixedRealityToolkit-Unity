@@ -6,11 +6,32 @@ public class Target : MonoBehaviour
     private TargetState state;
     private TargetState oldState;
 
-    private Transform parent;
+    private GameObject depthMarker;
+    private Hand handDidNotClick;
+
+    private void Awake()
+    {
+        defaultMat = gameObject.GetComponent<Renderer>().material;
+        state = TargetState.Default;
+    }
 
     private void Start()
     {
-        parent = transform.parent;
+        depthMarker = DepthRayManager.Instance.depthMarker;
+    }
+
+    private void LateUpdate()
+    {
+        if (state == TargetState.Drag)
+        {
+            transform.position = depthMarker.transform.position;
+            Quaternion quat;
+            if (handDidNotClick != null)
+            {
+                handDidNotClick.TryGetRotation(out quat);
+                transform.localRotation = quat;
+            }
+        }
     }
 
     public Material DefaultMat
@@ -43,18 +64,33 @@ public class Target : MonoBehaviour
         }
     }
 
-    public Transform Parent
+    public GameObject DepthMarker
     {
         get
         {
-            return parent;
+            return depthMarker;
+        }
+
+        set
+        {
+            depthMarker = value;
         }
     }
 
-    private void Awake()
+    public Handeness HandnessDidNotClick
     {
-        defaultMat = gameObject.GetComponent<Renderer>().material;
-        state = TargetState.Default;
+        get
+        {
+            return handDidNotClick.handeness;
+        }
+
+        set
+        {
+            if(value == Handeness.Left)
+                handDidNotClick = HandManager.Instance.LeftHand;
+            else if (value == Handeness.Left)
+                handDidNotClick = HandManager.Instance.RightHand;
+        }
     }
 }
 public enum TargetState { Default, InFocus, Disabled, Drag}
