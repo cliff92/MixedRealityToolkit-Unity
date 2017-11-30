@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using Pose = Thalmic.Myo.Pose;
 using Arm = Thalmic.Myo.Arm;
+using HoloToolkit.Unity.InputModule;
+using UnityEngine.UI;
 
 public class MyoPoseManager : MonoBehaviour
 {
@@ -16,6 +18,19 @@ public class MyoPoseManager : MonoBehaviour
     private Pose lastPose = Pose.Unknown;
     private Pose currentPose = Pose.Unknown;
 
+    // A rotation that compensates for the Myo armband's orientation parallel to the ground, i.e. yaw.
+    // Once set, the direction the Myo armband is facing becomes "forward" within the program.
+    // Set by making the fingers spread pose or pressing "r".
+    private Quaternion antiYaw = Quaternion.identity;
+
+    // A reference angle representing how the armband is rotated about the wearer's arm, i.e. roll.
+    // Set by making the fingers spread pose or pressing "r".
+    private float referenceRoll = 0.0f;
+
+    private bool rest;
+    private bool restUp;
+    private bool restDown;
+
     private bool fist;
     private bool fistUp;
     private bool fistDown;
@@ -23,6 +38,20 @@ public class MyoPoseManager : MonoBehaviour
     private bool doubleTap;
     private bool doubleTapUp;
     private bool doubleTapDown;
+
+    private bool waveIn;
+    private bool waveInUp;
+    private bool waveInDown;
+
+    private bool waveOut;
+    private bool waveOutUp;
+    private bool waveOutDown;
+
+    private bool fingersSpread;
+    private bool fingersSpreadUp;
+    private bool fingersSpreadDown;
+
+    public Text text;
 
     private void Awake()
     {
@@ -33,27 +62,38 @@ public class MyoPoseManager : MonoBehaviour
     {
         // Access the ThalmicMyo component attached to the Myo object.
         thalmicMyo = myo.GetComponent<ThalmicMyo>();
+        InputManager.Instance.AddGlobalListener(gameObject);
     }
 
     private void Update()
     {
         Reset();
+
+        if(Input.GetButtonUp("Switch"))
+        {
+            useMyo = !useMyo;
+        }
         
         currentPose = thalmicMyo.pose;
+        text.text = "Current Pose " + currentPose;
         if (useMyo)
         {
             switch (currentPose)
             {
                 case Pose.Rest:
+                    rest = true;
                     break;
                 case Pose.Fist:
                     fist = true;
                     break;
                 case Pose.WaveIn:
+                    waveIn = true;
                     break;
                 case Pose.WaveOut:
+                    waveOut = true;
                     break;
                 case Pose.FingersSpread:
+                    fingersSpread = true;
                     break;
                 case Pose.DoubleTap:
                     doubleTap = true;
@@ -66,15 +106,20 @@ public class MyoPoseManager : MonoBehaviour
                 switch (currentPose)
                 {
                     case Pose.Rest:
+                        restDown = true;
                         break;
                     case Pose.Fist:
                         fistDown = true;
+                        UpdateReference();
                         break;
                     case Pose.WaveIn:
+                        waveInDown = true;
                         break;
                     case Pose.WaveOut:
+                        waveOutDown = true;
                         break;
                     case Pose.FingersSpread:
+                        fingersSpreadDown = true;
                         break;
                     case Pose.DoubleTap:
                         doubleTapDown = true;
@@ -85,16 +130,20 @@ public class MyoPoseManager : MonoBehaviour
                 switch (lastPose)
                 {
                     case Pose.Rest:
+                        restUp = true;
                         break;
                     case Pose.Fist:
                         Vibrate();
                         fistUp = true;
                         break;
                     case Pose.WaveIn:
+                        waveInUp = true;
                         break;
                     case Pose.WaveOut:
+                        waveOutUp = true;
                         break;
                     case Pose.FingersSpread:
+                        fingersSpreadUp = true;
                         break;
                     case Pose.DoubleTap:
                         Vibrate();
@@ -119,6 +168,26 @@ public class MyoPoseManager : MonoBehaviour
         doubleTap = false;
         doubleTapDown = false;
         doubleTapUp = false;
+
+        //waveIn
+        waveIn = false;
+        waveInDown = false;
+        waveInUp = false;
+
+        //waveOut
+        waveOut = false;
+        waveOutDown = false;
+        waveOutUp = false;
+
+        //fingersspread
+        fingersSpread = false;
+        fingersSpreadDown = false;
+        fingersSpreadUp = false;
+
+        //rest
+        rest = false;
+        restDown = false;
+        restUp = false;
     }
 
     public void Vibrate()
@@ -169,7 +238,7 @@ public class MyoPoseManager : MonoBehaviour
     }
 
     // Adjust the provided angle to be within a -180 to 180.
-    float normalizeAngle(float angle)
+    public static float NormalizeAngle(float angle)
     {
         if (angle > 180.0f)
         {
@@ -180,6 +249,26 @@ public class MyoPoseManager : MonoBehaviour
             return angle + 360.0f;
         }
         return angle;
+    }
+
+    // Update references. This anchors the joint on-screen such that it faces forward away
+    // from the viewer when the Myo armband is oriented the way it is when these references are taken.
+    public void UpdateReference()
+    {
+        // _antiYaw represents a rotation of the Myo armband about the Y axis (up) which aligns the forward
+        // vector of the rotation with Z = 1 when the wearer's arm is pointing in the reference direction.
+        antiYaw = Quaternion.FromToRotation(
+            new Vector3(myo.transform.forward.x, 0, myo.transform.forward.z),
+            new Vector3(0, 0, 1)
+        );
+
+        // _referenceRoll represents how many degrees the Myo armband is rotated clockwise
+        // about its forward axis (when looking down the wearer's arm towards their hand) from the reference zero
+        // roll direction. This direction is calculated and explained below. When this reference is
+        // taken, the joint will be rotated about its forward axis such that it faces upwards when
+        // the roll value matches the reference.
+        Vector3 referenceZeroRoll = computeZeroRollVector(myo.transform.forward);
+        referenceRoll = rollFromZero(referenceZeroRoll, myo.transform.forward, myo.transform.up);
     }
 
     public Arm Arm
@@ -194,7 +283,19 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return thalmicMyo.transform.localRotation;
+            // Current zero roll vector and roll value.
+            Vector3 zeroRoll = computeZeroRollVector(myo.transform.forward);
+            float roll = rollFromZero(zeroRoll, myo.transform.forward, myo.transform.up);
+
+            // The relative roll is simply how much the current roll has changed relative to the reference roll.
+            // adjustAngle simply keeps the resultant value within -180 to 180 degrees.
+            float relativeRoll = NormalizeAngle(roll - referenceRoll);
+
+            // antiRoll represents a rotation about the myo Armband's forward axis adjusting for reference roll.
+            Quaternion antiRoll = Quaternion.AngleAxis(relativeRoll, myo.transform.forward);
+            Quaternion rotation = Quaternion.identity;
+            rotation = antiYaw * antiRoll * Quaternion.LookRotation(myo.transform.forward);
+            return rotation;
         }
     }
 
@@ -210,7 +311,9 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return fistDown;
+            if(useMyo)
+                return fistDown;
+            return false;
         }
     }
 
@@ -218,7 +321,9 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return fist;
+            if (useMyo)
+                return fist;
+            return false;
         }
     }
 
@@ -226,7 +331,9 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return fistUp;
+            if (useMyo)
+                return fistUp;
+            return false;
         }
     }
 
@@ -234,7 +341,9 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return doubleTap;
+            if (useMyo)
+                return doubleTap;
+            return false;
         }
     }
 
@@ -242,7 +351,9 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return doubleTapUp;
+            if (useMyo)
+                return doubleTapUp;
+            return false;
         }
     }
 
@@ -250,7 +361,129 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return doubleTapDown;
+            if (useMyo)
+                return doubleTapDown;
+            return false;
+        }
+    }
+
+    public bool WaveIn
+    {
+        get
+        {
+            if (useMyo)
+                return waveIn;
+            return false;
+        }
+    }
+
+    public bool WaveInUp
+    {
+        get
+        {
+            if (useMyo)
+                return waveInUp;
+            return false;
+        }
+    }
+
+    public bool WaveInDown
+    {
+        get
+        {
+            if (useMyo)
+                return waveInDown;
+            return false;
+        }
+    }
+
+    public bool WaveOut
+    {
+        get
+        {
+            if (useMyo)
+                return waveOut;
+            return false;
+        }
+    }
+
+    public bool WaveOutUp
+    {
+        get
+        {
+            if (useMyo)
+                return waveOutUp;
+            return false;
+        }
+    }
+
+    public bool WaveOutDown
+    {
+        get
+        {
+            if (useMyo)
+                return waveOutDown;
+            return false;
+        }
+    }
+
+    public bool FingersSpread
+    {
+        get
+        {
+            if (useMyo)
+                return fingersSpread;
+            return false;
+        }
+    }
+
+    public bool FingersSpreadUp
+    {
+        get
+        {
+            if (useMyo)
+                return fingersSpreadUp;
+            return false;
+        }
+    }
+
+    public bool FingersSpreadDown
+    {
+        get
+        {
+            if (useMyo)
+                return fingersSpreadDown;
+            return false;
+        }
+    }
+
+    public bool Rest
+    {
+        get
+        {
+            if (useMyo)
+                return rest;
+            return false;
+        }
+    }
+
+    public bool RestUp
+    {
+        get
+        {
+            if (useMyo)
+                return restUp;
+            return false;
+        }
+    }
+
+    public bool RestDown
+    {
+        get
+        {
+            if (useMyo)
+                return restDown;
+            return false;
         }
     }
 }

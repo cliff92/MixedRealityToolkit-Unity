@@ -123,7 +123,7 @@ public class HandManager : MonoBehaviour
         hand.angularVelocity = MyoPoseManager.Instance.AngularVelocity;
         hand.isAngularVelAvaiable = true;
         hand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
-        hand.isRollAroundz = true;
+        hand.isRollAroundZ = true;
     }
 
     private void InteractionManager_InteractionSourceLost(InteractionSourceLostEventArgs obj)
@@ -168,7 +168,7 @@ public class Hand
     internal bool isPosAvaiable;
     internal bool isRotAvaiable;
     internal bool isAngularVelAvaiable;
-    internal bool isRollAroundz;
+    internal bool isRollAroundZ;
     internal Handeness handeness;
 
     public Hand(Handeness handeness)
@@ -194,7 +194,7 @@ public class Hand
 
     public bool TryGetRotationAroundZ(out float angle)
     {
-        if (isRollAroundz)
+        if (isRollAroundZ)
         {
             angle = rollAroundZ;
             return true;
@@ -202,7 +202,7 @@ public class Hand
         Quaternion quat;
         if(TryGetRotation(out quat))
         {
-            angle = quat.eulerAngles.z;
+            angle = MyoPoseManager.NormalizeAngle(quat.eulerAngles.z);
             return true;
         }
         angle = 0;
@@ -220,7 +220,7 @@ public class Hand
         isPosAvaiable = false;
         isRotAvaiable = false;
         isAngularVelAvaiable = false;
-        isRollAroundz = false;
+        isRollAroundZ = false;
     }
 }
 

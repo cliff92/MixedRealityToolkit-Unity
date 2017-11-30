@@ -20,7 +20,8 @@ public class ClickManager : MonoBehaviour
     [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
     public float delayClickTime = 0.1f;
 
-    public float timeRightClick = 1.0f;
+    public float timeRightClickController = 1.0f;
+    public float timeRightClickMyo = 1.5f;
 
     public GameObject rightClickIndicator;
     public GameObject depthMarker;
@@ -101,10 +102,15 @@ public class ClickManager : MonoBehaviour
 
     private void CheckRightClick()
     {
+        float timeRightClick = timeRightClickController;
+        if (MyoPoseManager.Instance.useMyo)
+        {
+            timeRightClick = timeRightClickMyo;
+        }
         if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist)
         {
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
-            if (timeTargetInFocusAndButtonDown >= 0)
+            if (timeTargetInFocusAndButtonDown >= 0 && currentFocusedObject != null)
             {
                 timeTargetInFocusAndButtonDown += Time.deltaTime;
                 rightClickIndicator.transform.localScale = scaleRCIndicatorDefault + Mathf.Min(1f,timeTargetInFocusAndButtonDown / timeRightClick) * differenceRCIandDM;
@@ -146,9 +152,6 @@ public class ClickManager : MonoBehaviour
                     if (target.State != TargetState.Drag)
                         target.State = TargetState.Default;
                     timeSinceOldTargetInFocus = 0;
-                    Vector3 headPos = pointer.Result.StartPoint;
-                    Vector3 rayDirection = pointer.Result.End.Point - headPos;
-                    TargetManager.Instance.UpdateTransparancy(headPos, rayDirection, oldFocusedObject, DepthRayManager.Instance.DistanceHeadDepthMarker);
                     break;
                 case "Object":
                     timeSinceOldTargetInFocus = -1;
@@ -166,9 +169,6 @@ public class ClickManager : MonoBehaviour
                     Target target = newFocusedObject.GetComponent<Target>();
                     if (target.State != TargetState.Drag)
                         target.State = TargetState.InFocus;
-                    Vector3 headPos = pointer.Result.StartPoint;
-                    Vector3 rayDirection = pointer.Result.End.Point - headPos;
-                    TargetManager.Instance.UpdateTransparancy(headPos, rayDirection, newFocusedObject, DepthRayManager.Instance.DistanceHeadDepthMarker);
                     Debug.Log("Target {0} in Foucs", target.gameObject);
                     break;
                 case "Object":
@@ -217,7 +217,6 @@ public class ClickManager : MonoBehaviour
                         {
                             twistState = TwistState.Idle;
                             TargetManager.Instance.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Left);
-                            TargetManager.Instance.DetachTargetFromDepthMarker(currentFocusedObject);
                         }
                     }
                     else

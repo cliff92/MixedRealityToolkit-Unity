@@ -20,6 +20,35 @@ public class Target : MonoBehaviour
         depthMarker = DepthRayManager.Instance.depthMarker;
     }
 
+    private void Update()
+    {
+        UpdateMaterial();
+    }
+
+    private void UpdateMaterial()
+    {
+        switch (state)
+        {
+            case TargetState.Default:
+                GetComponent<Renderer>().material = defaultMat;
+                break;
+            case TargetState.Transparent:
+                GetComponent<Renderer>().material = TargetManager.Instance.transparentMat;
+                break;
+            case TargetState.InFocus:
+                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocus;
+                break;
+            case TargetState.InFocusTransparent:
+                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocusTransparent;
+                break;
+            case TargetState.Disabled:
+                break;
+            case TargetState.Drag:
+                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocus;
+                break;
+        }
+    }
+
     private void LateUpdate()
     {
         if (state == TargetState.Drag)
@@ -93,5 +122,8 @@ public class Target : MonoBehaviour
         }
     }
 }
-public enum TargetState { Default, InFocus, Disabled, Drag}
+public enum TargetState { Default, InFocus, Disabled, Drag,
+    Transparent,
+    InFocusTransparent
+}
 

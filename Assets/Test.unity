@@ -1434,6 +1434,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myo: {fileID: 1289535419}
   useMyo: 1
+  text: {fileID: 652618734}
 --- !u!1 &1058254818
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,7 +2216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayClickTime: 0.1
-  timeRightClick: 1
+  timeRightClickController: 1
+  timeRightClickMyo: 1.5
   rightClickIndicator: {fileID: 1563196632}
   depthMarker: {fileID: 685175195}
 --- !u!1 &1474107543
@@ -3233,7 +3235,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1847570099}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 685175196}

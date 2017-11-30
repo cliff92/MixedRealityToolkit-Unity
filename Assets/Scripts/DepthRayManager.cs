@@ -48,7 +48,6 @@ public class DepthRayManager : MonoBehaviour
         MoveRayVisual();
         SelectObject();
         UpdateFocusedObjects();
-        UpdateTransparency();
     }
 
     private void Update()
@@ -61,7 +60,7 @@ public class DepthRayManager : MonoBehaviour
             MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
         }
 
-        if (Input.GetButtonUp("JumpToFocus"))
+        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Instance.FingersSpreadUp)
         {
             MoveDepthMarkerToFocus();
         }
@@ -94,18 +93,36 @@ public class DepthRayManager : MonoBehaviour
 
     private void MoveDepthRayRelZ(int rotationAngle)
     {
+        Vector3 origin = pointer.StartPoint;
+
         float stepsize = 0;
-        if (rotationAngle > 20 && rotationAngle < 180)
+        if (MyoPoseManager.Instance.useMyo)
         {
-            stepsize = -4 * (rotationAngle / 180.0f) * Time.deltaTime;
-        }
-        if (rotationAngle > 180 && rotationAngle < 340)
+            if (rotationAngle > 10 && rotationAngle < 180)
+            {
+                stepsize = 8 * (rotationAngle / 180.0f) * Time.deltaTime;
+            }
+            else if (rotationAngle < -40 && rotationAngle > -180)
+            {
+                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+            }
+        } else
         {
-            stepsize = 4 * ((360 - rotationAngle) / 180.0f) * Time.deltaTime;
+            if (rotationAngle > 20 && rotationAngle < 180)
+            {
+                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+            }
+            else if (rotationAngle < -20 && rotationAngle > -180)
+            {
+                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+            }
         }
-        Vector3 origin = headRay.Rays[0].origin;
-        depthMarker.transform.position = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
-        UpdateTransparency();
+
+        Vector3 newPos = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
+
+        if (Vector3.Distance(newPos, origin) < 0.5f)
+            return;
+        depthMarker.transform.position = newPos;
     }
 
     public void MoveDepthMarkerToFocus()
@@ -117,13 +134,6 @@ public class DepthRayManager : MonoBehaviour
         float distance = Vector3.Distance(pointer.End.Object.transform.position, origin);
         Vector3 newPos = origin + direction * distance;
         depthMarker.transform.position = newPos;
-    }
-
-    private void UpdateTransparency()
-    {
-        Vector3 depthMarkerPos = depthMarker.transform.position;
-        Vector3 headPos = headRay.Rays[0].origin;
-        TargetManager.Instance.UpdateTransparency(depthMarkerPos, headPos, pointer.PointingSource.Rays[0].direction);
     }
 
     private void SelectObject()
@@ -333,6 +343,30 @@ public class DepthRayManager : MonoBehaviour
         get
         {
             return Vector3.Distance(depthMarker.transform.position, pointer.StartPoint);
+        }
+    }
+
+    public GameObject CurrentFocusedObject
+    {
+        get
+        {
+            return pointer.End.Object;
+        }
+    }
+
+    public Vector3 HeadPosition
+    {
+        get
+        {
+            return pointer.StartPoint;
+        }
+    }
+
+    public Vector3 RayDirection
+    {
+        get
+        {
+            return Vector3.Normalize(pointer.End.Point - pointer.StartPoint);
         }
     }
 

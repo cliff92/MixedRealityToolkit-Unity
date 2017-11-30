@@ -39,6 +39,11 @@ public class TargetManager : MonoBehaviour
         currentlyAttachedObj = null;
     }
 
+    private void Update()
+    {
+        UpdateTransparencyForAllTargets();
+    }
+
     private void OnDestroy()
     {
         ClickManager.Instance.LeftClick -= LeftClick;
@@ -69,7 +74,7 @@ public class TargetManager : MonoBehaviour
         }
         else
         {
-            DetachTargetFromDepthMarker(currentFocusedObject);
+            DetachTargetFromDepthMarker();
         }
     }
 
@@ -79,7 +84,7 @@ public class TargetManager : MonoBehaviour
             return;
         else if(currentlyAttachedObj!=null)
         {
-            DetachTargetFromDepthMarker(currentFocusedObject);
+            DetachTargetFromDepthMarker();
         }
         if (currentFocusedObject != null && currentFocusedObject.tag.Equals("Target"))
         {
@@ -96,70 +101,65 @@ public class TargetManager : MonoBehaviour
             correctSound.Play();
         }
     }
-    public void DetachTargetFromDepthMarker(GameObject currentFocusedObject)
+    public void DetachTargetFromDepthMarker()
     {
         if (currentlyAttachedObj != null)
         {
             Target target = currentlyAttachedObj.GetComponent<Target>();
-
-            if (target.State == TargetState.Drag)
-            {
-                if(currentlyAttachedObj == currentFocusedObject)
-                {
-                    target.State = TargetState.InFocus;
-                }
-                else
-                {
-                    target.State = TargetState.Default;
-                }
-                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
-                correctSound.Play();
-            }
+            target.State = TargetState.Default;
+            UpdateTransparancy(currentlyAttachedObj);
+            HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
+            HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            correctSound.Play();
             currentlyAttachedObj = null;
         }
     }
   
 
-    public void UpdateTransparency(Vector3 markerPos, Vector3 headPos, Vector3 rayDirection)
+    public void UpdateTransparencyForAllTargets()
     {
-        float distanceMarkerHead = Vector3.Distance(markerPos, headPos);
-        
         foreach (GameObject obj in TargetArray)
         {
-            UpdateTransparancy(headPos,rayDirection,obj,distanceMarkerHead);
+            UpdateTransparancy(obj);
         }
     }
 
-    public void UpdateTransparancy(Vector3 headPos, Vector3 rayDirection, GameObject obj, float distanceMarkerHead)
+    public void UpdateTransparancy(GameObject obj)
     {
+        Target target = obj.GetComponent<Target>();
+
+        if (target.State == TargetState.Drag)
+            return;
+
+        Vector3 headPos = DepthRayManager.Instance.HeadPosition;
+        Vector3 rayDirection = DepthRayManager.Instance.RayDirection;
+        float distanceMarkerHead = DepthRayManager.Instance.DistanceHeadDepthMarker;
+
         Vector3 dirHeadMarker = obj.transform.position - headPos;
         float angle = Vector3.Angle(rayDirection, dirHeadMarker);
-        Target target = obj.GetComponent<Target>();
+        
         float distanceObjHead = Vector3.Distance(obj.transform.position, headPos);
 
-        if (angle < 10 && angle > -10 && distanceMarkerHead > distanceObjHead-0.05)
+        if (angle < 10 && angle > -10 && distanceMarkerHead > distanceObjHead - 0.05)
         {
-            if (target.State == TargetState.Default)
+            if (DepthRayManager.Instance.CurrentFocusedObject == obj)
             {
-                obj.GetComponent<Renderer>().material = transparentMat;
+                target.State = TargetState.InFocusTransparent;
             }
-            else if (target.State == TargetState.InFocus)
+            else
             {
-                obj.GetComponent<Renderer>().material = targetInFocusTransparent;
+                target.State = TargetState.Transparent;
             }
         }
         else
         {
-            if (target.State == TargetState.Default)
+            if (DepthRayManager.Instance.CurrentFocusedObject == obj)
             {
-                obj.GetComponent<Renderer>().material = target.DefaultMat;
-                target.State = TargetState.Default;
-            }
-            else if (target.State == TargetState.InFocus)
-            {
-                obj.GetComponent<Renderer>().material = targetInFocus;
                 target.State = TargetState.InFocus;
+            }
+            else
+            {
+                target.State = TargetState.Default;
             }
         }
     }

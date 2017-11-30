@@ -9,8 +9,10 @@ public class GainFunction : MonoBehaviour
     [Range(1, 100)]
     public int StoredSamples = 20;
 
-    private AnimationCurve functionCurve = new AnimationCurve(new Keyframe[] 
+    private AnimationCurve functionCurveController = new AnimationCurve(new Keyframe[] 
     { new Keyframe(0,0.1f), new Keyframe(0.25f, 1f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.01f), new Keyframe(1, 0.05f) });
+    private AnimationCurve functionCurveMyo = new AnimationCurve(new Keyframe[]
+    { new Keyframe(0,0.5f), new Keyframe(0.25f, 1.5f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.005f), new Keyframe(1, 0.05f) });
 
     /// <summary>
     /// Calculates standard deviation and averages for the gaze position.
@@ -196,7 +198,7 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
         }
-        text.text = "State: " +state.ToString();
+        //text.text = "State: " +state.ToString();
 
         //Debug.Log("Current: " + CurrentVelocity + " vs avg: " + avgVelocity+" Std: "+std);
     }
@@ -205,6 +207,11 @@ public class GainFunction : MonoBehaviour
     {
         get
         {
+            AnimationCurve functionCurve = functionCurveController;
+            if (MyoPoseManager.Instance.useMyo)
+            {
+                functionCurve = functionCurveMyo;
+            }
             switch (state)
             {
                 case MovementState.Idle:
