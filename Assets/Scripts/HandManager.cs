@@ -2,6 +2,10 @@
 using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 
+/// <summary>
+/// This class handles the left and right hand. Data can be either from the motions controller or the myo armband.
+/// Can be used from all classes to get informations of the hand.
+/// </summary>
 public class HandManager : MonoBehaviour
 {
     public static HandManager Instance;
@@ -11,38 +15,6 @@ public class HandManager : MonoBehaviour
 
     private Hand leftHand;
     private Hand rightHand;
-
-    public bool IsLeftControllerTracked
-    {
-        get
-        {
-            return isLeftControllerTracked;
-        }
-    }
-
-    public bool IsRightControllerTracked
-    {
-        get
-        {
-            return isRightControllerTracked;
-        }
-    }
-
-    public Hand LeftHand
-    {
-        get
-        {
-            return leftHand;
-        }
-    }
-
-    public Hand RightHand
-    {
-        get
-        {
-            return rightHand;
-        }
-    }
 
     private void Awake()
     {
@@ -81,6 +53,11 @@ public class HandManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// This method checks whether the left and right controller is connected 
+    /// and delegates the update to the UpdateHand method.
+    /// </summary>
     private void UpdateControllers()
     {
         isRightControllerTracked = false;
@@ -92,17 +69,29 @@ public class HandManager : MonoBehaviour
                 if (sourceState.source.handedness == InteractionSourceHandedness.Left)
                 {
                     isLeftControllerTracked = true;
-                    UpdateHand(leftHand, sourceState);
+                    UpdateHandViaController(leftHand, sourceState);
                 }
                 if (sourceState.source.handedness == InteractionSourceHandedness.Right)
                 {
                     isRightControllerTracked = true;
-                    UpdateHand(rightHand, sourceState);
+                    UpdateHandViaController(rightHand, sourceState);
                 }
             }
         }
     }
 
+    private void UpdateHandViaController(Hand hand, InteractionSourceState sourceState)
+    {
+        hand.source = sourceState.source;
+        hand.isPosAvaiable = sourceState.sourcePose.TryGetPosition(out hand.pos);
+        hand.isRotAvaiable = sourceState.sourcePose.TryGetRotation(out hand.rotation, InteractionSourceNode.Pointer);
+        hand.isAngularVelAvaiable = sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
+    }
+
+    /// <summary>
+    /// This method checks the arm of the myo armband
+    /// and delegates the update to the UpdateHandWithMyo method.
+    /// </summary>
     private void UpdateMyo()
     {
         leftHand.Reset();
@@ -139,22 +128,47 @@ public class HandManager : MonoBehaviour
             if (sourceState.source.handedness == InteractionSourceHandedness.Left)
             {
                 isLeftControllerTracked = true;
-                UpdateHand(leftHand, sourceState);
+                UpdateHandViaController(leftHand, sourceState);
             }
             if (sourceState.source.handedness == InteractionSourceHandedness.Right)
             {
                 isRightControllerTracked = true;
-                UpdateHand(rightHand, sourceState);
+                UpdateHandViaController(rightHand, sourceState);
             }
         }
     }
 
-    private void UpdateHand(Hand hand, InteractionSourceState sourceState)
+
+    public bool IsLeftControllerTracked
     {
-        hand.source = sourceState.source;
-        hand.isPosAvaiable = sourceState.sourcePose.TryGetPosition(out hand.pos);
-        hand.isRotAvaiable = sourceState.sourcePose.TryGetRotation(out hand.rotation,InteractionSourceNode.Pointer);
-        hand.isAngularVelAvaiable = sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
+        get
+        {
+            return isLeftControllerTracked;
+        }
+    }
+
+    public bool IsRightControllerTracked
+    {
+        get
+        {
+            return isRightControllerTracked;
+        }
+    }
+
+    public Hand LeftHand
+    {
+        get
+        {
+            return leftHand;
+        }
+    }
+
+    public Hand RightHand
+    {
+        get
+        {
+            return rightHand;
+        }
     }
 }
 

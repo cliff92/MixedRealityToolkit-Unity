@@ -25,6 +25,9 @@ public class Target : MonoBehaviour
         UpdateMaterial();
     }
 
+    /// <summary>
+    /// This method updates the material of the gameobject based on the targetstate.
+    /// </summary>
     private void UpdateMaterial()
     {
         switch (state)

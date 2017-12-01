@@ -1,10 +1,16 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using UnityEngine;
 
+/// <summary>
+/// The click manager handles all interaction like left and right click.
+/// A events will be send to all listeners.
+/// </summary>
 public class ClickManager : MonoBehaviour
 {
     public static ClickManager Instance;
 
+
+    //different events that can be used
     public delegate void LeftClickMethod(GameObject gameObject);
     public event LeftClickMethod LeftClick;
 
@@ -16,6 +22,7 @@ public class ClickManager : MonoBehaviour
 
     private GameObject currentFocusedObject;
     private GameObject oldFocusedObject;
+    private GameObject currentlyAttachedObj;
 
     [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
     public float delayClickTime = 0.1f;
@@ -33,7 +40,6 @@ public class ClickManager : MonoBehaviour
 
     private TwistState twistState;
     private float timeTwistStarted;
-    private GameObject currentlyAttachedObj;
 
     private void Awake()
     {
@@ -78,9 +84,13 @@ public class ClickManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method evalutes if the button was released and which object was clicked.
+    /// A delay is included to avoid false clicks due to movement while perfoming the click.
+    /// </summary>
     private void CheckLeftClick()
     {
-        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.FistUp)
+        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.ClickUp)
         {
             timeTargetInFocusAndButtonDown = 0;
             if (timeSinceOldTargetInFocus > 0 && timeSinceOldTargetInFocus < delayClickTime)
@@ -100,6 +110,10 @@ public class ClickManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// This method checks if the current focused object was more than a certain time in focus.
+    /// If this is the case, a right click is triggered.
+    /// </summary>
     private void CheckRightClick()
     {
         float timeRightClick = timeRightClickController;
@@ -107,7 +121,7 @@ public class ClickManager : MonoBehaviour
         {
             timeRightClick = timeRightClickMyo;
         }
-        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist)
+        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click)
         {
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
             if (timeTargetInFocusAndButtonDown >= 0 && currentFocusedObject != null)
@@ -135,7 +149,13 @@ public class ClickManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// This is a listener that is called from the input manager, when the focus of the pointer changes.
+    /// It updates the state of the object and resets timer
+    /// </summary>
+    /// <param name="pointer"></param>
+    /// <param name="oldFocusedObject"></param>
+    /// <param name="newFocusedObject"></param>
     protected virtual void OnPointerSpecificFocusChanged(IPointingSource pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
     {
         timeTargetInFocusAndButtonDown = -1f;

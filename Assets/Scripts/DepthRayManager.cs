@@ -98,11 +98,11 @@ public class DepthRayManager : MonoBehaviour
         float stepsize = 0;
         if (MyoPoseManager.Instance.useMyo)
         {
-            if (rotationAngle > 10 && rotationAngle < 180)
+            if (rotationAngle > 0 && rotationAngle < 180)
             {
-                stepsize = 8 * (rotationAngle / 180.0f) * Time.deltaTime;
+                stepsize = 4 * ((rotationAngle + 80) / 180.0f) * Time.deltaTime;
             }
-            else if (rotationAngle < -40 && rotationAngle > -180)
+            else if (rotationAngle < -80 && rotationAngle > -180)
             {
                 stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
             }

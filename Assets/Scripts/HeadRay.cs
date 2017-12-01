@@ -11,63 +11,16 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
     private BaseRayStabilizer rayStabilizer;
 
-    public BaseRayStabilizer RayStabilizer {
-        get {
-            return rayStabilizer;
-        }
-        set
-        {
-            rayStabilizer = value;
-        }
-    }
-
-    public bool OwnAllInput {
-        get
-        {
-            return ownAllInput;
-        }
-        set
-        {
-            ownAllInput = value;
-        }
-    }
     private bool ownAllInput = true;
 
     [Obsolete("Will be removed in a later version. Use Rays instead.")]
     public Ray Ray { get { return Rays[0]; } }
-
-    public RayStep[] Rays
-    {
-        get
-        {
-            return rays;
-        }
-    }
 
     public PointerResult Result { get; set; }
 
     public float? ExtentOverride { get; set; }
 
     public LayerMask[] PrioritizedLayerMasksOverride { get; set; }
-
-    public bool InteractionEnabled
-    {
-        get
-        {
-            return true;
-        }
-    }
-
-    public bool FocusLocked {
-        get
-        {
-            return focusLocked;
-        }
-        set
-        {
-            focusLocked = value;
-        }
-    }
 
     private bool focusLocked = false;
 
@@ -100,15 +53,25 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
     private void Update()
     {
+        CheckStartOfRelativeMovement();
+    }
+
+
+    /// <summary>
+    /// This method checks if a relative movement was started by the user.
+    /// If started, the relative quaternion start value is set and the gain function reseted.
+    /// </summary>
+    private void CheckStartOfRelativeMovement()
+    {
         Vector3 angularVelocity;
         Quaternion rotation;
         if (HandManager.Instance.IsLeftControllerTracked)
         {
-            if (Input.GetButtonUp("RelativeLeft") || MyoPoseManager.Instance.FistUp)
+            if (Input.GetButtonUp("RelativeLeft") || MyoPoseManager.Instance.ClickUp)
             {
                 startedRelativeLeft = false;
             }
-            if (Input.GetButtonDown("RelativeLeft") || MyoPoseManager.Instance.FistDown)
+            if (Input.GetButtonDown("RelativeLeft") || MyoPoseManager.Instance.ClickDown)
             {
                 if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
                 {
@@ -132,7 +95,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                 }
             }
 
-            if (startedRelativeLeft && (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Fist))
+            if (startedRelativeLeft && (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Click))
             {
                 if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
                 {
@@ -150,12 +113,12 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         if (HandManager.Instance.IsRightControllerTracked)
         {
-            if (Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.FistUp)
+            if (Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.ClickUp)
             {
                 startedRelativeRight = false;
             }
 
-            if (Input.GetButtonDown("RelativeRight") || MyoPoseManager.Instance.FistDown)
+            if (Input.GetButtonDown("RelativeRight") || MyoPoseManager.Instance.ClickDown)
             {
                 if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
                 {
@@ -178,7 +141,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
                     return;
                 }
             }
-            if (startedRelativeRight && (Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist))
+            if (startedRelativeRight && (Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click))
             {
                 if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
                 {
@@ -203,6 +166,11 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
     }
 
+    /// <summary>
+    /// This method sets and updates the rays from the head into the scene.
+    /// The gaze direction is changed when the relative movement is active.
+    /// Then the direction is steered by the controller or myo armband.
+    /// </summary>
     public virtual void OnPreRaycast()
     {
         if (head == null)
@@ -211,27 +179,20 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         else
         {
-            if ((Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Fist) && HandManager.Instance.IsLeftControllerTracked)
+            if ((Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Click) && HandManager.Instance.IsLeftControllerTracked)
             {
                 Quaternion quat;
                 if (HandManager.Instance.LeftHand.TryGetRotation(out quat))
                 {
-                    quat = Quaternion.Inverse(startRelativeQuat) * quat;
-
-                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward * GainFunction.Instance.RelativeFactor;
-
-                    SetRays(gazeDirection);
+                    SetRays(quat);
                 }
             }
-            else if ((Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Fist) && HandManager.Instance.IsRightControllerTracked)
+            else if ((Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click) && HandManager.Instance.IsRightControllerTracked)
             {
                 Quaternion quat;
                 if (HandManager.Instance.RightHand.TryGetRotation(out quat))
                 {
-                    quat = Quaternion.Inverse(startRelativeQuat) * quat;
-
-                    Vector3 gazeDirection = head.transform.rotation * quat * Vector3.forward * GainFunction.Instance.RelativeFactor;
-                    SetRays(gazeDirection);
+                    SetRays(quat);
                 }
             }
             else {
@@ -239,7 +200,17 @@ public class HeadRay : MonoBehaviour, IPointingSource
             }
         }
     }
+    private void SetRays(Quaternion roation)
+    {
+        roation = Quaternion.Inverse(startRelativeQuat) * roation;
+        Vector3 gazeDirection = head.transform.rotation * roation * Vector3.forward * GainFunction.Instance.RelativeFactor;
+        SetRays(gazeDirection);
+    }
 
+    /// <summary>
+    /// This method creates five rays to make pointing easier than with just one.
+    /// </summary>
+    /// <param name="direction"></param>
     private void SetRays(Vector3 direction)
     {
         float spreadFactor = 0.02f;
@@ -281,5 +252,57 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
         return (inputData != null);
             //&& ((inputData.InputSource == rightController) || (inputData.InputSource == leftController));
+    }
+
+    public BaseRayStabilizer RayStabilizer
+    {
+        get
+        {
+            return rayStabilizer;
+        }
+        set
+        {
+            rayStabilizer = value;
+        }
+    }
+
+    public bool OwnAllInput
+    {
+        get
+        {
+            return ownAllInput;
+        }
+        set
+        {
+            ownAllInput = value;
+        }
+    }
+
+    public RayStep[] Rays
+    {
+        get
+        {
+            return rays;
+        }
+    }
+
+    public bool InteractionEnabled
+    {
+        get
+        {
+            return true;
+        }
+    }
+
+    public bool FocusLocked
+    {
+        get
+        {
+            return focusLocked;
+        }
+        set
+        {
+            focusLocked = value;
+        }
     }
 }
