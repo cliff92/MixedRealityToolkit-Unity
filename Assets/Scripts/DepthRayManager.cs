@@ -9,6 +9,7 @@ public class DepthRayManager : MonoBehaviour
 
     public GameObject rayVisual;
     public GameObject depthMarker;
+    public Material rayMaterial;
 
     private HeadRay headRay;
     public float pointingExtent = 100;
@@ -55,12 +56,23 @@ public class DepthRayManager : MonoBehaviour
         headRay.OnPreRaycast();
 
         float rotationAngle;
-        if (HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
+        if (HandManager.Instance.IsMyoTracked)
         {
-            MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
+            if (HandManager.Instance.MyoHand.TryGetRotationAroundZ(out rotationAngle))
+            {
+                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
+            }
         }
+        else
+        {
+            if (HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
+            {
+                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
+            }
+        }
+        
 
-        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Instance.FingersSpreadUp)
+        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Instance.Jump)
         {
             MoveDepthMarkerToFocus();
         }
@@ -305,6 +317,16 @@ public class DepthRayManager : MonoBehaviour
                 RaiseFocusEnteredEvents(pointer.End.Object);
             }
         }
+    }
+    /// <summary>
+    /// Transparency from 0 to 255
+    /// </summary>
+    /// <param name="transparency"></param>
+    public void UpdateTransparencyRay(int transparency)
+    {
+        Color color = rayMaterial.color;
+        color.a = transparency / 255f;
+        rayMaterial.color = color;
     }
 
     #region events

@@ -6,8 +6,6 @@ using System;
 
 public class HeadRay : MonoBehaviour, IPointingSource
 {
-    bool startedRelativeRight;
-    bool startedRelativeLeft;
 
     private BaseRayStabilizer rayStabilizer;
 
@@ -46,8 +44,6 @@ public class HeadRay : MonoBehaviour, IPointingSource
     private void Awake()
     {
         Instance = this;
-        startedRelativeRight = false;
-        startedRelativeLeft = false;
     }
    
 
@@ -65,96 +61,85 @@ public class HeadRay : MonoBehaviour, IPointingSource
     {
         Vector3 angularVelocity;
         Quaternion rotation;
-        if (HandManager.Instance.IsLeftControllerTracked)
-        {
-            if (Input.GetButtonUp("RelativeLeft") || MyoPoseManager.Instance.ClickUp)
-            {
-                startedRelativeLeft = false;
-            }
-            if (Input.GetButtonDown("RelativeLeft") || MyoPoseManager.Instance.ClickDown)
-            {
-                if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
-                {
-                    startRelativeQuat = rotation;
-                    if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
-                    {
-                        GainFunction.Instance.ResetFunction(angularVelocity);
-                    }
-                    else
-                    {
-                        GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
-                    }
-                    startedRelativeLeft = true;
-                }
-                else
-                {
-                    startRelativeQuat = Quaternion.identity;
-                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
-                    Debug.LogError("No start rotation data avaiable.");
-                    return;
-                }
-            }
 
-            if (startedRelativeLeft && (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Click))
+        if (MyoPoseManager.Instance.ClickUp ||
+            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& !MyoPoseManager.Instance.useMyo))
+        {
+            DepthRayManager.Instance.UpdateTransparencyRay(10);
+        }
+
+        Hand hand = null;
+        bool clickDown = false;
+        bool click = false;
+
+        if (MyoPoseManager.Instance.ClickDown)
+        {
+            hand = HandManager.Instance.MyoHand;
+            clickDown = true;
+        }
+        else if (Input.GetButtonDown("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
+        {
+            hand = HandManager.Instance.LeftHand;
+            clickDown = true;
+        }
+        else if(Input.GetButtonDown("RelativeRight") && !MyoPoseManager.Instance.useMyo)
+        {
+            hand = HandManager.Instance.RightHand;
+            clickDown = true;
+        }
+        if(clickDown && hand != null)
+        {
+            if (hand.TryGetRotation(out rotation))
             {
-                if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
+                DepthRayManager.Instance.UpdateTransparencyRay(180);
+                startRelativeQuat = rotation;
+                if (hand.TryGetAngularVelocity(out angularVelocity))
                 {
-                    GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
-                }
-                else if (HandManager.Instance.LeftHand.TryGetRotation(out rotation))
-                {
-                    GainFunction.Instance.UpdateFunction(rotation, Time.time);
+                    GainFunction.Instance.ResetFunction(angularVelocity);
                 }
                 else
                 {
-                    Debug.LogError("No velocity and rotation data avaiable");
+                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
                 }
+            }
+            else
+            {
+                startRelativeQuat = Quaternion.identity;
+                GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                Debug.LogError("No start rotation data avaiable.");
+                return;
             }
         }
-        if (HandManager.Instance.IsRightControllerTracked)
-        {
-            if (Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.ClickUp)
-            {
-                startedRelativeRight = false;
-            }
 
-            if (Input.GetButtonDown("RelativeRight") || MyoPoseManager.Instance.ClickDown)
+        if (MyoPoseManager.Instance.Click)
+        {
+            hand = HandManager.Instance.MyoHand;
+            click = true;
+        }
+        else if (Input.GetButton("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
+        {
+            hand = HandManager.Instance.LeftHand;
+            click = true;
+        }
+        else if (Input.GetButton("RelativeRight") && !MyoPoseManager.Instance.useMyo)
+        {
+            hand = HandManager.Instance.RightHand;
+            click = true;
+        }
+
+        if (click && hand != null)
+        {
+            if (hand.TryGetAngularVelocity(out angularVelocity))
             {
-                if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
-                {
-                    startRelativeQuat = rotation;
-                    if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
-                    {
-                        GainFunction.Instance.ResetFunction(angularVelocity);
-                    }
-                    else
-                    {
-                        GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
-                    }
-                    startedRelativeRight = true;
-                }
-                else
-                {
-                    startRelativeQuat = Quaternion.identity;
-                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
-                    Debug.LogError("No start rotation data avaiable.");
-                    return;
-                }
+                GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
             }
-            if (startedRelativeRight && (Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click))
+            else if (hand.TryGetRotation(out rotation))
             {
-                if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
-                {
-                    GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
-                }
-                else if (HandManager.Instance.RightHand.TryGetRotation(out rotation))
-                {
-                    GainFunction.Instance.UpdateFunction(rotation, Time.time);
-                }
-                else
-                {
-                    Debug.LogError("No velocity and rotation data avaiable");
-                }
+                GainFunction.Instance.UpdateFunction(rotation, Time.time);
+            }
+            else
+            {
+                Debug.LogError("No velocity and rotation data avaiable");
             }
         }
     }
@@ -179,18 +164,27 @@ public class HeadRay : MonoBehaviour, IPointingSource
         }
         else
         {
-            if ((Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Click) && HandManager.Instance.IsLeftControllerTracked)
+            Hand hand = null;
+            bool click = false;
+            if (MyoPoseManager.Instance.Click)
             {
-                Quaternion quat;
-                if (HandManager.Instance.LeftHand.TryGetRotation(out quat))
-                {
-                    SetRays(quat);
-                }
+                hand = HandManager.Instance.MyoHand;
+                click = true;
             }
-            else if ((Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click) && HandManager.Instance.IsRightControllerTracked)
+            else if (Input.GetButton("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
+            {
+                hand = HandManager.Instance.LeftHand;
+                click = true;
+            }
+            else if (Input.GetButton("RelativeRight") && !MyoPoseManager.Instance.useMyo)
+            {
+                hand = HandManager.Instance.RightHand;
+                click = true;
+            }
+            if (click)
             {
                 Quaternion quat;
-                if (HandManager.Instance.RightHand.TryGetRotation(out quat))
+                if (hand.TryGetRotation(out quat))
                 {
                     SetRays(quat);
                 }

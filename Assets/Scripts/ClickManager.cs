@@ -38,13 +38,9 @@ public class ClickManager : MonoBehaviour
     private float timeSinceOldTargetInFocus;
     private float timeTargetInFocusAndButtonDown;
 
-    private TwistState twistState;
-    private float timeTwistStarted;
-
     private void Awake()
     {
         Instance = this;
-        twistState = TwistState.Idle;
     }
 
     private void Start()
@@ -131,7 +127,7 @@ public class ClickManager : MonoBehaviour
                 if (timeTargetInFocusAndButtonDown > timeRightClick)
                 {
                     OnRightClick(currentFocusedObject);
-                    if (Input.GetButton("RelativeLeft"))
+                    if (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
                     {
                         TargetManager.Instance.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Right);
                     }
@@ -189,7 +185,6 @@ public class ClickManager : MonoBehaviour
                     Target target = newFocusedObject.GetComponent<Target>();
                     if (target.State != TargetState.Drag)
                         target.State = TargetState.InFocus;
-                    Debug.Log("Target {0} in Foucs", target.gameObject);
                     break;
                 case "Object":
                     //newFocusedObject.GetComponent<Renderer>().material = objectInFocus;
@@ -216,7 +211,7 @@ public class ClickManager : MonoBehaviour
             Reset();
     }
 
-    private void CheckHandTwist()
+    /*private void CheckHandTwist()
     {
         float currentAngleHand;
         if (HandManager.Instance.RightHand.TryGetRotationAroundZ(out currentAngleHand))
@@ -251,5 +246,5 @@ public class ClickManager : MonoBehaviour
     private enum TwistState
     {
         Idle, Started
-    }
+    }*/
 }

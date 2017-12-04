@@ -10,9 +10,11 @@ public class HandManager : MonoBehaviour
 {
     public static HandManager Instance;
 
+    private bool isMyoTracked;
     private bool isLeftControllerTracked;
     private bool isRightControllerTracked;
 
+    private Hand myoHand;
     private Hand leftHand;
     private Hand rightHand;
 
@@ -21,6 +23,7 @@ public class HandManager : MonoBehaviour
         Instance = this;
         leftHand = new Hand(Handeness.Left);
         rightHand = new Hand(Handeness.Right);
+        myoHand = new Hand(Handeness.Unknown);
         InteractionManager.InteractionSourceDetected += InteractionManager_InteractionSourceDetected;
         InteractionManager.InteractionSourceLost += InteractionManager_InteractionSourceLost;
         UpdateControllers();
@@ -34,23 +37,8 @@ public class HandManager : MonoBehaviour
 
     private void Update()
     {
-        if (MyoPoseManager.Instance.useMyo)
-        {
-            UpdateMyo();
-            if (MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
-            {
-                isLeftControllerTracked = true;
-                isRightControllerTracked = false;
-            } else if(MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Right)
-            {
-                isLeftControllerTracked = false;
-                isRightControllerTracked = true;
-            }
-        }
-        else
-        {
-            UpdateControllers();
-        }
+        UpdateMyo();
+        UpdateControllers();
     }
 
 
@@ -94,25 +82,26 @@ public class HandManager : MonoBehaviour
     /// </summary>
     private void UpdateMyo()
     {
-        leftHand.Reset();
-        rightHand.Reset();
-        if (MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
+        myoHand.Reset();
+        switch (MyoPoseManager.Instance.Arm)
         {
-            UpdateHandWithMyo(leftHand);
+            case Thalmic.Myo.Arm.Right:
+                myoHand.handeness = Handeness.Right;
+                break;
+            case Thalmic.Myo.Arm.Left:
+                myoHand.handeness = Handeness.Left;
+                break;
+            case Thalmic.Myo.Arm.Unknown:
+                myoHand.handeness = Handeness.Unknown;
+                break;
         }
-        else if(MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Right)
-        {
-            UpdateHandWithMyo(rightHand);
-        }
-    }
-    private void UpdateHandWithMyo(Hand hand)
-    {
-        hand.rotation = MyoPoseManager.Instance.Rotation;
-        hand.isRotAvaiable = true;
-        hand.angularVelocity = MyoPoseManager.Instance.AngularVelocity;
-        hand.isAngularVelAvaiable = true;
-        hand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
-        hand.isRollAroundZ = true;
+        myoHand.rotation = MyoPoseManager.Instance.Rotation;
+        myoHand.isRotAvaiable = true;
+        myoHand.angularVelocity = MyoPoseManager.Instance.AngularVelocity;
+        myoHand.isAngularVelAvaiable = true;
+        myoHand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
+        myoHand.isRollAroundZ = true;
+        isMyoTracked = MyoPoseManager.Instance.useMyo;
     }
 
     private void InteractionManager_InteractionSourceLost(InteractionSourceLostEventArgs obj)
@@ -168,6 +157,22 @@ public class HandManager : MonoBehaviour
         get
         {
             return rightHand;
+        }
+    }
+
+    public Hand MyoHand
+    {
+        get
+        {
+            return myoHand;
+        }
+    }
+
+    public bool IsMyoTracked
+    {
+        get
+        {
+            return isMyoTracked;
         }
     }
 }

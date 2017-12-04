@@ -12,7 +12,7 @@ public class GainFunction : MonoBehaviour
     private AnimationCurve functionCurveController = new AnimationCurve(new Keyframe[] 
     { new Keyframe(0,0.1f), new Keyframe(0.25f, 1f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.01f), new Keyframe(1, 0.05f) });
     private AnimationCurve functionCurveMyo = new AnimationCurve(new Keyframe[]
-    { new Keyframe(0,0.5f), new Keyframe(0.25f, 1.5f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.005f), new Keyframe(1, 0.05f) });
+    { new Keyframe(0,0.5f), new Keyframe(0.25f, 3f), new Keyframe(0.5f, 1f), new Keyframe(0.75f, 0.1f), new Keyframe(1, 0.25f) });
 
     /// <summary>
     /// Calculates standard deviation and averages for the gaze position.
@@ -28,6 +28,14 @@ public class GainFunction : MonoBehaviour
     public Text text;
 
     private int counter;
+
+    private float idleVelocityTH = 0.85f;
+    private float idleAvgVelocityTH = 1.5f;
+    private float primaryBeginAvgVelTH = 0.85f;
+    private float primaryAfterVelTH = 0.85f;
+    private float primaryEndVelTH = 0.2f;
+    private float primaryEndAvgVelTH = 0.85f;
+    private float moveEndAvgVelTH = 0.1f;
 
     public float CurrentVelocity
     {
@@ -70,6 +78,27 @@ public class GainFunction : MonoBehaviour
         counter = 0;
     }
 
+    private void SetControllerVariables()
+    {
+        idleVelocityTH = 0.85f;
+        idleAvgVelocityTH = 1.5f;
+        primaryBeginAvgVelTH = 0.85f;
+        primaryAfterVelTH = 0.85f;
+        primaryEndVelTH = 0.2f;
+        primaryEndAvgVelTH = 0.85f;
+        moveEndAvgVelTH = 0.1f;
+    }
+
+    private void SetMyoVariables()
+    {
+        idleVelocityTH = 0.5f;
+        idleAvgVelocityTH = 1.25f;
+        primaryBeginAvgVelTH = 0.5f;
+        primaryAfterVelTH = 0.5f;
+        primaryEndVelTH = 0.2f;
+        primaryEndAvgVelTH = 0.85f;
+        moveEndAvgVelTH = 0.1f;
+    }
 
     public void UpdateFunction(Quaternion currentRotation, float time)
     {
@@ -86,6 +115,14 @@ public class GainFunction : MonoBehaviour
     //Angularvelocity in rad/s
     public void UpdateFunction(float currentAngularVelocity)
     {
+        if (MyoPoseManager.Instance.useMyo)
+        {
+            SetMyoVariables();
+        }
+        else
+        {
+            SetControllerVariables();
+        }
         currentVelocity = currentAngularVelocity;
         velocityRollingStats.AddSample(currentVelocity);
 
@@ -94,7 +131,8 @@ public class GainFunction : MonoBehaviour
         switch (state)
         {
             case MovementState.Idle:
-                if((currentVelocity > avgVelocity && currentVelocity > 0.85f)|| avgVelocity > 1.5f)
+                if((currentVelocity > avgVelocity && currentVelocity > idleVelocityTH) 
+                    || avgVelocity > idleAvgVelocityTH)
                 {
                     counter++;
                 }
@@ -105,12 +143,11 @@ public class GainFunction : MonoBehaviour
                 if (counter > 3)
                 {
                     state = MovementState.PrimarySubMovBegin;
-                    Debug.Log("1. Change state from idle to movbegin");
                     counter = 0;
                 }
                 break;
             case MovementState.PrimarySubMovBegin:
-                if (currentVelocity < avgVelocity || avgVelocity < 0.85f)
+                if (currentVelocity < avgVelocity || avgVelocity < primaryBeginAvgVelTH)
                 {
                     counter++;
                 }
@@ -121,18 +158,16 @@ public class GainFunction : MonoBehaviour
                 if (counter > 3)
                 {
                     state = MovementState.PrimarySubMaxAfterMax;
-                    Debug.Log("2. Change state from primary begin to primary after max");
                     counter = 0;
                 }
                 else if (counter < -3)
                 {
                     state = MovementState.Idle;
-                    Debug.Log("2.1 Change state back from primary begin to idle");
                     counter = 0;
                 }
                 break;
             case MovementState.PrimarySubMaxAfterMax:
-                if (currentVelocity < 0.85f)
+                if (currentVelocity < primaryAfterVelTH)
                 {
                     counter++;
                 }
@@ -143,40 +178,37 @@ public class GainFunction : MonoBehaviour
                 if (counter > 5)
                 {
                     state = MovementState.PrimarySubMovEnd;
-                    Debug.Log("3. Change state from primary after max to primary end");
                     counter = 0;
                 }
                 else if(counter < -5)
                 {
                     state = MovementState.PrimarySubMovBegin;
-                    Debug.Log("3.1 Change state back from primary after max to primary begin");
                     counter = 0;
                 }
                 break;
             case MovementState.PrimarySubMovEnd:
-                if (avgVelocity < 0.2f)
+                if (avgVelocity < primaryEndVelTH)
                 {
                     counter++;
                 }
-                else if(avgVelocity > 0.85f)
+                else if(avgVelocity > primaryEndAvgVelTH)
                 {
                     counter--;
                 }
-                if (counter > 0.5f)
+                if (counter > 5)
                 {
+                    Debug.Log("Move End");
                     state = MovementState.MovEnd;
-                    Debug.Log("4. Change state from primary primary end to secondary end");
                     counter = 0;
                 } 
-                else if(counter < -0.2f)
+                else if(counter < -2)
                 {
                     state = MovementState.PrimarySubMaxAfterMax;
-                    Debug.Log("4.1 Change state from primary primary end to primary after max");
                     counter = 0;
                 }
                 break;
             case MovementState.MovEnd:
-                if (avgVelocity < 0.1)
+                if (avgVelocity < moveEndAvgVelTH)
                 {
                     counter++;
                 }
@@ -187,20 +219,16 @@ public class GainFunction : MonoBehaviour
                 if (counter > 5)
                 {
                     state = MovementState.Idle;
-                    Debug.Log("5. Change state from secondary end to idle");
                     counter = 0;
                 }
                 else if (counter < -10)
                 {
                     state = MovementState.PrimarySubMovEnd;
-                    Debug.Log("5.1 Change state from secondary end to primary after PrimarySubMovEnd");
                     counter = 0;
                 }
                 break;
         }
-        //text.text = "State: " +state.ToString();
-
-        //Debug.Log("Current: " + CurrentVelocity + " vs avg: " + avgVelocity+" Std: "+std);
+        text.text = "State: " +state.ToString() +"\n Velocity: "+currentVelocity;
     }
 
     public float RelativeFactor
@@ -227,6 +255,14 @@ public class GainFunction : MonoBehaviour
                 default:
                     return 0;
             }
+        }
+    }
+
+    public MovementState State
+    {
+        get
+        {
+            return state;
         }
     }
 }

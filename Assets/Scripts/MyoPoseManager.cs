@@ -27,6 +27,9 @@ public class MyoPoseManager : MonoBehaviour
     // Set by making the fingers spread pose or pressing "r".
     private float referenceRoll = 0.0f;
 
+    private readonly FloatRollingStatistics velocityRollingStats = new FloatRollingStatistics();
+    private int StoredSamples = 50;
+
     private bool rest;
     private bool restUp;
     private bool restDown;
@@ -55,6 +58,7 @@ public class MyoPoseManager : MonoBehaviour
 
     private void Awake()
     {
+        velocityRollingStats.Init(StoredSamples);
         Instance = this;
     }
 
@@ -69,13 +73,12 @@ public class MyoPoseManager : MonoBehaviour
     {
         Reset();
 
-        if(Input.GetButtonUp("Switch"))
+        if (Input.GetButtonUp("Switch"))
         {
             useMyo = !useMyo;
         }
         
         currentPose = thalmicMyo.pose;
-        text.text = "Current Pose " + currentPose;
         if (useMyo)
         {
             UpdatePose();
@@ -86,6 +89,11 @@ public class MyoPoseManager : MonoBehaviour
 
     private void UpdatePose()
     {
+        // This is done to reduce movement induced gesture changes
+        if (velocityRollingStats.Average>10 && lastPose==Pose.FingersSpread)
+        {
+            currentPose = Pose.FingersSpread;
+        }
         switch (currentPose)
         {
             case Pose.Rest:
@@ -140,7 +148,6 @@ public class MyoPoseManager : MonoBehaviour
                     restUp = true;
                     break;
                 case Pose.Fist:
-                    Vibrate();
                     fistUp = true;
                     break;
                 case Pose.WaveIn:
@@ -153,7 +160,6 @@ public class MyoPoseManager : MonoBehaviour
                     fingersSpreadUp = true;
                     break;
                 case Pose.DoubleTap:
-                    Vibrate();
                     doubleTapUp = true;
                     break;
                 case Pose.Unknown:
@@ -331,11 +337,14 @@ public class MyoPoseManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Velocity in radians
+    /// </summary>
     public Vector3 AngularVelocity
     {
         get
         {
-            return thalmicMyo.gyroscope;
+            return thalmicMyo.gyroscope * Mathf.Deg2Rad;
         }
     }
 
@@ -523,21 +532,29 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            return Fist;
+            return FingersSpread;
         }
     }
     public bool ClickUp
     {
         get
         {
-            return FistUp;
+            return FingersSpreadUp;
         }
     }
     public bool ClickDown
     {
         get
         {
-            return FistDown;
+            return FingersSpreadDown;
+        }
+    }
+
+    public bool Jump
+    {
+        get
+        {
+            return false;
         }
     }
 }

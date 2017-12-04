@@ -120,12 +120,16 @@ public class Target : MonoBehaviour
         {
             if(value == Handeness.Left)
                 handDidNotClick = HandManager.Instance.LeftHand;
-            else if (value == Handeness.Left)
+            else if (value == Handeness.Right)
                 handDidNotClick = HandManager.Instance.RightHand;
         }
     }
 }
-public enum TargetState { Default, InFocus, Disabled, Drag,
+public enum TargetState {
+    Default,
+    InFocus,
+    Disabled,
+    Drag,
     Transparent,
     InFocusTransparent
 }

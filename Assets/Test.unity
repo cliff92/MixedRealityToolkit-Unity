@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myo: {fileID: 1289535419}
-  useMyo: 1
+  useMyo: 0
   text: {fileID: 652618734}
 --- !u!1 &1058254818
 GameObject:

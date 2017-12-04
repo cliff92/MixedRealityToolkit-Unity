@@ -67,9 +67,15 @@ public class TargetManager : MonoBehaviour
         {
             target.State = TargetState.Disabled;
             currentFocusedObject.SetActive(false);
-            Debug.Log("LeftClick");
-            HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-            HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            if (MyoPoseManager.Instance.useMyo)
+            {
+                MyoPoseManager.Instance.Vibrate();
+            }
+            else
+            {
+                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            }
             correctSound.Play();
         }
         else
@@ -96,8 +102,15 @@ public class TargetManager : MonoBehaviour
                 target.HandnessDidNotClick = handenessDidNotClicked;
                 currentlyAttachedObj = currentFocusedObject;
             }
-            HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-            HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            if (MyoPoseManager.Instance.useMyo)
+            {
+                MyoPoseManager.Instance.Vibrate();
+            }
+            else
+            {
+                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            }
             correctSound.Play();
         }
     }
@@ -108,8 +121,15 @@ public class TargetManager : MonoBehaviour
             Target target = currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
             UpdateTransparancy(currentlyAttachedObj);
-            HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-            HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            if (MyoPoseManager.Instance.useMyo)
+            {
+                MyoPoseManager.Instance.Vibrate();
+            }
+            else
+            {
+                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+            }
             correctSound.Play();
             currentlyAttachedObj = null;
         }
