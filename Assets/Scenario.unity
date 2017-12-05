@@ -2220,9 +2220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2118d14b1af40b4680a91f3269ddc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayClickTime: 0.1
+  delayClickTime: 0.25
   timeRightClickController: 1
-  timeRightClickMyo: 1.5
+  timeRightClickMyo: 1
   rightClickIndicator: {fileID: 1563196632}
   depthMarker: {fileID: 685175195}
 --- !u!1 &1474107543

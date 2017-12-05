@@ -33,6 +33,8 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
     private Quaternion startRelativeQuat = Quaternion.identity;
 
+    private RayInputDevice deviceType = RayInputDevice.Unknown;
+
     // Use this for initialization
     void Start()
     {
@@ -57,7 +59,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
     /// This method checks if a relative movement was started by the user.
     /// If started, the relative quaternion start value is set and the gain function reseted.
     /// </summary>
-    private void CheckStartOfRelativeMovement()
+    public void CheckStartOfRelativeMovement()
     {
         Vector3 angularVelocity;
         Quaternion rotation;
@@ -76,16 +78,19 @@ public class HeadRay : MonoBehaviour, IPointingSource
         {
             hand = HandManager.Instance.MyoHand;
             clickDown = true;
+            deviceType = RayInputDevice.Myo;
         }
         else if (Input.GetButtonDown("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
         {
             hand = HandManager.Instance.LeftHand;
             clickDown = true;
+            deviceType = RayInputDevice.ControllerLeft;
         }
         else if(Input.GetButtonDown("RelativeRight") && !MyoPoseManager.Instance.useMyo)
         {
             hand = HandManager.Instance.RightHand;
             clickDown = true;
+            deviceType = RayInputDevice.ControllerRight;
         }
         if(clickDown && hand != null)
         {
@@ -299,4 +304,19 @@ public class HeadRay : MonoBehaviour, IPointingSource
             focusLocked = value;
         }
     }
+
+    public RayInputDevice DeviceType
+    {
+        get
+        {
+            return deviceType;
+        }
+    }
+}
+public enum RayInputDevice
+{
+    Unknown,
+    Myo,
+    ControllerLeft,
+    ControllerRight
 }

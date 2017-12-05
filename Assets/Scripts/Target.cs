@@ -9,10 +9,15 @@ public class Target : MonoBehaviour
     private GameObject depthMarker;
     private Hand handDidNotClick;
 
+    private float lastTimeInFocus;
+    private float startTimeInFocus;
+
     private void Awake()
     {
         defaultMat = gameObject.GetComponent<Renderer>().material;
         state = TargetState.Default;
+        lastTimeInFocus = 0;
+        startTimeInFocus = 0;
     }
 
     private void Start()
@@ -23,6 +28,12 @@ public class Target : MonoBehaviour
     private void Update()
     {
         UpdateMaterial();
+        if (state == TargetState.InFocus 
+            || state == TargetState.Drag
+            || state == TargetState.InFocusTransparent)
+        {
+            lastTimeInFocus = Time.time;
+        }
     }
 
     /// <summary>
@@ -122,6 +133,28 @@ public class Target : MonoBehaviour
                 handDidNotClick = HandManager.Instance.LeftHand;
             else if (value == Handeness.Right)
                 handDidNotClick = HandManager.Instance.RightHand;
+        }
+    }
+
+    public float LastTimeInFocus
+    {
+        get
+        {
+            return lastTimeInFocus;
+        }
+    }
+
+    public float StartTimeInFocus
+    {
+        get
+        {
+            return startTimeInFocus;
+        }
+
+        set
+        {
+            startTimeInFocus = value;
+            lastTimeInFocus = value;
         }
     }
 }

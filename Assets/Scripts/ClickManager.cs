@@ -1,4 +1,5 @@
 ﻿using HoloToolkit.Unity.InputModule;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -21,35 +22,44 @@ public class ClickManager : MonoBehaviour
     public event ResetMethod Reset;
 
     private GameObject currentFocusedObject;
-    private GameObject oldFocusedObject;
     private GameObject currentlyAttachedObj;
+
+    private List<Target> targetsInFoucsSinceLastClickDown;
+    private VelocityHandler velocityHandler;
 
     [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
     public float delayClickTime = 0.1f;
 
     public float timeRightClickController = 1.0f;
-    public float timeRightClickMyo = 1.5f;
+    public float timeRightClickMyo = 1.0f;
 
     public GameObject rightClickIndicator;
     public GameObject depthMarker;
     private Vector3 scaleRCIndicatorDefault;
     private Vector3 differenceRCIandDM;
 
-    private float timeSinceOldTargetInFocus;
     private float timeTargetInFocusAndButtonDown;
+
+    public GameObject CurrentFocusedObject
+    {
+        get
+        {
+            return currentFocusedObject;
+        }
+    }
 
     private void Awake()
     {
         Instance = this;
+        targetsInFoucsSinceLastClickDown = new List<Target>();
+        velocityHandler = new VelocityHandler(delayClickTime*2);
     }
 
     private void Start()
     {
-        timeSinceOldTargetInFocus = 0;
         currentFocusedObject = null;
-        oldFocusedObject = null;
 
-        DepthRayManager.Instance.PointerSpecificFocusChanged += OnPointerSpecificFocusChanged;
+        DepthRayManager.Instance.RayUpdateEvent += OnUpdatePointer;
         InputManager.Instance.AddGlobalListener(gameObject);
 
         scaleRCIndicatorDefault = rightClickIndicator.transform.localScale;
@@ -58,18 +68,16 @@ public class ClickManager : MonoBehaviour
 
     private void Update()
     {
-        if (timeSinceOldTargetInFocus >= 0)
-        {
-            timeSinceOldTargetInFocus += Time.deltaTime;
-        }
+        velocityHandler.UpdateLists();
         CheckReset();
         CheckLeftClick();
         CheckRightClick();
+        
     }
 
     private void OnDestroy()
     {
-        DepthRayManager.Instance.PointerSpecificFocusChanged -= OnPointerSpecificFocusChanged;
+        DepthRayManager.Instance.RayUpdateEvent -= OnUpdatePointer;
     }
 
     private void CheckReset()
@@ -88,21 +96,75 @@ public class ClickManager : MonoBehaviour
     {
         if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.ClickUp)
         {
-            timeTargetInFocusAndButtonDown = 0;
-            if (timeSinceOldTargetInFocus > 0 && timeSinceOldTargetInFocus < delayClickTime)
+            if(currentFocusedObject != null)
             {
-                if (oldFocusedObject != null && oldFocusedObject.tag.Equals("Target"))
+                OnLeftClick(currentFocusedObject);
+                Debug.Log("Click Case 1");
+            }
+            else if(targetsInFoucsSinceLastClickDown.Count==1)
+            {
+                Target target = targetsInFoucsSinceLastClickDown[0];
+                if (target.LastTimeInFocus > Time.time - delayClickTime)
                 {
-                    OnLeftClick(oldFocusedObject);
+                    bool click = false;
+                    if (MyoPoseManager.Instance.ClickUp 
+                        && !velocityHandler.VelocityWasOverThSinceTimeStempMyo(target.LastTimeInFocus))
+                    {
+                        click = true;
+                    }
+                    else if (Input.GetButtonUp("RelativeLeft")
+                        && !velocityHandler.VelocityWasOverThSinceTimeStempLeftController(target.LastTimeInFocus))
+                    {
+                        click = true;
+                    }
+                    else if(!velocityHandler.VelocityWasOverThSinceTimeStempRightController(target.LastTimeInFocus))
+                    {
+                        click = true;
+                    }
+                    if(click)
+                    {
+                        OnLeftClick(target.gameObject);
+                        Debug.Log("Click Case 2");
+                    }
                 }
             }
-            else
+            else if(targetsInFoucsSinceLastClickDown.Count > 1)
             {
-                if (currentFocusedObject != null && currentFocusedObject.tag.Equals("Target"))
+                float timeStempWithMinVel = -1;
+                if(MyoPoseManager.Instance.ClickUp)
                 {
-                    OnLeftClick(currentFocusedObject);
+                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelMyo();
+                }
+                else if(Input.GetButtonUp("RelativeLeft"))
+                {
+                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelLeftController();
+                }
+                else
+                {
+                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelRightController();
+                }
+
+                Target targetClosestToTimeStemp = null;
+                float timeDifference = float.MaxValue;
+                foreach (Target target in targetsInFoucsSinceLastClickDown)
+                {
+                    if(Mathf.Abs(target.LastTimeInFocus-timeStempWithMinVel)<timeDifference && target.LastTimeInFocus > Time.time - delayClickTime)
+                    {
+                        timeDifference = Mathf.Abs(target.LastTimeInFocus - timeStempWithMinVel);
+                        targetClosestToTimeStemp = target;
+                    }
+                }
+                if(targetClosestToTimeStemp!=null)
+                {
+                    OnLeftClick(targetClosestToTimeStemp.gameObject);
+                    Debug.Log("Click Case 3");
                 }
             }
+            else{
+                TargetManager.Instance.DetachTargetFromDepthMarker();
+            }
+            //Reset list
+            targetsInFoucsSinceLastClickDown = new List<Target>();
         }
     }
 
@@ -146,52 +208,74 @@ public class ClickManager : MonoBehaviour
     }
 
     /// <summary>
-    /// This is a listener that is called from the input manager, when the focus of the pointer changes.
+    /// This is a listener that is called from the depth ray manager every time a ray is shot.
     /// It updates the state of the object and resets timer
     /// </summary>
-    /// <param name="pointer"></param>
-    /// <param name="oldFocusedObject"></param>
-    /// <param name="newFocusedObject"></param>
-    protected virtual void OnPointerSpecificFocusChanged(IPointingSource pointer, GameObject oldFocusedObject, GameObject newFocusedObject)
+    public void OnUpdatePointer(GameObject newFocusedObject)
     {
-        timeTargetInFocusAndButtonDown = -1f;
-
-        this.oldFocusedObject = oldFocusedObject;
-        currentFocusedObject = newFocusedObject;
-
-        if (oldFocusedObject != null)
+        if(currentFocusedObject == newFocusedObject)
         {
-            switch (oldFocusedObject.tag)
-            {
-                case "Target":
-                    Target target = oldFocusedObject.GetComponent<Target>();
-                    if (target.State != TargetState.Drag)
-                        target.State = TargetState.Default;
-                    timeSinceOldTargetInFocus = 0;
-                    break;
-                case "Object":
-                    timeSinceOldTargetInFocus = -1;
-                    //oldFocusedObject.GetComponent<Renderer>().material = objectNotInFocus;
-                    break;
-            }
+            return;
         }
+        timeTargetInFocusAndButtonDown = -1f;
 
         if (newFocusedObject != null)
         {
             switch (newFocusedObject.tag)
             {
                 case "Target":
+                    bool update = false;
+                    Vector3 angularVelocity = Vector3.zero;
+                    switch (HeadRay.Instance.DeviceType)
+                    {
+                        case RayInputDevice.Unknown:
+                            break;
+                        case RayInputDevice.Myo:
+                            if (HandManager.Instance.MyoHand.TryGetAngularVelocity(out angularVelocity)
+                                && angularVelocity.magnitude < 0.5f && MyoPoseManager.Instance.Click)
+                            {
+                                update = true;
+                            }
+                            break;
+                        case RayInputDevice.ControllerLeft:
+                            if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity)
+                                && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeLeft"))
+                            {
+                                update = true;
+                            }
+                            break;
+                        case RayInputDevice.ControllerRight:
+                            if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity)
+                                && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeRight"))
+                            {
+                                update = true;
+                            }
+                            break;
+                    }
                     timeTargetInFocusAndButtonDown = 0;
                     Target target = newFocusedObject.GetComponent<Target>();
-                    if (target.State != TargetState.Drag)
-                        target.State = TargetState.InFocus;
+                    if (!TargetManager.IsAnyObjectAttached() && target.State != TargetState.Drag && update)
+                    {
+                        target.StartTimeInFocus = Time.time;
+                        targetsInFoucsSinceLastClickDown.Add(target);
+                        currentFocusedObject = newFocusedObject;
+                    }
+                    else
+                    {
+                        currentFocusedObject = null;
+                    }
                     break;
                 case "Object":
                     //newFocusedObject.GetComponent<Renderer>().material = objectInFocus;
                     break;
             }
         }
+        else
+        {
+            currentFocusedObject = null;
+        }
     }
+
 
     private void OnLeftClick(GameObject target)
     {

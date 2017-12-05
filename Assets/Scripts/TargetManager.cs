@@ -162,7 +162,7 @@ public class TargetManager : MonoBehaviour
 
         if (angle < 10 && angle > -10 && distanceMarkerHead > distanceObjHead - 0.05)
         {
-            if (DepthRayManager.Instance.CurrentFocusedObject == obj)
+            if (ClickManager.Instance.CurrentFocusedObject == obj)
             {
                 target.State = TargetState.InFocusTransparent;
             }
@@ -173,7 +173,7 @@ public class TargetManager : MonoBehaviour
         }
         else
         {
-            if (DepthRayManager.Instance.CurrentFocusedObject == obj)
+            if (ClickManager.Instance.CurrentFocusedObject == obj)
             {
                 target.State = TargetState.InFocus;
             }
@@ -182,6 +182,15 @@ public class TargetManager : MonoBehaviour
                 target.State = TargetState.Default;
             }
         }
+    }
+
+    public static bool IsAnyObjectAttached()
+    {
+        if(Instance.currentlyAttachedObj!=null)
+        {
+            return true;
+        }
+        return false;
     }
 }
 
