@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 public class Target : MonoBehaviour
 {
-    private Material defaultMat;
+    private Material material;
+    private Color defaultColor;
 
     private TargetState state;
     private TargetState oldState;
@@ -12,9 +13,12 @@ public class Target : MonoBehaviour
     private float lastTimeInFocus;
     private float startTimeInFocus;
 
+    private float angleBetweenRayObj;
+
     private void Awake()
     {
-        defaultMat = gameObject.GetComponent<Renderer>().material;
+        material = GetComponent<Renderer>().material;
+        defaultColor = material.color;
         state = TargetState.Default;
         lastTimeInFocus = 0;
         startTimeInFocus = 0;
@@ -27,39 +31,13 @@ public class Target : MonoBehaviour
 
     private void Update()
     {
+        UpdateTransparancy();
         UpdateMaterial();
-        if (state == TargetState.InFocus 
+        if (state == TargetState.InFocus
             || state == TargetState.Drag
             || state == TargetState.InFocusTransparent)
         {
             lastTimeInFocus = Time.time;
-        }
-    }
-
-    /// <summary>
-    /// This method updates the material of the gameobject based on the targetstate.
-    /// </summary>
-    private void UpdateMaterial()
-    {
-        switch (state)
-        {
-            case TargetState.Default:
-                GetComponent<Renderer>().material = defaultMat;
-                break;
-            case TargetState.Transparent:
-                GetComponent<Renderer>().material = TargetManager.Instance.transparentMat;
-                break;
-            case TargetState.InFocus:
-                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocus;
-                break;
-            case TargetState.InFocusTransparent:
-                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocusTransparent;
-                break;
-            case TargetState.Disabled:
-                break;
-            case TargetState.Drag:
-                GetComponent<Renderer>().material = TargetManager.Instance.targetInFocus;
-                break;
         }
     }
 
@@ -77,11 +55,77 @@ public class Target : MonoBehaviour
         }
     }
 
-    public Material DefaultMat
+    public void UpdateTransparancy()
     {
-        get
+        if (state == TargetState.Drag)
+            return;
+
+        Vector3 headPos = DepthRayManager.Instance.HeadPosition;
+        Vector3 rayDirection = DepthRayManager.Instance.RayDirection;
+        float distanceMarkerHead = DepthRayManager.Instance.DistanceHeadDepthMarker;
+
+        Vector3 dirHeadObj = transform.position - headPos;
+        angleBetweenRayObj = Vector3.Angle(rayDirection, dirHeadObj);
+
+        float distanceObjHead = Vector3.Distance(transform.position, headPos);
+
+        if (angleBetweenRayObj < 30 && angleBetweenRayObj > -30 
+            && distanceMarkerHead > distanceObjHead - 0.05)
         {
-            return defaultMat;
+            if (ClickManager.Instance.CurrentFocusedObject == gameObject)
+            {
+                state = TargetState.InFocusTransparent;
+            }
+            else
+            {
+                state = TargetState.Transparent;
+            }
+        }
+        else
+        {
+            if (ClickManager.Instance.CurrentFocusedObject == gameObject)
+            {
+                state = TargetState.InFocus;
+            }
+            else
+            {
+                state = TargetState.Default;
+            }
+        }
+    }
+
+    /// <summary>
+    /// This method updates the material of the gameobject based on the targetstate.
+    /// </summary>
+    private void UpdateMaterial()
+    {
+        Color color;
+        switch (state)
+        {
+            case TargetState.Default:
+                material.color = defaultColor;
+                break;
+            case TargetState.Transparent:
+                color = defaultColor;
+                color.a = 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                material.color = color;
+                break;
+            case TargetState.InFocus:
+                color = TargetManager.Instance.targetInFocus.color;
+                material.color = color;
+                break;
+            case TargetState.InFocusTransparent:
+                color = TargetManager.Instance.targetInFocus.color;
+                color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                material.color = color;
+                break;
+            case TargetState.Disabled:
+                break;
+            case TargetState.Drag:
+                color = new Color(1,0,0);
+                color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                material.color = color;
+                break;
         }
     }
 

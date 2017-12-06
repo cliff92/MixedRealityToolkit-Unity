@@ -85,6 +85,7 @@ public class ClickManager : MonoBehaviour
         if (Input.GetButtonUp("Reset") || MyoPoseManager.Instance.DoubleTapUp)
         {
             OnReset();
+            DepthRayManager.Instance.MoveDepthMarkerToUser();
         }
     }
 

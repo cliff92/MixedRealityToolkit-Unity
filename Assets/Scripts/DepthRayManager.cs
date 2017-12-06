@@ -150,6 +150,13 @@ public class DepthRayManager : MonoBehaviour
         depthMarker.transform.position = origin + direction * distance;
     }
 
+    public void MoveDepthMarkerToUser()
+    {
+        Vector3 origin = HeadRay.Instance.Rays[0].origin;
+        Vector3 direction = HeadRay.Instance.Rays[0].direction;
+        depthMarker.transform.position = origin + direction * 0.5f;
+    }
+
     private void SelectObject()
     {
         // Call the pointer's OnPreRaycast function
