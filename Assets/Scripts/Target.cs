@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 public class Target : MonoBehaviour
 {
     private Material material;
@@ -92,6 +93,12 @@ public class Target : MonoBehaviour
                 state = TargetState.Default;
             }
         }
+    }
+
+    internal void LogClick()
+    {
+        String log = gameObject.name+" was clicked at "+ Time.time;
+        Logger.Instance.AppendString(log);
     }
 
     /// <summary>

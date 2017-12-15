@@ -61,6 +61,7 @@ public class TargetManager : MonoBehaviour
         if (target.State != TargetState.Drag)
         {
             target.State = TargetState.Disabled;
+            target.LogClick();
             currentFocusedObject.SetActive(false);
             if (MyoPoseManager.Instance.useMyo)
             {
