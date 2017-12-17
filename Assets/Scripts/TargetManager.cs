@@ -16,11 +16,23 @@ public class TargetManager : MonoBehaviour
 
     private GameObject currentlyAttachedObj;
 
+    public GameObject targets;
+    public GameObject targetPrefab;
+    private int targetId = 0;
+
     public GameObject[] TargetArray
     {
         get
         {
             return targetArray;
+        }
+    }
+
+    private int TargetId
+    {
+        get
+        {
+            return targetId++;
         }
     }
 
@@ -73,6 +85,7 @@ public class TargetManager : MonoBehaviour
                 HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
             }
             correctSound.Play();
+            SpawnTarget(currentFocusedObject.transform.position);
         }
         else
         {
@@ -129,6 +142,33 @@ public class TargetManager : MonoBehaviour
             correctSound.Play();
             currentlyAttachedObj = null;
         }
+    }
+
+    public void SpawnTarget(Vector3 posLastTarget)
+    {
+        Vector3 headPos = HeadRay.Instance.head.transform.position;
+        Vector3 headForward = HeadRay.Instance.head.transform.forward;
+
+        GameObject newTarget = Instantiate(targetPrefab, targets.transform);
+        string id = string.Format("{0,3:000}", TargetId);
+        newTarget.name = "Target_"+ id;
+        newTarget.GetComponent<Target>().PosLastTarget = posLastTarget;
+
+        bool correctPos = false;
+        Vector3 newPos = Vector3.zero;
+        while(!correctPos)
+        {
+            float x = Random.Range(-45, 45);
+            float y = Random.Range(-45, 45);
+            float z = Random.Range(-45, 45);
+            float distance = Random.Range(3, 20);
+            Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
+            newPos = headPos + newDirection;
+
+            correctPos = !Physics.Raycast(headPos, newDirection, distance);
+        }
+
+        newTarget.transform.position = newPos;
     }
 
     public static bool IsAnyObjectAttached()

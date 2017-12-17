@@ -100,7 +100,6 @@ public class ClickManager : MonoBehaviour
             if(currentFocusedObject != null)
             {
                 OnLeftClick(currentFocusedObject);
-                Debug.Log("Click Case 1");
             }
             else if(targetsInFoucsSinceLastClickDown.Count==1)
             {
@@ -125,7 +124,6 @@ public class ClickManager : MonoBehaviour
                     if(click)
                     {
                         OnLeftClick(target.gameObject);
-                        Debug.Log("Click Case 2");
                     }
                 }
             }
@@ -158,7 +156,6 @@ public class ClickManager : MonoBehaviour
                 if(targetClosestToTimeStemp!=null)
                 {
                     OnLeftClick(targetClosestToTimeStemp.gameObject);
-                    Debug.Log("Click Case 3");
                 }
             }
             else{
@@ -267,7 +264,11 @@ public class ClickManager : MonoBehaviour
                     }
                     break;
                 case "Object":
+                    currentFocusedObject = null;
                     //newFocusedObject.GetComponent<Renderer>().material = objectInFocus;
+                    break;
+                default:
+                    currentFocusedObject = null;
                     break;
             }
         }

@@ -61,7 +61,6 @@ public class GainFunction : MonoBehaviour
         velocityRollingStats.Reset();
         velocityRollingStats.AddSample(currentAngularVelocity.magnitude);
         Reset();
-        Debug.Log("Reset Function Velocity");
     }
     public void ResetFunction(Quaternion currentRotation, float time)
     {
@@ -69,7 +68,6 @@ public class GainFunction : MonoBehaviour
         lastTimeStep = time;
         velocityRollingStats.Reset();
         Reset();
-        Debug.Log("Reset Function Rotation");
     }
 
     private void Reset()
@@ -197,7 +195,7 @@ public class GainFunction : MonoBehaviour
                 }
                 if (counter > 5)
                 {
-                    Debug.Log("Move End");
+                    //Debug.Log("Move End");
                     state = MovementState.MovEnd;
                     counter = 0;
                 } 

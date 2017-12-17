@@ -230,8 +230,8 @@ public class Hand
 
     public void Virbrate(float intensity, float durationInSeconds)
     {
-        InteractionSourceExtensions.StopHaptics(source);
-        InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
+        //InteractionSourceExtensions.StopHaptics(source);
+        //InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
     }
 
     public void Reset()
