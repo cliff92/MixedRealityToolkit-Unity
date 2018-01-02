@@ -16,14 +16,17 @@ public class InputSwitcher : MonoBehaviour
         {
             switch (inputMode)
             {
-                case InputMode.Myo:
+                case InputMode.HeadMyoHybrid:
                     inputMode = InputMode.HeadHybrid;
                     break;
                 case InputMode.HeadHybrid:
-                    inputMode = InputMode.Ray;
+                    inputMode = InputMode.RayHeadOrigin;
                     break;
-                case InputMode.Ray:
-                    inputMode = InputMode.Myo;
+                case InputMode.RayHeadOrigin:
+                    inputMode = InputMode.RayControllerOrigin;
+                    break;
+                case InputMode.RayControllerOrigin:
+                    inputMode = InputMode.HeadMyoHybrid;
                     break;
             }
         }
@@ -41,7 +44,8 @@ public class InputSwitcher : MonoBehaviour
 
 public enum InputMode
 {
-    Myo,
+    HeadMyoHybrid,
     HeadHybrid,
-    Ray
+    RayControllerOrigin,
+    RayHeadOrigin
 }

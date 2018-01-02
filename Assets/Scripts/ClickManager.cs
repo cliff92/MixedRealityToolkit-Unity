@@ -175,7 +175,7 @@ public class ClickManager : MonoBehaviour
     private void CheckRightClick()
     {
         float timeRightClick = timeRightClickController;
-        if (InputSwitcher.InputMode == InputMode.Myo)
+        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
         {
             timeRightClick = timeRightClickMyo;
         }
@@ -228,7 +228,7 @@ public class ClickManager : MonoBehaviour
                 case "Target":
                     bool update = false;
                     Vector3 angularVelocity = Vector3.zero;
-                    switch (HeadRay.Instance.DeviceType)
+                    switch (CustomRay.Instance.DeviceType)
                     {
                         case RayInputDevice.Unknown:
                             break;

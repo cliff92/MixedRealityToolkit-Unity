@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using HoloToolkit.Unity;
 using System;
 
-public class HeadRay : MonoBehaviour, IPointingSource
+public class CustomRay : MonoBehaviour, IPointingSource
 {
     private BaseRayStabilizer rayStabilizer;
 
@@ -23,7 +23,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
 
     private RayStep[] rays = new RayStep[1] { new RayStep(Vector3.zero, Vector3.forward) };
 
-    public static HeadRay Instance;
+    public static CustomRay Instance;
 
     public float offsetDown = 0.05f;
     public float relativeFactor = 1.0f;
@@ -67,7 +67,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
         Quaternion rotation;
 
         if (MyoPoseManager.ClickUp ||
-            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& InputSwitcher.InputMode != InputMode.Myo))
+            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& InputSwitcher.InputMode != InputMode.HeadMyoHybrid))
         {
             visualRay.GetComponent<Renderer>().material = rayInactiveMaterial;
         }
@@ -82,13 +82,13 @@ public class HeadRay : MonoBehaviour, IPointingSource
             clickDown = true;
             deviceType = RayInputDevice.Myo;
         }
-        else if (Input.GetButtonDown("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
+        else if (Input.GetButtonDown("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.LeftHand;
             clickDown = true;
             deviceType = RayInputDevice.ControllerLeft;
         }
-        else if(Input.GetButtonDown("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
+        else if(Input.GetButtonDown("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.RightHand;
             clickDown = true;
@@ -123,12 +123,12 @@ public class HeadRay : MonoBehaviour, IPointingSource
             hand = HandManager.MyoHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
+        else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.LeftHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
+        else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.RightHand;
             click = true;
@@ -165,9 +165,11 @@ public class HeadRay : MonoBehaviour, IPointingSource
     /// </summary>
     public virtual void OnPreRaycast()
     {
+        Vector3 forward;
+        Vector3 position;
         switch (InputSwitcher.InputMode)
         {
-            case InputMode.Myo:
+            case InputMode.HeadMyoHybrid:
             case InputMode.HeadHybrid:
                 if (head == null)
                 {
@@ -182,12 +184,12 @@ public class HeadRay : MonoBehaviour, IPointingSource
                         hand = HandManager.MyoHand;
                         click = true;
                     }
-                    else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
+                    else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.LeftHand;
                         click = true;
                     }
-                    else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
+                    else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.RightHand;
                         click = true;
@@ -206,9 +208,13 @@ public class HeadRay : MonoBehaviour, IPointingSource
                     }
                 }
                 break;
-            case InputMode.Ray:
-                Vector3 forward;
-                Vector3 position;
+            case InputMode.RayHeadOrigin:
+                if (HandManager.RayHand.TryGetForward(out forward))
+                {
+                    SetRaysWithHeadAsOrigin(forward);
+                }
+                break;
+            case InputMode.RayControllerOrigin:
                 if(HandManager.RayHand.TryGetForward(out forward) && HandManager.RayHand.TryGetPos(out position))
                 {
                     SetRays(forward, position);
@@ -237,11 +243,11 @@ public class HeadRay : MonoBehaviour, IPointingSource
     private void SetRays(Vector3 direction, Vector3 origin)
     {
         float spreadFactor = 0.02f;
-        Ray ray = new Ray(origin, direction);
-        Ray rayUp = new Ray(origin + head.transform.up * spreadFactor, direction);
-        Ray rayDown = new Ray(origin - head.transform.up * spreadFactor, direction);
-        Ray rayRight = new Ray(origin + head.transform.right * spreadFactor, direction);
-        Ray rayLeft = new Ray(origin - head.transform.right * spreadFactor, direction);
+        UnityEngine.Ray ray = new UnityEngine.Ray(origin, direction);
+        UnityEngine.Ray rayUp = new UnityEngine.Ray(origin + head.transform.up * spreadFactor, direction);
+        UnityEngine.Ray rayDown = new UnityEngine.Ray(origin - head.transform.up * spreadFactor, direction);
+        UnityEngine.Ray rayRight = new UnityEngine.Ray(origin + head.transform.right * spreadFactor, direction);
+        UnityEngine.Ray rayLeft = new UnityEngine.Ray(origin - head.transform.right * spreadFactor, direction);
 
         rays = new RayStep[5];
         rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));

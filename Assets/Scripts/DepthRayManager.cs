@@ -38,13 +38,13 @@ public class DepthRayManager : MonoBehaviour
 
     private void Start()
     {
-        pointer = new PointerData(HeadRay.Instance);
+        pointer = new PointerData(CustomRay.Instance);
         StartUp();
     }
 
     private void StartUp()
     {
-        HeadRay.Instance.OnPreRaycast();
+        CustomRay.Instance.OnPreRaycast();
         MoveAndScaleDepthMarker();
         MoveRayVisual();
         SelectObject();
@@ -53,7 +53,7 @@ public class DepthRayManager : MonoBehaviour
 
     private void Update()
     {
-        HeadRay.Instance.OnPreRaycast();
+        CustomRay.Instance.OnPreRaycast();
 
         float rotationAngle;
         if (HandManager.IsMyoTracked)
@@ -86,8 +86,8 @@ public class DepthRayManager : MonoBehaviour
 
     private void MoveAndScaleDepthMarker()
     {
-        Vector3 origin = HeadRay.Instance.Rays[0].origin;
-        Vector3 direction = HeadRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].direction;
         float distance = Vector3.Distance(depthMarker.transform.position, origin);
         Vector3 newPos = origin + direction * distance;
 
@@ -100,8 +100,8 @@ public class DepthRayManager : MonoBehaviour
 
     private void MoveRayVisual()
     {
-        Vector3 origin = HeadRay.Instance.Rays[0].origin;
-        Vector3 direction = HeadRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].direction;
         Quaternion rotation = Quaternion.LookRotation(direction);
         rayVisual.transform.rotation = rotation;
         rayVisual.transform.position = origin;
@@ -113,7 +113,7 @@ public class DepthRayManager : MonoBehaviour
         Vector3 origin = pointer.StartPoint;
 
         float stepsize = 0;
-        if (InputSwitcher.InputMode == InputMode.Myo)
+        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
         {
             if (rotationAngle > 0 && rotationAngle < 180)
             {
@@ -149,16 +149,16 @@ public class DepthRayManager : MonoBehaviour
     {
         if (pointer.End.Object == null)
             return;
-        Vector3 origin = HeadRay.Instance.Rays[0].origin;
-        Vector3 direction = HeadRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].direction;
         float distance = Vector3.Distance(pointer.End.Object.transform.position, origin);
         depthMarker.transform.position = origin + direction * distance;
     }
 
     public void MoveDepthMarkerToUser()
     {
-        Vector3 origin = HeadRay.Instance.Rays[0].origin;
-        Vector3 direction = HeadRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].direction;
         depthMarker.transform.position = origin + direction * 0.5f;
     }
 

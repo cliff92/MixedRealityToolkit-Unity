@@ -91,7 +91,7 @@ public class GainFunction : MonoBehaviour
     //Angularvelocity in rad/s
     public void UpdateFunction(float currentAngularVelocity)
     {
-        if (InputSwitcher.InputMode == InputMode.Myo)
+        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
         {
             SetMyoVariables();
         }
@@ -226,7 +226,7 @@ public class GainFunction : MonoBehaviour
         get
         {
             AnimationCurve functionCurve; 
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
             {
                 functionCurve = Instance.functionCurveMyo;
             }

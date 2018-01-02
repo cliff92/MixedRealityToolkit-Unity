@@ -3,30 +3,24 @@ public class TargetManager : MonoBehaviour
 {
     public static TargetManager Instance;
 
-    public Material targetInFocus;
-    public Material targetInFocusTransparent;
-    public Material targetNotInFocus;
-    public Material objectNotInFocus;
-    public Material objectInFocus;
-    public Material transparentMat;
+    public Material targetInFocusMat;
+    public Material targetNotInFocusMat;
+    public Material objectNotInFocusMat;
+    public Material objectInFocusMat;
+    
 
     public AudioSource correctSound;
 
-    private GameObject[] targetArray;
+    private GameObject currentTarget;
+    private GameObject[] objectArray;
 
     private GameObject currentlyAttachedObj;
 
     public GameObject targets;
     public GameObject targetPrefab;
+    public GameObject objectPrefab;
+    public int AmountOfObjects = 100;
     private int targetId = 0;
-
-    public static GameObject[] TargetArray
-    {
-        get
-        {
-            return Instance.targetArray;
-        }
-    }
 
     private static int TargetId
     {
@@ -46,9 +40,11 @@ public class TargetManager : MonoBehaviour
         ClickManager.Instance.LeftClick += LeftClick;
         ClickManager.Instance.Reset += Reset;
 
-        targetArray = GameObject.FindGameObjectsWithTag("Target");
+        currentTarget = GameObject.FindGameObjectWithTag("Target");
 
         currentlyAttachedObj = null;
+
+        InstantiateObjects();
     }
 
     private void OnDestroy()
@@ -57,12 +53,21 @@ public class TargetManager : MonoBehaviour
         ClickManager.Instance.Reset -= Reset;
     }
 
+    private void InstantiateObjects()
+    {
+        objectArray = new GameObject[AmountOfObjects];
+        for (int i = 0; i < AmountOfObjects; i++)
+        {
+            GameObject newObject = Instantiate(Instance.objectPrefab, Instance.targets.transform);
+            newObject.SetActive(false);
+            objectArray[i] = newObject;
+        }
+    }
+
     private void Reset()
     {
-        foreach (GameObject obj in targetArray)
-        {
-            obj.SetActive(true);
-        }
+        SpawnTarget(Vector3.zero);
+        MoveObjects();
     }
 
     public static void LeftClick(GameObject currentFocusedObject)
@@ -75,7 +80,7 @@ public class TargetManager : MonoBehaviour
             target.State = TargetState.Disabled;
             target.LogClick();
             currentFocusedObject.SetActive(false);
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
@@ -86,6 +91,7 @@ public class TargetManager : MonoBehaviour
             }
             Instance.correctSound.Play();
             SpawnTarget(currentFocusedObject.transform.position);
+            MoveObjects();
         }
         else
         {
@@ -111,7 +117,7 @@ public class TargetManager : MonoBehaviour
                 target.HandnessDidNotClick = handenessDidNotClicked;
                 Instance.currentlyAttachedObj = currentFocusedObject;
             }
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
@@ -130,7 +136,7 @@ public class TargetManager : MonoBehaviour
             Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
             target.UpdateTransparancy();
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
@@ -146,8 +152,12 @@ public class TargetManager : MonoBehaviour
 
     public static void SpawnTarget(Vector3 posLastTarget)
     {
-        Vector3 headPos = HeadRay.Instance.head.transform.position;
-        Vector3 headForward = HeadRay.Instance.head.transform.forward;
+        if (Instance.currentTarget != null)
+        {
+            Destroy(Instance.currentTarget);
+        }
+        Vector3 headPos = CustomRay.Instance.head.transform.position;
+        Vector3 headForward = CustomRay.Instance.head.transform.forward;
 
         GameObject newTarget = Instantiate(Instance.targetPrefab, Instance.targets.transform);
         string id = string.Format("{0,3:000}", TargetId);
@@ -169,6 +179,31 @@ public class TargetManager : MonoBehaviour
         }
 
         newTarget.transform.position = newPos;
+        Instance.currentTarget = newTarget;
+    }
+
+    public static void MoveObjects()
+    {
+        Vector3 headPos = CustomRay.Instance.head.transform.position;
+        bool newPosFound = false;
+        Vector3 newPos = Vector3.zero;
+        foreach (GameObject obj in Instance.objectArray)
+        {
+            newPosFound = false;
+            while(!newPosFound)
+            {
+                float x = Random.Range(-45, 45);
+                float y = Random.Range(-45, 45);
+                float z = Random.Range(-45, 45);
+                float distance = Random.Range(3, 20);
+                Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
+                newPos = headPos + newDirection;
+                newPosFound = (Vector3.Distance(Instance.currentTarget.transform.position, newPos) > 0.05f);
+            }
+            obj.transform.position = newPos;
+            obj.transform.rotation = Random.rotation;
+            obj.SetActive(true);
+        }
     }
 
     public static bool IsAnyObjectAttached()

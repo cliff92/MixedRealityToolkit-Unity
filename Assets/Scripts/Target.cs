@@ -129,11 +129,11 @@ public class Target : MonoBehaviour
                 material.color = color;
                 break;
             case TargetState.InFocus:
-                color = TargetManager.Instance.targetInFocus.color;
+                color = TargetManager.Instance.targetInFocusMat.color;
                 material.color = color;
                 break;
             case TargetState.InFocusTransparent:
-                color = TargetManager.Instance.targetInFocus.color;
+                color = TargetManager.Instance.targetInFocusMat.color;
                 color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
                 break;

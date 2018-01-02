@@ -73,7 +73,7 @@ public class MyoPoseManager : MonoBehaviour
         Reset();
         
         currentPose = thalmicMyo.pose;
-        if (InputSwitcher.InputMode == InputMode.Myo)
+        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
         {
             UpdatePose();
         }
@@ -346,7 +346,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if(InputSwitcher.InputMode == InputMode.Myo)
+            if(InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fistDown;
             return false;
         }
@@ -356,7 +356,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fist;
             return false;
         }
@@ -366,7 +366,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fistUp;
             return false;
         }
@@ -376,7 +376,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.doubleTap;
             return false;
         }
@@ -386,7 +386,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.doubleTapUp;
             return false;
         }
@@ -396,7 +396,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.doubleTapDown;
             return false;
         }
@@ -406,7 +406,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveIn;
             return false;
         }
@@ -416,7 +416,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveInUp;
             return false;
         }
@@ -426,7 +426,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveInDown;
             return false;
         }
@@ -436,7 +436,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveOut;
             return false;
         }
@@ -446,7 +446,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveOutUp;
             return false;
         }
@@ -456,7 +456,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.waveOutDown;
             return false;
         }
@@ -466,7 +466,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fingersSpread;
             return false;
         }
@@ -476,7 +476,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fingersSpreadUp;
             return false;
         }
@@ -486,7 +486,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.fingersSpreadDown;
             return false;
         }
@@ -496,7 +496,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.rest;
             return false;
         }
@@ -506,7 +506,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.restUp;
             return false;
         }
@@ -516,7 +516,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (InputSwitcher.InputMode == InputMode.Myo)
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
                 return Instance.restDown;
             return false;
         }
