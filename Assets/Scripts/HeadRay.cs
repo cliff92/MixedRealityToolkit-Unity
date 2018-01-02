@@ -66,8 +66,8 @@ public class HeadRay : MonoBehaviour, IPointingSource
         Vector3 angularVelocity;
         Quaternion rotation;
 
-        if (MyoPoseManager.Instance.ClickUp ||
-            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& !MyoPoseManager.Instance.useMyo))
+        if (MyoPoseManager.ClickUp ||
+            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& InputSwitcher.InputMode != InputMode.Myo))
         {
             visualRay.GetComponent<Renderer>().material = rayInactiveMaterial;
         }
@@ -76,21 +76,21 @@ public class HeadRay : MonoBehaviour, IPointingSource
         bool clickDown = false;
         bool click = false;
 
-        if (MyoPoseManager.Instance.ClickDown)
+        if (MyoPoseManager.ClickDown)
         {
-            hand = HandManager.Instance.MyoHand;
+            hand = HandManager.MyoHand;
             clickDown = true;
             deviceType = RayInputDevice.Myo;
         }
-        else if (Input.GetButtonDown("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
+        else if (Input.GetButtonDown("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
         {
-            hand = HandManager.Instance.LeftHand;
+            hand = HandManager.LeftHand;
             clickDown = true;
             deviceType = RayInputDevice.ControllerLeft;
         }
-        else if(Input.GetButtonDown("RelativeRight") && !MyoPoseManager.Instance.useMyo)
+        else if(Input.GetButtonDown("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
         {
-            hand = HandManager.Instance.RightHand;
+            hand = HandManager.RightHand;
             clickDown = true;
             deviceType = RayInputDevice.ControllerRight;
         }
@@ -102,35 +102,35 @@ public class HeadRay : MonoBehaviour, IPointingSource
                 startRelativeQuat = rotation;
                 if (hand.TryGetAngularVelocity(out angularVelocity))
                 {
-                    GainFunction.Instance.ResetFunction(angularVelocity);
+                    GainFunction.ResetFunction(angularVelocity);
                 }
                 else
                 {
-                    GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                    GainFunction.ResetFunction(startRelativeQuat, Time.time);
                 }
             }
             else
             {
                 startRelativeQuat = Quaternion.identity;
-                GainFunction.Instance.ResetFunction(startRelativeQuat, Time.time);
+                GainFunction.ResetFunction(startRelativeQuat, Time.time);
                 Debug.LogError("No start rotation data avaiable.");
                 return;
             }
         }
 
-        if (MyoPoseManager.Instance.Click)
+        if (MyoPoseManager.Click)
         {
-            hand = HandManager.Instance.MyoHand;
+            hand = HandManager.MyoHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
+        else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
         {
-            hand = HandManager.Instance.LeftHand;
+            hand = HandManager.LeftHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeRight") && !MyoPoseManager.Instance.useMyo)
+        else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
         {
-            hand = HandManager.Instance.RightHand;
+            hand = HandManager.RightHand;
             click = true;
         }
 
@@ -165,58 +165,78 @@ public class HeadRay : MonoBehaviour, IPointingSource
     /// </summary>
     public virtual void OnPreRaycast()
     {
-        if (head == null)
+        switch (InputSwitcher.InputMode)
         {
-            rays[0] = default(RayStep);
-        }
-        else
-        {
-            Hand hand = null;
-            bool click = false;
-            if (MyoPoseManager.Instance.Click)
-            {
-                hand = HandManager.Instance.MyoHand;
-                click = true;
-            }
-            else if (Input.GetButton("RelativeLeft") && !MyoPoseManager.Instance.useMyo)
-            {
-                hand = HandManager.Instance.LeftHand;
-                click = true;
-            }
-            else if (Input.GetButton("RelativeRight") && !MyoPoseManager.Instance.useMyo)
-            {
-                hand = HandManager.Instance.RightHand;
-                click = true;
-            }
-            if (click)
-            {
-                Quaternion quat;
-                if (hand.TryGetRotation(out quat))
+            case InputMode.Myo:
+            case InputMode.HeadHybrid:
+                if (head == null)
                 {
-                    SetRays(quat);
+                    rays[0] = default(RayStep);
                 }
-            }
-            else {
-                SetRays(head.transform.forward);
-            }
+                else
+                {
+                    Hand hand = null;
+                    bool click = false;
+                    if (MyoPoseManager.Click)
+                    {
+                        hand = HandManager.MyoHand;
+                        click = true;
+                    }
+                    else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.Myo)
+                    {
+                        hand = HandManager.LeftHand;
+                        click = true;
+                    }
+                    else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.Myo)
+                    {
+                        hand = HandManager.RightHand;
+                        click = true;
+                    }
+                    if (click)
+                    {
+                        Quaternion quat;
+                        if (hand.TryGetRotation(out quat))
+                        {
+                            SetRays(quat);
+                        }
+                    }
+                    else
+                    {
+                        SetRaysWithHeadAsOrigin(head.transform.forward);
+                    }
+                }
+                break;
+            case InputMode.Ray:
+                Vector3 forward;
+                Vector3 position;
+                if(HandManager.RayHand.TryGetForward(out forward) && HandManager.RayHand.TryGetPos(out position))
+                {
+                    SetRays(forward, position);
+                }
+                break;
         }
+        
     }
     private void SetRays(Quaternion roation)
     {
         roation = Quaternion.Inverse(startRelativeQuat) * roation;
-        Vector3 gazeDirection = head.transform.rotation * roation * Vector3.forward * GainFunction.Instance.RelativeFactor;
-        SetRays(gazeDirection);
+        Vector3 gazeDirection = head.transform.rotation * roation * Vector3.forward * GainFunction.RelativeFactor;
+        SetRaysWithHeadAsOrigin(gazeDirection);
+    }
+
+    private void SetRaysWithHeadAsOrigin(Vector3 direction)
+    {
+        Vector3 origin = head.transform.position + offsetDown * Vector3.down;
+        SetRays(direction, origin);
     }
 
     /// <summary>
     /// This method creates five rays to make pointing easier than with just one.
     /// </summary>
     /// <param name="direction"></param>
-    private void SetRays(Vector3 direction)
+    private void SetRays(Vector3 direction, Vector3 origin)
     {
         float spreadFactor = 0.02f;
-        Vector3 origin = head.transform.position + offsetDown * Vector3.down;
-
         Ray ray = new Ray(origin, direction);
         Ray rayUp = new Ray(origin + head.transform.up * spreadFactor, direction);
         Ray rayDown = new Ray(origin - head.transform.up * spreadFactor, direction);

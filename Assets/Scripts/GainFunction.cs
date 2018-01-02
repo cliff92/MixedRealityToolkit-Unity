@@ -37,14 +37,6 @@ public class GainFunction : MonoBehaviour
     private float primaryEndAvgVelTH = 0.85f;
     private float moveEndAvgVelTH = 0.1f;
 
-    public float CurrentVelocity
-    {
-        get
-        {
-            return currentVelocity;
-        }
-    }
-
     private void Awake()
     {
         Instance = this;
@@ -53,20 +45,6 @@ public class GainFunction : MonoBehaviour
     private void Start()
     {
         velocityRollingStats.Init(StoredSamples);
-        Reset();
-    }
-
-    public void ResetFunction(Vector3 currentAngularVelocity)
-    {
-        velocityRollingStats.Reset();
-        velocityRollingStats.AddSample(currentAngularVelocity.magnitude);
-        Reset();
-    }
-    public void ResetFunction(Quaternion currentRotation, float time)
-    {
-        lastRotationData = currentRotation;
-        lastTimeStep = time;
-        velocityRollingStats.Reset();
         Reset();
     }
 
@@ -113,7 +91,7 @@ public class GainFunction : MonoBehaviour
     //Angularvelocity in rad/s
     public void UpdateFunction(float currentAngularVelocity)
     {
-        if (MyoPoseManager.Instance.useMyo)
+        if (InputSwitcher.InputMode == InputMode.Myo)
         {
             SetMyoVariables();
         }
@@ -229,25 +207,43 @@ public class GainFunction : MonoBehaviour
         text.text = "State: " +state.ToString() +"\n Velocity: "+currentVelocity;
     }
 
-    public float RelativeFactor
+    public static void ResetFunction(Vector3 currentAngularVelocity)
+    {
+        Instance.velocityRollingStats.Reset();
+        Instance.velocityRollingStats.AddSample(currentAngularVelocity.magnitude);
+        Instance.Reset();
+    }
+    public static void ResetFunction(Quaternion currentRotation, float time)
+    {
+        Instance.lastRotationData = currentRotation;
+        Instance.lastTimeStep = time;
+        Instance.velocityRollingStats.Reset();
+        Instance.Reset();
+    }
+
+    public static float RelativeFactor
     {
         get
         {
-            AnimationCurve functionCurve = functionCurveController;
-            if (MyoPoseManager.Instance.useMyo)
+            AnimationCurve functionCurve; 
+            if (InputSwitcher.InputMode == InputMode.Myo)
             {
-                functionCurve = functionCurveMyo;
+                functionCurve = Instance.functionCurveMyo;
             }
-            switch (state)
+            else
+            {
+                functionCurve = Instance.functionCurveController;
+            }
+            switch (Instance.state)
             {
                 case MovementState.Idle:
-                    return functionCurve.Evaluate(counter/ 3 * 0.25f);
+                    return functionCurve.Evaluate(Instance.counter / 3 * 0.25f);
                 case MovementState.PrimarySubMovBegin:
-                    return functionCurve.Evaluate(0.25f + counter / 3 * 0.25f);
+                    return functionCurve.Evaluate(0.25f + Instance.counter / 3 * 0.25f);
                 case MovementState.PrimarySubMaxAfterMax:
-                    return functionCurve.Evaluate(0.5f + counter / 30 * 0.25f);
+                    return functionCurve.Evaluate(0.5f + Instance.counter / 30 * 0.25f);
                 case MovementState.PrimarySubMovEnd:
-                    return functionCurve.Evaluate(0.75f + counter / 10 * 0.25f);
+                    return functionCurve.Evaluate(0.75f + Instance.counter / 10 * 0.25f);
                 case MovementState.MovEnd:
                     return functionCurve.Evaluate(1);
                 default:
@@ -256,11 +252,19 @@ public class GainFunction : MonoBehaviour
         }
     }
 
-    public MovementState State
+    public static MovementState State
     {
         get
         {
-            return state;
+            return Instance.state;
+        }
+    }
+
+    public static float CurrentVelocity
+    {
+        get
+        {
+            return Instance.currentVelocity;
         }
     }
 }

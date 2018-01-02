@@ -18,6 +18,7 @@ public class HandManager : MonoBehaviour
     private Hand leftHand;
     private Hand rightHand;
 
+
     private void Awake()
     {
         Instance = this;
@@ -71,9 +72,10 @@ public class HandManager : MonoBehaviour
     private void UpdateHandViaController(Hand hand, InteractionSourceState sourceState)
     {
         hand.source = sourceState.source;
-        hand.isPosAvaiable = sourceState.sourcePose.TryGetPosition(out hand.pos);
-        hand.isRotAvaiable = sourceState.sourcePose.TryGetRotation(out hand.rotation, InteractionSourceNode.Pointer);
-        hand.isAngularVelAvaiable = sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
+        hand.isPosAvailable = sourceState.sourcePose.TryGetPosition(out hand.pos);
+        hand.isRotAvailable = sourceState.sourcePose.TryGetRotation(out hand.rotation, InteractionSourceNode.Pointer);
+        hand.isForwardAvailable = sourceState.sourcePose.TryGetForward(out hand.forward, InteractionSourceNode.Pointer);
+        hand.isAngularVelAvailable = sourceState.sourcePose.TryGetAngularVelocity(out hand.angularVelocity);
     }
 
     /// <summary>
@@ -83,7 +85,7 @@ public class HandManager : MonoBehaviour
     private void UpdateMyo()
     {
         myoHand.Reset();
-        switch (MyoPoseManager.Instance.Arm)
+        switch (MyoPoseManager.Arm)
         {
             case Thalmic.Myo.Arm.Right:
                 myoHand.handeness = Handeness.Right;
@@ -95,13 +97,13 @@ public class HandManager : MonoBehaviour
                 myoHand.handeness = Handeness.Unknown;
                 break;
         }
-        myoHand.rotation = MyoPoseManager.Instance.Rotation;
-        myoHand.isRotAvaiable = true;
-        myoHand.angularVelocity = MyoPoseManager.Instance.AngularVelocity;
-        myoHand.isAngularVelAvaiable = true;
+        myoHand.rotation = MyoPoseManager.Rotation;
+        myoHand.isRotAvailable = true;
+        myoHand.angularVelocity = MyoPoseManager.AngularVelocity;
+        myoHand.isAngularVelAvailable = true;
         myoHand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
         myoHand.isRollAroundZ = true;
-        isMyoTracked = MyoPoseManager.Instance.useMyo;
+        isMyoTracked = (InputSwitcher.InputMode == InputMode.Myo);
     }
 
     private void InteractionManager_InteractionSourceLost(InteractionSourceLostEventArgs obj)
@@ -128,51 +130,59 @@ public class HandManager : MonoBehaviour
     }
 
 
-    public bool IsLeftControllerTracked
+    public static bool IsLeftControllerTracked
     {
         get
         {
-            return isLeftControllerTracked;
+            return Instance.isLeftControllerTracked;
         }
     }
 
-    public bool IsRightControllerTracked
+    public static bool IsRightControllerTracked
     {
         get
         {
-            return isRightControllerTracked;
+            return Instance.isRightControllerTracked;
         }
     }
 
-    public Hand LeftHand
+    public static Hand LeftHand
     {
         get
         {
-            return leftHand;
+            return Instance.leftHand;
         }
     }
 
-    public Hand RightHand
+    public static Hand RightHand
     {
         get
         {
-            return rightHand;
+            return Instance.rightHand;
         }
     }
 
-    public Hand MyoHand
+    public static Hand RayHand
     {
         get
         {
-            return myoHand;
+            return Instance.rightHand;
         }
     }
 
-    public bool IsMyoTracked
+    public static Hand MyoHand
     {
         get
         {
-            return isMyoTracked;
+            return Instance.myoHand;
+        }
+    }
+
+    public static bool IsMyoTracked
+    {
+        get
+        {
+            return Instance.isMyoTracked;
         }
     }
 }
@@ -183,11 +193,13 @@ public class Hand
     internal Vector3 pos;
     internal Quaternion rotation;
     internal Vector3 angularVelocity;
+    internal Vector3 forward;
     internal float rollAroundZ;
-    internal bool isPosAvaiable;
-    internal bool isRotAvaiable;
-    internal bool isAngularVelAvaiable;
+    internal bool isPosAvailable;
+    internal bool isRotAvailable;
+    internal bool isAngularVelAvailable;
     internal bool isRollAroundZ;
+    internal bool isForwardAvailable;
     internal Handeness handeness;
 
     public Hand(Handeness handeness)
@@ -198,17 +210,23 @@ public class Hand
     public bool TryGetPos(out Vector3 position)
     {
         position = pos;
-        return isPosAvaiable;
+        return isPosAvailable;
     }
     public bool TryGetRotation(out Quaternion rotation)
     {
         rotation = this.rotation;
-        return isRotAvaiable;
+        return isRotAvailable;
     }
     public bool TryGetAngularVelocity(out Vector3 angularVelocity)
     {
         angularVelocity = this.angularVelocity;
-        return isAngularVelAvaiable;
+        return isAngularVelAvailable;
+    }
+
+    public bool TryGetForward(out Vector3 forward)
+    {
+        forward = this.forward;
+        return isForwardAvailable;
     }
 
     public bool TryGetRotationAroundZ(out float angle)
@@ -236,10 +254,11 @@ public class Hand
 
     public void Reset()
     {
-        isPosAvaiable = false;
-        isRotAvaiable = false;
-        isAngularVelAvaiable = false;
+        isPosAvailable = false;
+        isRotAvailable = false;
+        isAngularVelAvailable = false;
         isRollAroundZ = false;
+        isForwardAvailable = false;
     }
 }
 

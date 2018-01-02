@@ -20,19 +20,19 @@ public class TargetManager : MonoBehaviour
     public GameObject targetPrefab;
     private int targetId = 0;
 
-    public GameObject[] TargetArray
+    public static GameObject[] TargetArray
     {
         get
         {
-            return targetArray;
+            return Instance.targetArray;
         }
     }
 
-    private int TargetId
+    private static int TargetId
     {
         get
         {
-            return targetId++;
+            return Instance.targetId++;
         }
     }
 
@@ -65,7 +65,7 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void LeftClick(GameObject currentFocusedObject)
+    public static void LeftClick(GameObject currentFocusedObject)
     {
         if (currentFocusedObject == null)
             return;
@@ -75,16 +75,16 @@ public class TargetManager : MonoBehaviour
             target.State = TargetState.Disabled;
             target.LogClick();
             currentFocusedObject.SetActive(false);
-            if (MyoPoseManager.Instance.useMyo)
+            if (InputSwitcher.InputMode == InputMode.Myo)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
             else
             {
-                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+                HandManager.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.RightHand.Virbrate(0.5f, 0.5f);
             }
-            correctSound.Play();
+            Instance.correctSound.Play();
             SpawnTarget(currentFocusedObject.transform.position);
         }
         else
@@ -93,11 +93,11 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public void AttachTargetToDepthMarker(GameObject currentFocusedObject, Handeness handenessDidNotClicked)
+    public static void AttachTargetToDepthMarker(GameObject currentFocusedObject, Handeness handenessDidNotClicked)
     {
-        if (currentlyAttachedObj == currentFocusedObject)
+        if (Instance.currentlyAttachedObj == currentFocusedObject)
             return;
-        else if(currentlyAttachedObj!=null)
+        else if(Instance.currentlyAttachedObj !=null)
         {
             DetachTargetFromDepthMarker();
         }
@@ -109,47 +109,47 @@ public class TargetManager : MonoBehaviour
                 DepthRayManager.Instance.MoveDepthMarkerToFocus();
                 target.State = TargetState.Drag;
                 target.HandnessDidNotClick = handenessDidNotClicked;
-                currentlyAttachedObj = currentFocusedObject;
+                Instance.currentlyAttachedObj = currentFocusedObject;
             }
-            if (MyoPoseManager.Instance.useMyo)
+            if (InputSwitcher.InputMode == InputMode.Myo)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
             else
             {
-                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+                HandManager.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.RightHand.Virbrate(0.5f, 0.5f);
             }
-            correctSound.Play();
+            Instance.correctSound.Play();
         }
     }
-    public void DetachTargetFromDepthMarker()
+    public static void DetachTargetFromDepthMarker()
     {
-        if (currentlyAttachedObj != null)
+        if (Instance.currentlyAttachedObj != null)
         {
-            Target target = currentlyAttachedObj.GetComponent<Target>();
+            Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
             target.UpdateTransparancy();
-            if (MyoPoseManager.Instance.useMyo)
+            if (InputSwitcher.InputMode == InputMode.Myo)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
             else
             {
-                HandManager.Instance.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.Instance.RightHand.Virbrate(0.5f, 0.5f);
+                HandManager.LeftHand.Virbrate(0.5f, 0.5f);
+                HandManager.RightHand.Virbrate(0.5f, 0.5f);
             }
-            correctSound.Play();
-            currentlyAttachedObj = null;
+            Instance.correctSound.Play();
+            Instance.currentlyAttachedObj = null;
         }
     }
 
-    public void SpawnTarget(Vector3 posLastTarget)
+    public static void SpawnTarget(Vector3 posLastTarget)
     {
         Vector3 headPos = HeadRay.Instance.head.transform.position;
         Vector3 headForward = HeadRay.Instance.head.transform.forward;
 
-        GameObject newTarget = Instantiate(targetPrefab, targets.transform);
+        GameObject newTarget = Instantiate(Instance.targetPrefab, Instance.targets.transform);
         string id = string.Format("{0,3:000}", TargetId);
         newTarget.name = "Target_"+ id;
         newTarget.GetComponent<Target>().PosLastTarget = posLastTarget;

@@ -20,15 +20,15 @@ public class VelocityHandler
         float timeStemp = Time.time;
         Vector3 angularVelocity;
 
-        if (HandManager.Instance.MyoHand.TryGetAngularVelocity(out angularVelocity))
+        if (HandManager.MyoHand.TryGetAngularVelocity(out angularVelocity))
         {
             velocityListMyo.Add(new VelocityWithTimeStep(angularVelocity.magnitude, timeStemp));
         }
-        if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity))
+        if (HandManager.LeftHand.TryGetAngularVelocity(out angularVelocity))
         {
             velocityListLeft.Add(new VelocityWithTimeStep(angularVelocity.magnitude, timeStemp));
         }
-        if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity))
+        if (HandManager.RightHand.TryGetAngularVelocity(out angularVelocity))
         {
             velocityListRight.Add(new VelocityWithTimeStep(angularVelocity.magnitude, timeStemp));
         }

@@ -9,7 +9,6 @@ public class MyoPoseManager : MonoBehaviour
     public static MyoPoseManager Instance;
 
     public GameObject myo = null;
-    public bool useMyo = false;
     private ThalmicMyo thalmicMyo;
 
     // The pose from the last update. This is used to determine if the pose has changed
@@ -72,14 +71,9 @@ public class MyoPoseManager : MonoBehaviour
     private void Update()
     {
         Reset();
-
-        if (Input.GetButtonUp("Switch"))
-        {
-            useMyo = !useMyo;
-        }
         
         currentPose = thalmicMyo.pose;
-        if (useMyo)
+        if (InputSwitcher.InputMode == InputMode.Myo)
         {
             UpdatePose();
         }
@@ -321,228 +315,228 @@ public class MyoPoseManager : MonoBehaviour
         referenceRoll = rollFromZero(referenceZeroRoll, myo.transform.forward, myo.transform.up);
     }
 
-    public Arm Arm
+    public static Arm Arm
     {
         get
         {
-            return thalmicMyo.arm;
+            return Instance.thalmicMyo.arm;
         }
     }
 
-    public Quaternion Rotation
+    public static Quaternion Rotation
     {
         get
         {
-            return transform.rotation;
+            return Instance.transform.rotation;
         }
     }
 
     /// <summary>
     /// Velocity in radians
     /// </summary>
-    public Vector3 AngularVelocity
+    public static Vector3 AngularVelocity
     {
         get
         {
-            return thalmicMyo.gyroscope * Mathf.Deg2Rad;
+            return Instance.thalmicMyo.gyroscope * Mathf.Deg2Rad;
         }
     }
 
-    public bool FistDown
+    public static bool FistDown
     {
         get
         {
-            if(useMyo)
-                return fistDown;
+            if(InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fistDown;
             return false;
         }
     }
 
-    public bool Fist
+    public static bool Fist
     {
         get
         {
-            if (useMyo)
-                return fist;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fist;
             return false;
         }
     }
 
-    public bool FistUp
+    public static bool FistUp
     {
         get
         {
-            if (useMyo)
-                return fistUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fistUp;
             return false;
         }
     }
 
-    public bool DoubleTap
+    public static bool DoubleTap
     {
         get
         {
-            if (useMyo)
-                return doubleTap;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.doubleTap;
             return false;
         }
     }
 
-    public bool DoubleTapUp
+    public static bool DoubleTapUp
     {
         get
         {
-            if (useMyo)
-                return doubleTapUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.doubleTapUp;
             return false;
         }
     }
 
-    public bool DoubleTapDown
+    public static bool DoubleTapDown
     {
         get
         {
-            if (useMyo)
-                return doubleTapDown;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.doubleTapDown;
             return false;
         }
     }
 
-    public bool WaveIn
+    public static bool WaveIn
     {
         get
         {
-            if (useMyo)
-                return waveIn;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveIn;
             return false;
         }
     }
 
-    public bool WaveInUp
+    public static bool WaveInUp
     {
         get
         {
-            if (useMyo)
-                return waveInUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveInUp;
             return false;
         }
     }
 
-    public bool WaveInDown
+    public static bool WaveInDown
     {
         get
         {
-            if (useMyo)
-                return waveInDown;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveInDown;
             return false;
         }
     }
 
-    public bool WaveOut
+    public static bool WaveOut
     {
         get
         {
-            if (useMyo)
-                return waveOut;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveOut;
             return false;
         }
     }
 
-    public bool WaveOutUp
+    public static bool WaveOutUp
     {
         get
         {
-            if (useMyo)
-                return waveOutUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveOutUp;
             return false;
         }
     }
 
-    public bool WaveOutDown
+    public static bool WaveOutDown
     {
         get
         {
-            if (useMyo)
-                return waveOutDown;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.waveOutDown;
             return false;
         }
     }
 
-    public bool FingersSpread
+    public static bool FingersSpread
     {
         get
         {
-            if (useMyo)
-                return fingersSpread;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fingersSpread;
             return false;
         }
     }
 
-    public bool FingersSpreadUp
+    public static bool FingersSpreadUp
     {
         get
         {
-            if (useMyo)
-                return fingersSpreadUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fingersSpreadUp;
             return false;
         }
     }
 
-    public bool FingersSpreadDown
+    public static bool FingersSpreadDown
     {
         get
         {
-            if (useMyo)
-                return fingersSpreadDown;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.fingersSpreadDown;
             return false;
         }
     }
 
-    public bool Rest
+    public static bool Rest
     {
         get
         {
-            if (useMyo)
-                return rest;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.rest;
             return false;
         }
     }
 
-    public bool RestUp
+    public static bool RestUp
     {
         get
         {
-            if (useMyo)
-                return restUp;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.restUp;
             return false;
         }
     }
 
-    public bool RestDown
+    public static bool RestDown
     {
         get
         {
-            if (useMyo)
-                return restDown;
+            if (InputSwitcher.InputMode == InputMode.Myo)
+                return Instance.restDown;
             return false;
         }
     }
 
-    public bool Click
+    public static bool Click
     {
         get
         {
             return FingersSpread;
         }
     }
-    public bool ClickUp
+    public static bool ClickUp
     {
         get
         {
             return FingersSpreadUp;
         }
     }
-    public bool ClickDown
+    public static bool ClickDown
     {
         get
         {
@@ -550,7 +544,7 @@ public class MyoPoseManager : MonoBehaviour
         }
     }
 
-    public bool Jump
+    public static bool Jump
     {
         get
         {

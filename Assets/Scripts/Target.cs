@@ -20,10 +20,8 @@ public class Target : MonoBehaviour
 
     private float startTime;
 
-    private Renderer rend;
     private void Awake()
     {
-        rend = GetComponent<Renderer>();
         material = GetComponent<Renderer>().material;
         defaultColor = material.color;
         state = TargetState.Default;
@@ -194,9 +192,9 @@ public class Target : MonoBehaviour
         set
         {
             if(value == Handeness.Left)
-                handDidNotClick = HandManager.Instance.LeftHand;
+                handDidNotClick = HandManager.LeftHand;
             else if (value == Handeness.Right)
-                handDidNotClick = HandManager.Instance.RightHand;
+                handDidNotClick = HandManager.RightHand;
         }
     }
 

@@ -56,23 +56,23 @@ public class DepthRayManager : MonoBehaviour
         HeadRay.Instance.OnPreRaycast();
 
         float rotationAngle;
-        if (HandManager.Instance.IsMyoTracked)
+        if (HandManager.IsMyoTracked)
         {
-            if (ClickManager.Instance.IsClick && HandManager.Instance.MyoHand.TryGetRotationAroundZ(out rotationAngle))
+            if (ClickManager.IsClick && HandManager.MyoHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
         }
         else
         {
-            if (ClickManager.Instance.IsClick && HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
+            if (ClickManager.IsClick && HandManager.RightHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
         }
         
 
-        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Instance.Jump)
+        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Jump)
         {
             MoveDepthMarkerToFocus();
         }
@@ -113,7 +113,7 @@ public class DepthRayManager : MonoBehaviour
         Vector3 origin = pointer.StartPoint;
 
         float stepsize = 0;
-        if (MyoPoseManager.Instance.useMyo)
+        if (InputSwitcher.InputMode == InputMode.Myo)
         {
             if (rotationAngle > 0 && rotationAngle < 180)
             {

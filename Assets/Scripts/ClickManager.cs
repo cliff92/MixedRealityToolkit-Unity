@@ -84,7 +84,7 @@ public class ClickManager : MonoBehaviour
 
     private void CheckReset()
     {
-        if (Input.GetButtonUp("Reset") || MyoPoseManager.Instance.DoubleTapUp)
+        if (Input.GetButtonUp("Reset") || MyoPoseManager.DoubleTapUp)
         {
             OnReset();
             DepthRayManager.Instance.MoveDepthMarkerToUser();
@@ -97,7 +97,7 @@ public class ClickManager : MonoBehaviour
     /// </summary>
     private void CheckLeftClick()
     {
-        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.Instance.ClickUp)
+        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.ClickUp)
         {
             if(currentFocusedObject != null)
             {
@@ -109,7 +109,7 @@ public class ClickManager : MonoBehaviour
                 if (target.LastTimeInFocus > Time.time - delayClickTime)
                 {
                     bool click = false;
-                    if (MyoPoseManager.Instance.ClickUp 
+                    if (MyoPoseManager.ClickUp 
                         && !velocityHandler.VelocityWasOverThSinceTimeStempMyo(target.LastTimeInFocus))
                     {
                         click = true;
@@ -132,7 +132,7 @@ public class ClickManager : MonoBehaviour
             else if(targetsInFoucsSinceLastClickDown.Count > 1)
             {
                 float timeStempWithMinVel = -1;
-                if(MyoPoseManager.Instance.ClickUp)
+                if(MyoPoseManager.ClickUp)
                 {
                     timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelMyo();
                 }
@@ -161,7 +161,7 @@ public class ClickManager : MonoBehaviour
                 }
             }
             else{
-                TargetManager.Instance.DetachTargetFromDepthMarker();
+                TargetManager.DetachTargetFromDepthMarker();
             }
             //Reset list
             targetsInFoucsSinceLastClickDown = new List<Target>();
@@ -175,11 +175,11 @@ public class ClickManager : MonoBehaviour
     private void CheckRightClick()
     {
         float timeRightClick = timeRightClickController;
-        if (MyoPoseManager.Instance.useMyo)
+        if (InputSwitcher.InputMode == InputMode.Myo)
         {
             timeRightClick = timeRightClickMyo;
         }
-        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click)
+        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Click)
         {
             isClick = true;
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
@@ -190,13 +190,13 @@ public class ClickManager : MonoBehaviour
                 if (timeTargetInFocusAndButtonDown > timeRightClick)
                 {
                     OnRightClick(currentFocusedObject);
-                    if (Input.GetButton("RelativeLeft") || MyoPoseManager.Instance.Arm == Thalmic.Myo.Arm.Left)
+                    if (Input.GetButton("RelativeLeft") || MyoPoseManager.Arm == Thalmic.Myo.Arm.Left)
                     {
-                        TargetManager.Instance.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Right);
+                        TargetManager.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Right);
                     }
                     else
                     {
-                        TargetManager.Instance.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Left);
+                        TargetManager.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Left);
                     }
                     timeTargetInFocusAndButtonDown = -1;
                 }
@@ -233,21 +233,21 @@ public class ClickManager : MonoBehaviour
                         case RayInputDevice.Unknown:
                             break;
                         case RayInputDevice.Myo:
-                            if (HandManager.Instance.MyoHand.TryGetAngularVelocity(out angularVelocity)
-                                && angularVelocity.magnitude < 0.5f && MyoPoseManager.Instance.Click)
+                            if (HandManager.MyoHand.TryGetAngularVelocity(out angularVelocity)
+                                && angularVelocity.magnitude < 0.5f && MyoPoseManager.Click)
                             {
                                 update = true;
                             }
                             break;
                         case RayInputDevice.ControllerLeft:
-                            if (HandManager.Instance.LeftHand.TryGetAngularVelocity(out angularVelocity)
+                            if (HandManager.LeftHand.TryGetAngularVelocity(out angularVelocity)
                                 && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeLeft"))
                             {
                                 update = true;
                             }
                             break;
                         case RayInputDevice.ControllerRight:
-                            if (HandManager.Instance.RightHand.TryGetAngularVelocity(out angularVelocity)
+                            if (HandManager.RightHand.TryGetAngularVelocity(out angularVelocity)
                                 && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeRight"))
                             {
                                 update = true;
@@ -304,11 +304,11 @@ public class ClickManager : MonoBehaviour
     }
 
 
-    public bool IsClick
+    public static bool IsClick
     {
         get
         {
-            return isClick;
+            return Instance.isClick;
         }
     }
 
