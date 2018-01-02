@@ -9,7 +9,6 @@ public class DepthRayManager : MonoBehaviour
 
     public GameObject rayVisual;
     public GameObject depthMarker;
-    public Material rayMaterial;
 
     public float pointingExtent = 100;
 
@@ -46,7 +45,7 @@ public class DepthRayManager : MonoBehaviour
     private void StartUp()
     {
         HeadRay.Instance.OnPreRaycast();
-        MoveDepthMarker();
+        MoveAndScaleDepthMarker();
         MoveRayVisual();
         SelectObject();
         UpdateFocusedObjects();
@@ -59,14 +58,14 @@ public class DepthRayManager : MonoBehaviour
         float rotationAngle;
         if (HandManager.Instance.IsMyoTracked)
         {
-            if (HandManager.Instance.MyoHand.TryGetRotationAroundZ(out rotationAngle))
+            if (ClickManager.Instance.IsClick && HandManager.Instance.MyoHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
         }
         else
         {
-            if (HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
+            if (ClickManager.Instance.IsClick && HandManager.Instance.RightHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
@@ -78,14 +77,14 @@ public class DepthRayManager : MonoBehaviour
             MoveDepthMarkerToFocus();
         }
 
-        MoveDepthMarker();
+        MoveAndScaleDepthMarker();
         MoveRayVisual();
 
         SelectObject();
         UpdateFocusedObjects();
     }
 
-    private void MoveDepthMarker()
+    private void MoveAndScaleDepthMarker()
     {
         Vector3 origin = HeadRay.Instance.Rays[0].origin;
         Vector3 direction = HeadRay.Instance.Rays[0].direction;
@@ -94,6 +93,9 @@ public class DepthRayManager : MonoBehaviour
 
         depthMarker.transform.position = newPos;
         depthMarker.transform.rotation = Quaternion.LookRotation(direction);
+
+        //Scale depthmarker based on distance to origin
+        depthMarker.transform.localScale = new Vector3(1, 1, 1) * Mathf.Sqrt(Vector3.Distance(newPos, origin));
     }
 
     private void MoveRayVisual()
@@ -107,6 +109,7 @@ public class DepthRayManager : MonoBehaviour
 
     private void MoveDepthRayRelZ(int rotationAngle)
     {
+        //change position
         Vector3 origin = pointer.StartPoint;
 
         float stepsize = 0;
@@ -138,6 +141,8 @@ public class DepthRayManager : MonoBehaviour
             && Vector3.Distance(newPos, origin) < 0.5f)
             return;
         depthMarker.transform.position = newPos;
+
+        
     }
 
     public void MoveDepthMarkerToFocus()
@@ -336,16 +341,6 @@ public class DepthRayManager : MonoBehaviour
                 RaiseFocusEnteredEvents(pointer.End.Object);
             }
         }
-    }
-    /// <summary>
-    /// Transparency from 0 to 255
-    /// </summary>
-    /// <param name="transparency"></param>
-    public void UpdateTransparencyRay(int transparency)
-    {
-        Color color = rayMaterial.color;
-        color.a = transparency / 255f;
-        rayMaterial.color = color;
     }
 
     #region events

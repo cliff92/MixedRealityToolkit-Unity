@@ -40,6 +40,8 @@ public class ClickManager : MonoBehaviour
 
     private float timeTargetInFocusAndButtonDown;
 
+    private bool isClick;
+
     public GameObject CurrentFocusedObject
     {
         get
@@ -179,6 +181,7 @@ public class ClickManager : MonoBehaviour
         }
         if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Instance.Click)
         {
+            isClick = true;
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
             if (timeTargetInFocusAndButtonDown >= 0 && currentFocusedObject != null)
             {
@@ -201,6 +204,7 @@ public class ClickManager : MonoBehaviour
         }
         else
         {
+            isClick = false;
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
         }
     }
@@ -282,7 +286,9 @@ public class ClickManager : MonoBehaviour
     private void OnLeftClick(GameObject target)
     {
         if (LeftClick != null)
+        {
             LeftClick(target);
+        }
     }
 
     private void OnRightClick(GameObject target)
@@ -295,6 +301,15 @@ public class ClickManager : MonoBehaviour
     {
         if (Reset != null)
             Reset();
+    }
+
+
+    public bool IsClick
+    {
+        get
+        {
+            return isClick;
+        }
     }
 
     /*private void CheckHandTwist()

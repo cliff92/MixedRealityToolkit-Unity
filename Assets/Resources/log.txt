@@ -1,0 +1,3019 @@
+New Run
+
+Cube was clicked at 18.48765
+ Time since Instantiate: 18.48765
+ Bounding Rect Area 1316.297
+ Screen Position (968.2, -150.8)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 4789.172
+
+Target_000 was clicked at 20.19863
+ Time since Instantiate: 1.710985
+ Bounding Rect Area 601.3416
+ Screen Position (827.7, -266.2)
+ Distance from last Target 5.681267
+ Distance from last Target Screen 615.0129
+
+Target_001 was clicked at 21.68756
+ Time since Instantiate: 1.488926
+ Bounding Rect Area 720.9745
+ Screen Position (966.6, -234.5)
+ Distance from last Target 4.962982
+ Distance from last Target Screen 537.3
+
+Target_002 was clicked at 22.87597
+ Time since Instantiate: 1.188408
+ Bounding Rect Area 521.8389
+ Screen Position (804.4, -275.1)
+ Distance from last Target 2.865133
+ Distance from last Target Screen 215.7653
+
+Target_003 was clicked at 25.29841
+ Time since Instantiate: 2.422443
+ Bounding Rect Area 643.5409
+ Screen Position (903.3, -384.1)
+ Distance from last Target 6.78299
+ Distance from last Target Screen 663.4525
+
+Target_004 was clicked at 27.6091
+ Time since Instantiate: 2.31069
+ Bounding Rect Area 194.4039
+ Screen Position (843.5, -270.8)
+ Distance from last Target 7.764216
+ Distance from last Target Screen 582.842
+
+Target_005 was clicked at 29.86562
+ Time since Instantiate: 2.256521
+ Bounding Rect Area 260.658
+ Screen Position (837.4, -238.4)
+ Distance from last Target 2.297742
+ Distance from last Target Screen 71.47341
+
+Target_006 was clicked at 31.43161
+ Time since Instantiate: 1.565994
+ Bounding Rect Area 160.7881
+ Screen Position (886.4, -184.6)
+ Distance from last Target 3.139752
+ Distance from last Target Screen 193.0264
+
+Target_007 was clicked at 33.22134
+ Time since Instantiate: 1.78973
+ Bounding Rect Area 787.0225
+ Screen Position (743.6, -382.5)
+ Distance from last Target 7.055565
+ Distance from last Target Screen 452.5935
+
+Target_008 was clicked at 35.06599
+ Time since Instantiate: 1.844643
+ Bounding Rect Area 146.5
+ Screen Position (890.1, -502.7)
+ Distance from last Target 11.78089
+ Distance from last Target Screen 271.0055
+
+Target_009 was clicked at 37.24339
+ Time since Instantiate: 2.177399
+ Bounding Rect Area 171.7231
+ Screen Position (1051.4, -314.1)
+ Distance from last Target 10.41012
+ Distance from last Target Screen 478.8969
+
+Target_010 was clicked at 39.32116
+ Time since Instantiate: 2.07777
+ Bounding Rect Area 141.78
+ Screen Position (883.0, -189.7)
+ Distance from last Target 9.714254
+ Distance from last Target Screen 565.6511
+
+Target_011 was clicked at 40.77638
+ Time since Instantiate: 1.455227
+ Bounding Rect Area 270.6655
+ Screen Position (736.3, -167.2)
+ Distance from last Target 7.747838
+ Distance from last Target Screen 435.9134
+
+Target_012 was clicked at 45.83229
+ Time since Instantiate: 5.055904
+ Bounding Rect Area 283.9883
+ Screen Position (954.9, -311.2)
+ Distance from last Target 8.314322
+ Distance from last Target Screen 685.9688
+
+Target_013 was clicked at 50.14295
+ Time since Instantiate: 4.310665
+ Bounding Rect Area 137.8104
+ Screen Position (1024.9, -329.0)
+ Distance from last Target 12.40794
+ Distance from last Target Screen 480.1258
+
+Target_014 was clicked at 52.48747
+ Time since Instantiate: 2.344517
+ Bounding Rect Area 1950.612
+ Screen Position (804.0, -166.2)
+ Distance from last Target 18.40724
+ Distance from last Target Screen 2088.429
+
+Target_015 was clicked at 55.75366
+ Time since Instantiate: 3.26619
+ Bounding Rect Area 332.9724
+ Screen Position (863.5, -485.4)
+ Distance from last Target 11.29602
+ Distance from last Target Screen 540.8524
+
+Target_016 was clicked at 57.9883
+ Time since Instantiate: 2.234638
+ Bounding Rect Area 100.3195
+ Screen Position (973.4, -350.6)
+ Distance from last Target 12.40169
+ Distance from last Target Screen 753.0057
+
+Target_017 was clicked at 60.82052
+ Time since Instantiate: 2.832226
+ Bounding Rect Area 521.9572
+ Screen Position (907.2, -356.2)
+ Distance from last Target 11.23908
+ Distance from last Target Screen 150.1602
+
+Target_018 was clicked at 62.198
+ Time since Instantiate: 1.377476
+ Bounding Rect Area 730.9692
+ Screen Position (882.1, -448.5)
+ Distance from last Target 1.727159
+ Distance from last Target Screen 170.1612
+
+Target_019 was clicked at 63.70982
+ Time since Instantiate: 1.511826
+ Bounding Rect Area 4700.09
+ Screen Position (1116.2, -74.8)
+ Distance from last Target 6.981178
+ Distance from last Target Screen 902.4287
+
+Target_020 was clicked at 67.36455
+ Time since Instantiate: 3.654724
+ Bounding Rect Area 310.7727
+ Screen Position (1008.4, -364.3)
+ Distance from last Target 12.3146
+ Distance from last Target Screen 691.8348
+
+Target_021 was clicked at 71.33151
+ Time since Instantiate: 3.966965
+ Bounding Rect Area 68.91593
+ Screen Position (882.4, -168.3)
+ Distance from last Target 16.24625
+ Distance from last Target Screen 1196.023
+
+Target_022 was clicked at 73.08694
+ Time since Instantiate: 1.755432
+ Bounding Rect Area 205.3491
+ Screen Position (893.6, -384.2)
+ Distance from last Target 7.561879
+ Distance from last Target Screen 222.9229
+
+Target_023 was clicked at 75.25347
+ Time since Instantiate: 2.166527
+ Bounding Rect Area 107.7542
+ Screen Position (806.5, -200.7)
+ Distance from last Target 10.347
+ Distance from last Target Screen 542.9132
+
+Target_024 was clicked at 77.12035
+ Time since Instantiate: 1.866875
+ Bounding Rect Area 220.6425
+ Screen Position (822.9, -318.0)
+ Distance from last Target 5.036803
+ Distance from last Target Screen 192.8128
+
+Target_025 was clicked at 78.77565
+ Time since Instantiate: 1.655304
+ Bounding Rect Area 861.8027
+ Screen Position (995.1, -312.0)
+ Distance from last Target 11.02112
+ Distance from last Target Screen 813.2189
+
+Target_026 was clicked at 85.47548
+ Time since Instantiate: 6.699829
+ Bounding Rect Area 128.4827
+ Screen Position (905.1, -271.0)
+ Distance from last Target 14.94351
+ Distance from last Target Screen 741.6897
+
+Target_027 was clicked at 87.23074
+ Time since Instantiate: 1.755264
+ Bounding Rect Area 379.3622
+ Screen Position (970.5, -256.5)
+ Distance from last Target 12.43227
+ Distance from last Target Screen 467.0181
+
+Target_028 was clicked at 88.97607
+ Time since Instantiate: 1.745323
+ Bounding Rect Area 78.6303
+ Screen Position (949.9, -148.9)
+ Distance from last Target 10.98254
+ Distance from last Target Screen 259.7471
+
+Target_029 was clicked at 90.70856
+ Time since Instantiate: 1.732491
+ Bounding Rect Area 345.7999
+ Screen Position (837.3, -193.7)
+ Distance from last Target 11.92929
+ Distance from last Target Screen 383.1411
+
+Target_030 was clicked at 92.45318
+ Time since Instantiate: 1.744621
+ Bounding Rect Area 443.204
+ Screen Position (984.4, -176.9)
+ Distance from last Target 3.774807
+ Distance from last Target Screen 315.3549
+
+Target_031 was clicked at 93.66617
+ Time since Instantiate: 1.21299
+ Bounding Rect Area 4171.878
+ Screen Position (891.2, -361.5)
+ Distance from last Target 5.298361
+ Distance from last Target Screen 262.6551
+
+Target_032 was clicked at 95.58649
+ Time since Instantiate: 1.920319
+ Bounding Rect Area 191.3356
+ Screen Position (894.6, -402.5)
+ Distance from last Target 12.12411
+ Distance from last Target Screen 203.4135
+
+Target_033 was clicked at 97.19732
+ Time since Instantiate: 1.610832
+ Bounding Rect Area 627.2341
+ Screen Position (1048.5, -325.4)
+ Distance from last Target 10.01164
+ Distance from last Target Screen 576.5106
+
+Target_034 was clicked at 98.51951
+ Time since Instantiate: 1.322189
+ Bounding Rect Area 1456.209
+ Screen Position (1041.2, -178.4)
+ Distance from last Target 4.410888
+ Distance from last Target Screen 216.7846
+
+Target_035 was clicked at 99.68616
+ Time since Instantiate: 1.166649
+ Bounding Rect Area 2287.728
+ Screen Position (1063.0, -351.4)
+ Distance from last Target 1.951119
+ Distance from last Target Screen 296.3474
+
+Target_036 was clicked at 100.8528
+ Time since Instantiate: 1.166611
+ Bounding Rect Area 3028.461
+ Screen Position (943.0, -435.7)
+ Distance from last Target 2.742452
+ Distance from last Target Screen 477.6623
+
+Target_037 was clicked at 103.0305
+ Time since Instantiate: 2.177734
+ Bounding Rect Area 326.5217
+ Screen Position (951.2, -357.3)
+ Distance from last Target 8.149436
+ Distance from last Target Screen 190.5308
+
+Target_038 was clicked at 105.8418
+ Time since Instantiate: 2.811325
+ Bounding Rect Area 5943.868
+ Screen Position (867.5, -417.1)
+ Distance from last Target 9.578408
+ Distance from last Target Screen 467.448
+
+Target_039 was clicked at 109.3752
+ Time since Instantiate: 3.533409
+ Bounding Rect Area 242.5365
+ Screen Position (923.5, -308.6)
+ Distance from last Target 12.15115
+ Distance from last Target Screen 898.3286
+
+Target_040 was clicked at 114.319
+ Time since Instantiate: 4.943733
+ Bounding Rect Area 92.85513
+ Screen Position (885.3, -179.8)
+ Distance from last Target 15.81325
+ Distance from last Target Screen 1081.996
+
+Target_041 was clicked at 116.3414
+ Time since Instantiate: 2.022423
+ Bounding Rect Area 989.5829
+ Screen Position (992.0, -316.4)
+ Distance from last Target 16.3241
+ Distance from last Target Screen 911.9871
+
+Target_042 was clicked at 118.4303
+ Time since Instantiate: 2.088882
+ Bounding Rect Area 4266.764
+ Screen Position (837.0, -37.0)
+ Distance from last Target 6.848314
+ Distance from last Target Screen 1967.36
+
+Target_043 was clicked at 119.8645
+ Time since Instantiate: 1.434273
+ Bounding Rect Area 898.2844
+ Screen Position (859.4, -326.9)
+ Distance from last Target 5.102507
+ Distance from last Target Screen 520.8691
+
+Target_044 was clicked at 122.1523
+ Time since Instantiate: 2.287773
+ Bounding Rect Area 573.8397
+ Screen Position (919.3, -273.3)
+ Distance from last Target 6.226047
+ Distance from last Target Screen 672.5912
+
+Target_045 was clicked at 123.5299
+ Time since Instantiate: 1.377586
+ Bounding Rect Area 995.3597
+ Screen Position (973.7, -311.9)
+ Distance from last Target 2.842282
+ Distance from last Target Screen 200.8132
+
+Target_046 was clicked at 125.4301
+ Time since Instantiate: 1.900177
+ Bounding Rect Area 818.0177
+ Screen Position (869.1, -329.9)
+ Distance from last Target 5.978256
+ Distance from last Target Screen 937.8704
+
+Target_047 was clicked at 126.9187
+ Time since Instantiate: 1.48864
+ Bounding Rect Area 414.2141
+ Screen Position (847.7, -238.0)
+ Distance from last Target 2.392071
+ Distance from last Target Screen 120.7592
+
+Target_048 was clicked at 129.7085
+ Time since Instantiate: 2.789818
+ Bounding Rect Area 312.2564
+ Screen Position (903.3, -137.7)
+ Distance from last Target 2.523896
+ Distance from last Target Screen 205.7532
+
+Target_049 was clicked at 130.8749
+ Time since Instantiate: 1.166321
+ Bounding Rect Area 1613.23
+ Screen Position (948.4, -103.1)
+ Distance from last Target 5.095721
+ Distance from last Target Screen 122.7726
+
+Target_050 was clicked at 132.3299
+ Time since Instantiate: 1.455032
+ Bounding Rect Area 985.2876
+ Screen Position (858.2, -388.4)
+ Distance from last Target 4.56727
+ Distance from last Target Screen 512.1067
+
+Target_051 was clicked at 134.8749
+ Time since Instantiate: 2.545013
+ Bounding Rect Area 538.8007
+ Screen Position (859.5, -103.8)
+ Distance from last Target 4.957253
+ Distance from last Target Screen 544.6393
+
+Target_052 was clicked at 137.5858
+ Time since Instantiate: 2.710907
+ Bounding Rect Area 4033.235
+ Screen Position (893.9, 43.8)
+ Distance from last Target 6.522435
+ Distance from last Target Screen 788.835
+
+Target_053 was clicked at 139.6075
+ Time since Instantiate: 2.021637
+ Bounding Rect Area 149.7228
+ Screen Position (954.3, -298.0)
+ Distance from last Target 14.42444
+ Distance from last Target Screen 762.4996
+
+Target_054 was clicked at 141.5851
+ Time since Instantiate: 1.977692
+ Bounding Rect Area 4467.561
+ Screen Position (843.3, -159.3)
+ Distance from last Target 14.7365
+ Distance from last Target Screen 1227.352
+
+Target_055 was clicked at 143.7518
+ Time since Instantiate: 2.166641
+ Bounding Rect Area 113.7277
+ Screen Position (980.3, -142.5)
+ Distance from last Target 14.30904
+ Distance from last Target Screen 762.1419
+
+Target_056 was clicked at 145.3963
+ Time since Instantiate: 1.644562
+ Bounding Rect Area 106.5369
+ Screen Position (982.9, -175.5)
+ Distance from last Target 1.183463
+ Distance from last Target Screen 27.36907
+
+Target_057 was clicked at 147.6638
+ Time since Instantiate: 2.26741
+ Bounding Rect Area 117.5269
+ Screen Position (1019.7, -101.3)
+ Distance from last Target 6.322674
+ Distance from last Target Screen 270.471
+
+Target_058 was clicked at 150.0959
+ Time since Instantiate: 2.432175
+ Bounding Rect Area 210.8121
+ Screen Position (913.6, -219.7)
+ Distance from last Target 14.77457
+ Distance from last Target Screen 1114.518
+
+Target_059 was clicked at 152.7074
+ Time since Instantiate: 2.61145
+ Bounding Rect Area 216.1203
+ Screen Position (877.7, -119.6)
+ Distance from last Target 2.573962
+ Distance from last Target Screen 137.727
+
+Target_060 was clicked at 155.7294
+ Time since Instantiate: 3.021973
+ Bounding Rect Area 140.8389
+ Screen Position (975.7, -211.6)
+ Distance from last Target 12.32055
+ Distance from last Target Screen 662.6899
+
+Target_061 was clicked at 160.3624
+ Time since Instantiate: 4.633072
+ Bounding Rect Area 220.7513
+ Screen Position (898.8, -318.8)
+ Distance from last Target 7.312248
+ Distance from last Target Screen 319.9409
+
+Target_062 was clicked at 162.229
+ Time since Instantiate: 1.866592
+ Bounding Rect Area 127.1478
+ Screen Position (969.2, -118.5)
+ Distance from last Target 9.055842
+ Distance from last Target Screen 481.5796
+
+Target_063 was clicked at 164.6958
+ Time since Instantiate: 2.466782
+ Bounding Rect Area 139.5831
+ Screen Position (948.2, -11.7)
+ Distance from last Target 3.416188
+ Distance from last Target Screen 152.5487
+
+Target_064 was clicked at 166.1511
+ Time since Instantiate: 1.455261
+ Bounding Rect Area 4111.668
+ Screen Position (1005.0, -49.1)
+ Distance from last Target 12.12278
+ Distance from last Target Screen 188.1667
+
+Target_065 was clicked at 168.64
+ Time since Instantiate: 2.488983
+ Bounding Rect Area 333.9856
+ Screen Position (982.6, -360.5)
+ Distance from last Target 10.56603
+ Distance from last Target Screen 844.3168
+
+Target_066 was clicked at 170.1848
+ Time since Instantiate: 1.544724
+ Bounding Rect Area 514.5074
+ Screen Position (882.0, -284.5)
+ Distance from last Target 7.548563
+ Distance from last Target Screen 666.2086
+
+Target_067 was clicked at 171.6844
+ Time since Instantiate: 1.499588
+ Bounding Rect Area 2867.57
+ Screen Position (1058.9, -279.6)
+ Distance from last Target 7.346814
+ Distance from last Target Screen 860.0829
+
+Target_068 was clicked at 173.263
+ Time since Instantiate: 1.578644
+ Bounding Rect Area 514.3199
+ Screen Position (891.8, -398.0)
+ Distance from last Target 6.670719
+ Distance from last Target Screen 646.5482
+
+Target_069 was clicked at 175.3066
+ Time since Instantiate: 2.04361
+ Bounding Rect Area 192.6413
+ Screen Position (987.5, -392.6)
+ Distance from last Target 8.440369
+ Distance from last Target Screen 306.0335
+
+Target_070 was clicked at 178.0514
+ Time since Instantiate: 2.744812
+ Bounding Rect Area 1144.891
+ Screen Position (829.2, -325.9)
+ Distance from last Target 11.95927
+ Distance from last Target Screen 670.1118
+
+Target_071 was clicked at 179.2733
+ Time since Instantiate: 1.221848
+ Bounding Rect Area 1416.644
+ Screen Position (948.8, -251.6)
+ Distance from last Target 3.754206
+ Distance from last Target Screen 443.559
+
+Target_072 was clicked at 182.3178
+ Time since Instantiate: 3.044556
+ Bounding Rect Area 137.9516
+ Screen Position (852.7, -235.5)
+ Distance from last Target 12.43231
+ Distance from last Target Screen 270.5501
+
+Target_073 was clicked at 184.6178
+ Time since Instantiate: 2.299942
+ Bounding Rect Area 713.7673
+ Screen Position (1017.1, -376.4)
+ Distance from last Target 12.9881
+ Distance from last Target Screen 713.0142
+
+Target_074 was clicked at 186.3397
+ Time since Instantiate: 1.721954
+ Bounding Rect Area 426.1108
+ Screen Position (1029.7, -99.5)
+ Distance from last Target 6.611567
+ Distance from last Target Screen 650.5479
+
+Target_075 was clicked at 188.2959
+ Time since Instantiate: 1.956192
+ Bounding Rect Area 1494.864
+ Screen Position (826.1, -124.0)
+ Distance from last Target 9.841274
+ Distance from last Target Screen 4088.785
+
+Target_076 was clicked at 189.7958
+ Time since Instantiate: 1.499924
+ Bounding Rect Area 602.2841
+ Screen Position (911.4, -183.1)
+ Distance from last Target 3.713936
+ Distance from last Target Screen 411.8039
+
+Target_077 was clicked at 191.7396
+ Time since Instantiate: 1.943787
+ Bounding Rect Area 172.943
+ Screen Position (850.3, -181.0)
+ Distance from last Target 8.093684
+ Distance from last Target Screen 311.0389
+
+Target_078 was clicked at 193.2395
+ Time since Instantiate: 1.499878
+ Bounding Rect Area 166.1427
+ Screen Position (794.3, -118.7)
+ Distance from last Target 1.790677
+ Distance from last Target Screen 91.84115
+
+Target_079 was clicked at 195.2861
+ Time since Instantiate: 2.046585
+ Bounding Rect Area 686.7169
+ Screen Position (1087.2, -272.8)
+ Distance from last Target 15.42601
+ Distance from last Target Screen 1616.72
+
+Target_080 was clicked at 197.552
+ Time since Instantiate: 2.265915
+ Bounding Rect Area 74.9723
+ Screen Position (925.0, -63.3)
+ Distance from last Target 17.40146
+ Distance from last Target Screen 1724.746
+
+Target_081 was clicked at 199.1181
+ Time since Instantiate: 1.566147
+ Bounding Rect Area 88.78645
+ Screen Position (850.7, -62.5)
+ Distance from last Target 2.215617
+ Distance from last Target Screen 77.30468
+
+Target_082 was clicked at 200.7725
+ Time since Instantiate: 1.654358
+ Bounding Rect Area 458.5807
+ Screen Position (774.2, 15.5)
+ Distance from last Target 9.320583
+ Distance from last Target Screen 137.178
+
+Target_083 was clicked at 202.2287
+ Time since Instantiate: 1.456146
+ Bounding Rect Area 770.3002
+ Screen Position (963.3, -208.6)
+ Distance from last Target 5.342066
+ Distance from last Target Screen 458.5197
+
+Target_084 was clicked at 205.3728
+ Time since Instantiate: 3.14418
+ Bounding Rect Area 187.4026
+ Screen Position (1065.0, -403.4)
+ Distance from last Target 15.78643
+ Distance from last Target Screen 669.8688
+
+Target_085 was clicked at 207.6172
+ Time since Instantiate: 2.244385
+ Bounding Rect Area 220.4568
+ Screen Position (856.3, -316.6)
+ Distance from last Target 16.18857
+ Distance from last Target Screen 1366.978
+
+Target_086 was clicked at 209.6504
+ Time since Instantiate: 2.033157
+ Bounding Rect Area 259.0542
+ Screen Position (980.6, -261.5)
+ Distance from last Target 11.625
+ Distance from last Target Screen 836.4006
+
+New Run
+
+New Run
+
+Cube was clicked at 13.18902
+ Time since Instantiate: 13.18902
+ Bounding Rect Area 1354.302
+ Screen Position (937.0, -220.3)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 92071.53
+
+Target_000 was clicked at 15.28754
+ Time since Instantiate: 2.098517
+ Bounding Rect Area 894.9889
+ Screen Position (954.9, -378.0)
+ Distance from last Target 5.175354
+ Distance from last Target Screen 627.0028
+
+Target_001 was clicked at 16.7213
+ Time since Instantiate: 1.433763
+ Bounding Rect Area 658.127
+ Screen Position (942.2, -96.5)
+ Distance from last Target 6.273879
+ Distance from last Target Screen 916.4586
+
+Target_002 was clicked at 18.69861
+ Time since Instantiate: 1.977308
+ Bounding Rect Area 872.4799
+ Screen Position (825.0, -352.1)
+ Distance from last Target 8.814669
+ Distance from last Target Screen 1329.167
+
+Target_003 was clicked at 19.87673
+ Time since Instantiate: 1.178123
+ Bounding Rect Area 1704.806
+ Screen Position (1035.0, -310.7)
+ Distance from last Target 4.775359
+ Distance from last Target Screen 474.4325
+
+Target_004 was clicked at 22.17718
+ Time since Instantiate: 2.300442
+ Bounding Rect Area 144.6696
+ Screen Position (1032.8, -290.9)
+ Distance from last Target 14.42028
+ Distance from last Target Screen 266.5351
+
+Target_005 was clicked at 24.59962
+ Time since Instantiate: 2.422443
+ Bounding Rect Area 171.557
+ Screen Position (845.6, -370.3)
+ Distance from last Target 18.77862
+ Distance from last Target Screen 1589.01
+
+Target_006 was clicked at 26.83257
+ Time since Instantiate: 2.232952
+ Bounding Rect Area 202.9144
+ Screen Position (966.3, -247.4)
+ Distance from last Target 19.90258
+ Distance from last Target Screen 2204.161
+
+Target_007 was clicked at 28.1442
+ Time since Instantiate: 1.311628
+ Bounding Rect Area 740.0759
+ Screen Position (864.3, -280.0)
+ Distance from last Target 9.251787
+ Distance from last Target Screen 370.5921
+
+Target_008 was clicked at 30.50043
+ Time since Instantiate: 2.356226
+ Bounding Rect Area 198.5688
+ Screen Position (843.2, -254.6)
+ Distance from last Target 11.25658
+ Distance from last Target Screen 977.07
+
+Target_009 was clicked at 32.0992
+ Time since Instantiate: 1.598776
+ Bounding Rect Area 570.6632
+ Screen Position (923.3, -266.8)
+ Distance from last Target 9.453829
+ Distance from last Target Screen 533.6275
+
+Target_010 was clicked at 33.57734
+ Time since Instantiate: 1.478142
+ Bounding Rect Area 1525.571
+ Screen Position (1011.2, -206.8)
+ Distance from last Target 4.74987
+ Distance from last Target Screen 595.0301
+
+Target_011 was clicked at 36.97692
+ Time since Instantiate: 3.399582
+ Bounding Rect Area 541.3281
+ Screen Position (870.9, -222.9)
+ Distance from last Target 7.181002
+ Distance from last Target Screen 1382.083
+
+Target_012 was clicked at 38.45552
+ Time since Instantiate: 1.478592
+ Bounding Rect Area 780.9229
+ Screen Position (865.2, -376.3)
+ Distance from last Target 4.000733
+ Distance from last Target Screen 371.9412
+
+Target_013 was clicked at 40.47692
+ Time since Instantiate: 2.021404
+ Bounding Rect Area 364.8074
+ Screen Position (883.3, -314.7)
+ Distance from last Target 3.848884
+ Distance from last Target Screen 330.634
+
+Target_014 was clicked at 43.37708
+ Time since Instantiate: 2.900154
+ Bounding Rect Area 179.3654
+ Screen Position (956.5, -222.6)
+ Distance from last Target 10.84062
+ Distance from last Target Screen 846.3753
+
+Target_015 was clicked at 45.09969
+ Time since Instantiate: 1.72261
+ Bounding Rect Area 527.9731
+ Screen Position (785.4, -344.4)
+ Distance from last Target 12.49591
+ Distance from last Target Screen 1061.771
+
+Target_016 was clicked at 46.99885
+ Time since Instantiate: 1.899162
+ Bounding Rect Area 415.7593
+ Screen Position (1003.4, -354.3)
+ Distance from last Target 9.21867
+ Distance from last Target Screen 879.2813
+
+Target_017 was clicked at 48.55497
+ Time since Instantiate: 1.556118
+ Bounding Rect Area 317.2318
+ Screen Position (967.9, -463.0)
+ Distance from last Target 4.153923
+ Distance from last Target Screen 184.9847
+
+Target_018 was clicked at 49.93228
+ Time since Instantiate: 1.377312
+ Bounding Rect Area 1114.544
+ Screen Position (897.3, -326.0)
+ Distance from last Target 8.643795
+ Distance from last Target Screen 313.1511
+
+Target_019 was clicked at 51.83218
+ Time since Instantiate: 1.899899
+ Bounding Rect Area 168.4762
+ Screen Position (930.1, -309.5)
+ Distance from last Target 8.12352
+ Distance from last Target Screen 117.4254
+
+Target_020 was clicked at 53.84329
+ Time since Instantiate: 2.011116
+ Bounding Rect Area 187.9479
+ Screen Position (982.3, -446.3)
+ Distance from last Target 8.077048
+ Distance from last Target Screen 373.777
+
+Target_021 was clicked at 55.9103
+ Time since Instantiate: 2.067009
+ Bounding Rect Area 193.356
+ Screen Position (875.8, -370.3)
+ Distance from last Target 11.8379
+ Distance from last Target Screen 857.7938
+
+Target_022 was clicked at 58.88775
+ Time since Instantiate: 2.977451
+ Bounding Rect Area 259.4721
+ Screen Position (988.8, -323.3)
+ Distance from last Target 14.47518
+ Distance from last Target Screen 1032.723
+
+Target_023 was clicked at 62.38768
+ Time since Instantiate: 3.499924
+ Bounding Rect Area 80.99981
+ Screen Position (893.7, -185.8)
+ Distance from last Target 9.861974
+ Distance from last Target Screen 440.2244
+
+Target_024 was clicked at 63.543
+ Time since Instantiate: 1.155327
+ Bounding Rect Area 3615.807
+ Screen Position (999.2, -145.4)
+ Distance from last Target 16.26683
+ Distance from last Target Screen 283.1055
+
+Target_025 was clicked at 64.75401
+ Time since Instantiate: 1.21101
+ Bounding Rect Area 905.5371
+ Screen Position (941.3, -88.0)
+ Distance from last Target 3.108893
+ Distance from last Target Screen 133.5344
+
+Target_026 was clicked at 67.53197
+ Time since Instantiate: 2.777954
+ Bounding Rect Area 1810.346
+ Screen Position (863.4, -301.1)
+ Distance from last Target 6.433934
+ Distance from last Target Screen 1676.666
+
+Target_027 was clicked at 69.68905
+ Time since Instantiate: 2.157082
+ Bounding Rect Area 74.31313
+ Screen Position (898.3, -215.4)
+ Distance from last Target 15.85607
+ Distance from last Target Screen 738.5442
+
+Target_028 was clicked at 70.92095
+ Time since Instantiate: 1.231903
+ Bounding Rect Area 171.1696
+ Screen Position (814.5, -183.0)
+ Distance from last Target 7.473526
+ Distance from last Target Screen 128.2204
+
+Target_029 was clicked at 72.30975
+ Time since Instantiate: 1.388794
+ Bounding Rect Area 2918.915
+ Screen Position (897.3, -337.4)
+ Distance from last Target 8.982295
+ Distance from last Target Screen 465.4042
+
+Target_030 was clicked at 73.67648
+ Time since Instantiate: 1.36673
+ Bounding Rect Area 1018.057
+ Screen Position (983.7, -355.2)
+ Distance from last Target 2.996418
+ Distance from last Target Screen 356.1658
+
+Target_031 was clicked at 75.67658
+ Time since Instantiate: 2.000107
+ Bounding Rect Area 142.7937
+ Screen Position (1035.7, -283.1)
+ Distance from last Target 12.42276
+ Distance from last Target Screen 460.0808
+
+Target_032 was clicked at 77.88747
+ Time since Instantiate: 2.210884
+ Bounding Rect Area 110.1308
+ Screen Position (930.0, -327.5)
+ Distance from last Target 11.39279
+ Distance from last Target Screen 606.4594
+
+Target_033 was clicked at 79.40984
+ Time since Instantiate: 1.522369
+ Bounding Rect Area 140.4321
+ Screen Position (938.4, -246.9)
+ Distance from last Target 6.118229
+ Distance from last Target Screen 222.6612
+
+Target_034 was clicked at 81.15355
+ Time since Instantiate: 1.743713
+ Bounding Rect Area 91.86874
+ Screen Position (849.7, -290.1)
+ Distance from last Target 4.629016
+ Distance from last Target Screen 106.7103
+
+Target_035 was clicked at 83.56596
+ Time since Instantiate: 2.412415
+ Bounding Rect Area 518.8917
+ Screen Position (909.0, -473.8)
+ Distance from last Target 11.48186
+ Distance from last Target Screen 505.8694
+
+Target_036 was clicked at 84.90928
+ Time since Instantiate: 1.343315
+ Bounding Rect Area 444.3931
+ Screen Position (865.6, -303.3)
+ Distance from last Target 3.226005
+ Distance from last Target Screen 250.0645
+
+Target_037 was clicked at 89.83128
+ Time since Instantiate: 4.921997
+ Bounding Rect Area 182.3898
+ Screen Position (863.8, -267.0)
+ Distance from last Target 5.380158
+ Distance from last Target Screen 250.2165
+
+Target_038 was clicked at 90.96489
+ Time since Instantiate: 1.133614
+ Bounding Rect Area 2157.971
+ Screen Position (888.4, -443.6)
+ Distance from last Target 9.425121
+ Distance from last Target Screen 260.722
+
+Target_039 was clicked at 92.20898
+ Time since Instantiate: 1.244095
+ Bounding Rect Area 2192.677
+ Screen Position (1072.5, -294.4)
+ Distance from last Target 2.721912
+ Distance from last Target Screen 458.1209
+
+Target_040 was clicked at 95.37652
+ Time since Instantiate: 3.167534
+ Bounding Rect Area 173.7559
+ Screen Position (974.8, -273.6)
+ Distance from last Target 12.67882
+ Distance from last Target Screen 395.7062
+
+Target_041 was clicked at 96.65357
+ Time since Instantiate: 1.277054
+ Bounding Rect Area 948.6106
+ Screen Position (913.9, -453.3)
+ Distance from last Target 8.82336
+ Distance from last Target Screen 259.7348
+
+Target_042 was clicked at 98.49792
+ Time since Instantiate: 1.844353
+ Bounding Rect Area 2542.509
+ Screen Position (831.4, -280.3)
+ Distance from last Target 6.880952
+ Distance from last Target Screen 1372.212
+
+New Run
+
+Cube was clicked at 60.8278
+ Time since Instantiate: 60.8278
+ Bounding Rect Area 7530.244
+ Screen Position (811.9, -133.5)
+ Distance from last Target 3.161823
+ Distance from last Target Screen 6012.934
+
+Target_000 was clicked at 62.65208
+ Time since Instantiate: 1.824287
+ Bounding Rect Area 277.5962
+ Screen Position (847.7, -196.8)
+ Distance from last Target 8.488125
+ Distance from last Target Screen 244.759
+
+Target_001 was clicked at 64.90729
+ Time since Instantiate: 2.255203
+ Bounding Rect Area 3769.452
+ Screen Position (802.8, -382.1)
+ Distance from last Target 8.899315
+ Distance from last Target Screen 645.6626
+
+Target_002 was clicked at 67.8271
+ Time since Instantiate: 2.919815
+ Bounding Rect Area 79.37189
+ Screen Position (986.3, -132.6)
+ Distance from last Target 18.04889
+ Distance from last Target Screen 1685.263
+
+Target_003 was clicked at 69.53829
+ Time since Instantiate: 1.711189
+ Bounding Rect Area 147.9565
+ Screen Position (1078.7, -143.8)
+ Distance from last Target 4.943249
+ Distance from last Target Screen 131.3613
+
+Target_004 was clicked at 71.71455
+ Time since Instantiate: 2.176262
+ Bounding Rect Area 152.5217
+ Screen Position (917.6, -368.2)
+ Distance from last Target 12.10061
+ Distance from last Target Screen 658.0402
+
+Target_005 was clicked at 73.18533
+ Time since Instantiate: 1.470772
+ Bounding Rect Area 456.1137
+ Screen Position (840.0, -266.9)
+ Distance from last Target 10.28988
+ Distance from last Target Screen 594.843
+
+Target_006 was clicked at 74.40746
+ Time since Instantiate: 1.22213
+ Bounding Rect Area 1177.163
+ Screen Position (931.7, -113.7)
+ Distance from last Target 4.521937
+ Distance from last Target Screen 233.4054
+
+Target_007 was clicked at 75.91565
+ Time since Instantiate: 1.508194
+ Bounding Rect Area 225.5411
+ Screen Position (946.2, -191.1)
+ Distance from last Target 5.792144
+ Distance from last Target Screen 306.6431
+
+Target_008 was clicked at 77.28572
+ Time since Instantiate: 1.370071
+ Bounding Rect Area 148.8876
+ Screen Position (839.1, -226.8)
+ Distance from last Target 10.33316
+ Distance from last Target Screen 550.0478
+
+Target_009 was clicked at 78.77493
+ Time since Instantiate: 1.489212
+ Bounding Rect Area 2767.335
+ Screen Position (964.1, -379.1)
+ Distance from last Target 13.79974
+ Distance from last Target Screen 749.7712
+
+Target_010 was clicked at 81.01868
+ Time since Instantiate: 2.243744
+ Bounding Rect Area 306.1912
+ Screen Position (940.4, -377.4)
+ Distance from last Target 7.152997
+ Distance from last Target Screen 156.4518
+
+Target_011 was clicked at 82.84124
+ Time since Instantiate: 1.822563
+ Bounding Rect Area 64.74136
+ Screen Position (879.3, -203.2)
+ Distance from last Target 10.9516
+ Distance from last Target Screen 449.7967
+
+Target_012 was clicked at 84.95187
+ Time since Instantiate: 2.110626
+ Bounding Rect Area 263.6674
+ Screen Position (895.0, -379.8)
+ Distance from last Target 10.84525
+ Distance from last Target Screen 457.8871
+
+Target_013 was clicked at 87.29594
+ Time since Instantiate: 2.344078
+ Bounding Rect Area 174.4254
+ Screen Position (924.4, -369.1)
+ Distance from last Target 4.37432
+ Distance from last Target Screen 84.0005
+
+Target_014 was clicked at 89.54012
+ Time since Instantiate: 2.244179
+ Bounding Rect Area 134.7998
+ Screen Position (952.4, -385.1)
+ Distance from last Target 6.068244
+ Distance from last Target Screen 248.1158
+
+Target_015 was clicked at 91.40702
+ Time since Instantiate: 1.866898
+ Bounding Rect Area 265.9235
+ Screen Position (851.7, -328.6)
+ Distance from last Target 9.575745
+ Distance from last Target Screen 429.1323
+
+Target_016 was clicked at 95.77439
+ Time since Instantiate: 4.367371
+ Bounding Rect Area 834.4864
+ Screen Position (871.3, -107.3)
+ Distance from last Target 10.00489
+ Distance from last Target Screen 555.8711
+
+Target_017 was clicked at 112.9855
+ Time since Instantiate: 17.2111
+ Bounding Rect Area 102.5249
+ Screen Position (876.6, -112.2)
+ Distance from last Target 15.58257
+ Distance from last Target Screen 1117.681
+
+Target_018 was clicked at 115.0627
+ Time since Instantiate: 2.077255
+ Bounding Rect Area 488.9442
+ Screen Position (878.0, -343.4)
+ Distance from last Target 15.17462
+ Distance from last Target Screen 1072.3
+
+Target_019 was clicked at 116.5406
+ Time since Instantiate: 1.477814
+ Bounding Rect Area 3512
+ Screen Position (861.2, -125.4)
+ Distance from last Target 7.693881
+ Distance from last Target Screen 498.5233
+
+Target_020 was clicked at 118.4859
+ Time since Instantiate: 1.945366
+ Bounding Rect Area 338.6757
+ Screen Position (893.1, -245.1)
+ Distance from last Target 8.152373
+ Distance from last Target Screen 666.5978
+
+Target_021 was clicked at 120.0519
+ Time since Instantiate: 1.565987
+ Bounding Rect Area 807.3627
+ Screen Position (839.8, -405.6)
+ Distance from last Target 5.006528
+ Distance from last Target Screen 361.5862
+
+Target_022 was clicked at 122.4405
+ Time since Instantiate: 2.388634
+ Bounding Rect Area 160.9599
+ Screen Position (922.6, -369.2)
+ Distance from last Target 10.47951
+ Distance from last Target Screen 226.4666
+
+Target_023 was clicked at 124.2071
+ Time since Instantiate: 1.766541
+ Bounding Rect Area 1120.188
+ Screen Position (864.2, -84.5)
+ Distance from last Target 14.35119
+ Distance from last Target Screen 813.7682
+
+Target_024 was clicked at 125.6857
+ Time since Instantiate: 1.47863
+ Bounding Rect Area 4973.27
+ Screen Position (983.3, 47.8)
+ Distance from last Target 2.503424
+ Distance from last Target Screen 295.2409
+
+Target_025 was clicked at 134.3308
+ Time since Instantiate: 8.645111
+ Bounding Rect Area 1434.84
+ Screen Position (780.7, -157.1)
+ Distance from last Target 5.08185
+ Distance from last Target Screen 1730.435
+
+Target_026 was clicked at 136.1069
+ Time since Instantiate: 1.776031
+ Bounding Rect Area 104.7704
+ Screen Position (864.3, -104.0)
+ Distance from last Target 11.89325
+ Distance from last Target Screen 395.3736
+
+Target_027 was clicked at 155.3841
+ Time since Instantiate: 19.27724
+ Bounding Rect Area 44190.77
+ Screen Position (1062.1, -119.2)
+ Distance from last Target 15.10649
+ Distance from last Target Screen 582.2991
+
+Target_028 was clicked at 157.4505
+ Time since Instantiate: 2.066437
+ Bounding Rect Area 314.3788
+ Screen Position (835.2, -84.7)
+ Distance from last Target 9.690972
+ Distance from last Target Screen 2202.402
+
+Target_029 was clicked at 158.7954
+ Time since Instantiate: 1.344833
+ Bounding Rect Area 422.4474
+ Screen Position (924.3, -137.9)
+ Distance from last Target 4.27379
+ Distance from last Target Screen 316.4727
+
+Target_030 was clicked at 160.719
+ Time since Instantiate: 1.923615
+ Bounding Rect Area 631.6191
+ Screen Position (975.0, -303.0)
+ Distance from last Target 6.046447
+ Distance from last Target Screen 610.8979
+
+New Run
+
+Cube was clicked at 20.41485
+ Time since Instantiate: 20.41485
+ Bounding Rect Area 1275.111
+ Screen Position (944.1, -122.2)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 6810.131
+
+Target_000 was clicked at 22.32601
+ Time since Instantiate: 1.911161
+ Bounding Rect Area 428.7299
+ Screen Position (1032.7, -363.5)
+ Distance from last Target 6.649537
+ Distance from last Target Screen 372.0771
+
+Target_001 was clicked at 24.98098
+ Time since Instantiate: 2.654972
+ Bounding Rect Area 226.2715
+ Screen Position (984.1, -378.8)
+ Distance from last Target 7.742432
+ Distance from last Target Screen 292.0078
+
+Target_002 was clicked at 26.86836
+ Time since Instantiate: 1.887383
+ Bounding Rect Area 265.8063
+ Screen Position (1060.2, -210.0)
+ Distance from last Target 6.718009
+ Distance from last Target Screen 333.5704
+
+Target_003 was clicked at 28.94828
+ Time since Instantiate: 2.079914
+ Bounding Rect Area 218.1884
+ Screen Position (879.8, -426.6)
+ Distance from last Target 9.524124
+ Distance from last Target Screen 590.6563
+
+Target_004 was clicked at 31.49223
+ Time since Instantiate: 2.543949
+ Bounding Rect Area 129.3789
+ Screen Position (865.3, -233.3)
+ Distance from last Target 13.50026
+ Distance from last Target Screen 923.017
+
+Target_005 was clicked at 32.94853
+ Time since Instantiate: 1.456301
+ Bounding Rect Area 520.3826
+ Screen Position (968.1, -304.6)
+ Distance from last Target 10.55632
+ Distance from last Target Screen 326.4723
+
+Target_006 was clicked at 34.43852
+ Time since Instantiate: 1.489994
+ Bounding Rect Area 350.2296
+ Screen Position (877.1, -327.3)
+ Distance from last Target 4.858239
+ Distance from last Target Screen 286.7762
+
+Target_007 was clicked at 36.49335
+ Time since Instantiate: 2.054832
+ Bounding Rect Area 153.1617
+ Screen Position (950.3, -261.1)
+ Distance from last Target 6.26571
+ Distance from last Target Screen 264.9928
+
+Target_008 was clicked at 38.19341
+ Time since Instantiate: 1.700058
+ Bounding Rect Area 912.4218
+ Screen Position (916.4, -406.4)
+ Distance from last Target 10.1113
+ Distance from last Target Screen 326.9989
+
+Target_009 was clicked at 39.99325
+ Time since Instantiate: 1.799835
+ Bounding Rect Area 123.5815
+ Screen Position (1028.7, -144.6)
+ Distance from last Target 12.6961
+ Distance from last Target Screen 802.9077
+
+Target_010 was clicked at 41.47144
+ Time since Instantiate: 1.478195
+ Bounding Rect Area 357.2447
+ Screen Position (992.0, -350.0)
+ Distance from last Target 6.46386
+ Distance from last Target Screen 233.9409
+
+Target_011 was clicked at 43.43958
+ Time since Instantiate: 1.96814
+ Bounding Rect Area 99.56288
+ Screen Position (854.6, -280.5)
+ Distance from last Target 13.02393
+ Distance from last Target Screen 665.312
+
+Target_012 was clicked at 46.23757
+ Time since Instantiate: 2.797989
+ Bounding Rect Area 156.6905
+ Screen Position (931.0, -260.6)
+ Distance from last Target 12.35569
+ Distance from last Target Screen 539.2507
+
+Target_013 was clicked at 47.32681
+ Time since Instantiate: 1.089233
+ Bounding Rect Area 2199.243
+ Screen Position (901.1, -259.2)
+ Distance from last Target 12.11655
+ Distance from last Target Screen 164.1902
+
+Target_014 was clicked at 50.05999
+ Time since Instantiate: 2.733185
+ Bounding Rect Area 355.3504
+ Screen Position (864.8, -215.3)
+ Distance from last Target 8.429089
+ Distance from last Target Screen 668.2604
+
+Target_015 was clicked at 51.8605
+ Time since Instantiate: 1.800507
+ Bounding Rect Area 132.2452
+ Screen Position (946.8, -329.2)
+ Distance from last Target 10.52514
+ Distance from last Target Screen 505.305
+
+Target_016 was clicked at 54.30642
+ Time since Instantiate: 2.445927
+ Bounding Rect Area 479.89
+ Screen Position (1075.9, -449.0)
+ Distance from last Target 8.419476
+ Distance from last Target Screen 374.7164
+
+Target_017 was clicked at 57.73802
+ Time since Instantiate: 3.431595
+ Bounding Rect Area 636.3129
+ Screen Position (878.2, -113.2)
+ Distance from last Target 11.77605
+ Distance from last Target Screen 2070.598
+
+Target_018 was clicked at 60.34911
+ Time since Instantiate: 2.611092
+ Bounding Rect Area 107.1919
+ Screen Position (934.4, -151.6)
+ Distance from last Target 15.77012
+ Distance from last Target Screen 1108.127
+
+Target_019 was clicked at 62.15177
+ Time since Instantiate: 1.802662
+ Bounding Rect Area 1503.937
+ Screen Position (902.4, -413.0)
+ Distance from last Target 15.17236
+ Distance from last Target Screen 894.7854
+
+Target_020 was clicked at 64.37238
+ Time since Instantiate: 2.220604
+ Bounding Rect Area 310.3651
+ Screen Position (914.9, -265.7)
+ Distance from last Target 6.77581
+ Distance from last Target Screen 313.1396
+
+Target_021 was clicked at 65.98575
+ Time since Instantiate: 1.613373
+ Bounding Rect Area 101.3571
+ Screen Position (906.4, -292.5)
+ Distance from last Target 9.42623
+ Distance from last Target Screen 401.1349
+
+Target_022 was clicked at 68.11571
+ Time since Instantiate: 2.129959
+ Bounding Rect Area 161.6819
+ Screen Position (847.3, -386.9)
+ Distance from last Target 6.939598
+ Distance from last Target Screen 290.6147
+
+Target_023 was clicked at 71.45116
+ Time since Instantiate: 3.335457
+ Bounding Rect Area 191.515
+ Screen Position (873.1, -113.8)
+ Distance from last Target 13.84089
+ Distance from last Target Screen 843.0217
+
+Target_024 was clicked at 73.25043
+ Time since Instantiate: 1.799271
+ Bounding Rect Area 182.4874
+ Screen Position (888.6, -203.0)
+ Distance from last Target 3.349866
+ Distance from last Target Screen 170.2841
+
+Target_025 was clicked at 74.60464
+ Time since Instantiate: 1.354202
+ Bounding Rect Area 1652.094
+ Screen Position (897.5, -471.1)
+ Distance from last Target 8.652214
+ Distance from last Target Screen 281.9773
+
+Target_026 was clicked at 76.01669
+ Time since Instantiate: 1.412056
+ Bounding Rect Area 356.4085
+ Screen Position (850.7, -231.7)
+ Distance from last Target 4.88664
+ Distance from last Target Screen 460.5515
+
+Target_027 was clicked at 77.20451
+ Time since Instantiate: 1.18782
+ Bounding Rect Area 529.8758
+ Screen Position (930.7, -271.9)
+ Distance from last Target 1.549745
+ Distance from last Target Screen 102.1556
+
+Target_028 was clicked at 79.34892
+ Time since Instantiate: 2.144402
+ Bounding Rect Area 67.20137
+ Screen Position (939.8, -157.1)
+ Distance from last Target 12.45211
+ Distance from last Target Screen 396.9831
+
+Target_029 was clicked at 80.6262
+ Time since Instantiate: 1.277283
+ Bounding Rect Area 249.6958
+ Screen Position (817.8, -279.6)
+ Distance from last Target 8.28371
+ Distance from last Target Screen 214.075
+
+Target_030 was clicked at 82.17156
+ Time since Instantiate: 1.545364
+ Bounding Rect Area 194.3658
+ Screen Position (844.8, -414.5)
+ Distance from last Target 7.945615
+ Distance from last Target Screen 373.837
+
+Target_031 was clicked at 83.29292
+ Time since Instantiate: 1.121361
+ Bounding Rect Area 1929.028
+ Screen Position (867.8, -205.8)
+ Distance from last Target 12.6837
+ Distance from last Target Screen 443.2097
+
+Target_032 was clicked at 85.93764
+ Time since Instantiate: 2.644714
+ Bounding Rect Area 127.8633
+ Screen Position (1008.3, -164.5)
+ Distance from last Target 12.09722
+ Distance from last Target Screen 516.0039
+
+Target_033 was clicked at 87.1557
+ Time since Instantiate: 1.218063
+ Bounding Rect Area 3678.831
+ Screen Position (871.3, 56.4)
+ Distance from last Target 12.26382
+ Distance from last Target Screen 289.3844
+
+Target_034 was clicked at 88.87077
+ Time since Instantiate: 1.715065
+ Bounding Rect Area 299.741
+ Screen Position (1046.1, -267.5)
+ Distance from last Target 9.901859
+ Distance from last Target Screen 529.8344
+
+Target_035 was clicked at 90.28219
+ Time since Instantiate: 1.411423
+ Bounding Rect Area 825.7083
+ Screen Position (811.6, -384.7)
+ Distance from last Target 7.789273
+ Distance from last Target Screen 534.3801
+
+Target_036 was clicked at 91.96642
+ Time since Instantiate: 1.684235
+ Bounding Rect Area 989.067
+ Screen Position (836.9, -81.4)
+ Distance from last Target 5.379146
+ Distance from last Target Screen 741.9885
+
+Target_037 was clicked at 93.59254
+ Time since Instantiate: 1.626122
+ Bounding Rect Area 2844.567
+ Screen Position (856.0, -345.9)
+ Distance from last Target 2.99619
+ Distance from last Target Screen 340.7963
+
+Target_038 was clicked at 121.6258
+ Time since Instantiate: 28.0333
+ Bounding Rect Area 1895.553
+ Screen Position (878.4, -221.8)
+ Distance from last Target 3.091748
+ Distance from last Target Screen 99.93896
+
+Target_039 was clicked at 163.5693
+ Time since Instantiate: 41.94344
+ Bounding Rect Area 644.1741
+ Screen Position (913.8, -160.3)
+ Distance from last Target 8.855699
+ Distance from last Target Screen 3203.901
+
+Target_040 was clicked at 165.6463
+ Time since Instantiate: 2.077026
+ Bounding Rect Area 937.8997
+ Screen Position (876.4, -418.1)
+ Distance from last Target 6.90768
+ Distance from last Target Screen 953.9988
+
+Target_041 was clicked at 168.7471
+ Time since Instantiate: 3.1008
+ Bounding Rect Area 208.0006
+ Screen Position (862.8, -115.5)
+ Distance from last Target 9.535306
+ Distance from last Target Screen 943.9272
+
+Target_042 was clicked at 181.6693
+ Time since Instantiate: 12.92213
+ Bounding Rect Area 4893.083
+ Screen Position (805.9, 51.2)
+ Distance from last Target 10.09202
+ Distance from last Target Screen 629.6716
+
+New Run
+
+Cube was clicked at 65.98721
+ Time since Instantiate: 65.98721
+ Bounding Rect Area 2572.98
+ Screen Position (874.6, -102.7)
+ Distance from last Target 4.437102
+ Distance from last Target Screen 9294.817
+
+Target_000 was clicked at 67.232
+ Time since Instantiate: 1.244789
+ Bounding Rect Area 4263.688
+ Screen Position (1013.7, -268.7)
+ Distance from last Target 2.466671
+ Distance from last Target Screen 461.6786
+
+Target_001 was clicked at 85.62088
+ Time since Instantiate: 18.38888
+ Bounding Rect Area 59126.43
+ Screen Position (939.1, -191.6)
+ Distance from last Target 1.889969
+ Distance from last Target Screen 196.2142
+
+Target_002 was clicked at 89.02092
+ Time since Instantiate: 3.40004
+ Bounding Rect Area 92.5545
+ Screen Position (996.5, -205.2)
+ Distance from last Target 16.85003
+ Distance from last Target Screen 65.76136
+
+Target_003 was clicked at 91.94279
+ Time since Instantiate: 2.921867
+ Bounding Rect Area 5470.51
+ Screen Position (835.4, -296.3)
+ Distance from last Target 16.85879
+ Distance from last Target Screen 1165.742
+
+Target_004 was clicked at 93.8094
+ Time since Instantiate: 1.866615
+ Bounding Rect Area 113.8935
+ Screen Position (957.0, -348.4)
+ Distance from last Target 16.49086
+ Distance from last Target Screen 415.3124
+
+Target_005 was clicked at 95.60149
+ Time since Instantiate: 1.792091
+ Bounding Rect Area 64.26819
+ Screen Position (897.1, -146.5)
+ Distance from last Target 7.816342
+ Distance from last Target Screen 318.4281
+
+Target_006 was clicked at 97.76515
+ Time since Instantiate: 2.163658
+ Bounding Rect Area 245.5694
+ Screen Position (834.7, -362.6)
+ Distance from last Target 13.29605
+ Distance from last Target Screen 611.8348
+
+Target_007 was clicked at 99.37615
+ Time since Instantiate: 1.611
+ Bounding Rect Area 413.0875
+ Screen Position (808.2, -195.7)
+ Distance from last Target 5.920221
+ Distance from last Target Screen 199.0714
+
+Target_008 was clicked at 100.6316
+ Time since Instantiate: 1.255463
+ Bounding Rect Area 666.5813
+ Screen Position (817.9, -87.1)
+ Distance from last Target 3.619244
+ Distance from last Target Screen 176.2142
+
+Target_009 was clicked at 102.2652
+ Time since Instantiate: 1.633537
+ Bounding Rect Area 1991.75
+ Screen Position (1000.5, -356.0)
+ Distance from last Target 6.490749
+ Distance from last Target Screen 1041.318
+
+Target_010 was clicked at 104.099
+ Time since Instantiate: 1.833839
+ Bounding Rect Area 235.523
+ Screen Position (858.8, -147.1)
+ Distance from last Target 7.021597
+ Distance from last Target Screen 619.6884
+
+Target_011 was clicked at 106.0093
+ Time since Instantiate: 1.910278
+ Bounding Rect Area 264.7143
+ Screen Position (855.4, -372.8)
+ Distance from last Target 8.297657
+ Distance from last Target Screen 465.4726
+
+Target_012 was clicked at 107.5438
+ Time since Instantiate: 1.534523
+ Bounding Rect Area 232.6103
+ Screen Position (851.4, -137.6)
+ Distance from last Target 7.084989
+ Distance from last Target Screen 420.5857
+
+Target_013 was clicked at 109.3649
+ Time since Instantiate: 1.821144
+ Bounding Rect Area 149.5858
+ Screen Position (974.2, -239.4)
+ Distance from last Target 10.56349
+ Distance from last Target Screen 563.3708
+
+Target_014 was clicked at 111.3439
+ Time since Instantiate: 1.978928
+ Bounding Rect Area 186.9387
+ Screen Position (827.4, -183.0)
+ Distance from last Target 12.65313
+ Distance from last Target Screen 825.9221
+
+Target_015 was clicked at 112.6209
+ Time since Instantiate: 1.277061
+ Bounding Rect Area 126.2044
+ Screen Position (948.1, -187.8)
+ Distance from last Target 4.927904
+ Distance from last Target Screen 261.5773
+
+Target_016 was clicked at 114.0871
+ Time since Instantiate: 1.466194
+ Bounding Rect Area 848.5583
+ Screen Position (810.5, -133.0)
+ Distance from last Target 9.294401
+ Distance from last Target Screen 393.0617
+
+New Run
+
+Cube was clicked at 43.43461
+ Time since Instantiate: 43.43461
+ Bounding Rect Area 1447.149
+ Screen Position (958.7, -171.8)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 7328.052
+
+Target_000 was clicked at 45.50095
+ Time since Instantiate: 2.066334
+ Bounding Rect Area 290.6463
+ Screen Position (991.7, -384.6)
+ Distance from last Target 12.05174
+ Distance from last Target Screen 749.5469
+
+Target_001 was clicked at 47.6581
+ Time since Instantiate: 2.157158
+ Bounding Rect Area 143.028
+ Screen Position (871.3, -208.6)
+ Distance from last Target 16.26524
+ Distance from last Target Screen 2263.765
+
+Target_002 was clicked at 50.14636
+ Time since Instantiate: 2.488255
+ Bounding Rect Area 135.9037
+ Screen Position (1003.5, -239.5)
+ Distance from last Target 16.26579
+ Distance from last Target Screen 991.0432
+
+Target_003 was clicked at 53.94762
+ Time since Instantiate: 3.801258
+ Bounding Rect Area 78.27341
+ Screen Position (893.1, -105.4)
+ Distance from last Target 7.469908
+ Distance from last Target Screen 324.3572
+
+Target_004 was clicked at 55.11405
+ Time since Instantiate: 1.166431
+ Bounding Rect Area 2062.722
+ Screen Position (834.8, -226.0)
+ Distance from last Target 15.19942
+ Distance from last Target Screen 568.2878
+
+Target_005 was clicked at 56.47337
+ Time since Instantiate: 1.359318
+ Bounding Rect Area 211.3717
+ Screen Position (900.6, -412.0)
+ Distance from last Target 11.56599
+ Distance from last Target Screen 344.2147
+
+Target_006 was clicked at 58.1917
+ Time since Instantiate: 1.71833
+ Bounding Rect Area 153.9042
+ Screen Position (1041.7, -145.2)
+ Distance from last Target 11.04718
+ Distance from last Target Screen 633.9359
+
+Target_007 was clicked at 60.54752
+ Time since Instantiate: 2.355824
+ Bounding Rect Area 101.7149
+ Screen Position (852.4, -159.8)
+ Distance from last Target 15.47971
+ Distance from last Target Screen 1028.286
+
+Target_008 was clicked at 62.78123
+ Time since Instantiate: 2.233715
+ Bounding Rect Area 323.3294
+ Screen Position (994.7, -270.4)
+ Distance from last Target 15.75693
+ Distance from last Target Screen 959.6381
+
+Target_009 was clicked at 63.93695
+ Time since Instantiate: 1.155716
+ Bounding Rect Area 751.0573
+ Screen Position (878.9, -198.1)
+ Distance from last Target 6.593974
+ Distance from last Target Screen 438.8854
+
+Target_010 was clicked at 65.5029
+ Time since Instantiate: 1.565948
+ Bounding Rect Area 555.2687
+ Screen Position (749.0, -147.3)
+ Distance from last Target 4.667414
+ Distance from last Target Screen 470.6456
+
+Target_011 was clicked at 69.26996
+ Time since Instantiate: 3.767059
+ Bounding Rect Area 213.4402
+ Screen Position (965.9, -398.5)
+ Distance from last Target 18.27147
+ Distance from last Target Screen 2600.669
+
+Target_012 was clicked at 71.95058
+ Time since Instantiate: 2.680618
+ Bounding Rect Area 81.74916
+ Screen Position (918.1, -186.3)
+ Distance from last Target 14.69064
+ Distance from last Target Screen 978.704
+
+Target_013 was clicked at 74.8154
+ Time since Instantiate: 2.864822
+ Bounding Rect Area 207.8864
+ Screen Position (822.8, -118.5)
+ Distance from last Target 7.463589
+ Distance from last Target Screen 134.6887
+
+Target_014 was clicked at 75.99267
+ Time since Instantiate: 1.177269
+ Bounding Rect Area 6350.311
+ Screen Position (791.4, -498.7)
+ Distance from last Target 8.613306
+ Distance from last Target Screen 437.6169
+
+Target_015 was clicked at 77.47085
+ Time since Instantiate: 1.47818
+ Bounding Rect Area 807.1542
+ Screen Position (1136.6, -115.6)
+ Distance from last Target 6.38183
+ Distance from last Target Screen 1105.234
+
+Target_016 was clicked at 79.90451
+ Time since Instantiate: 2.433662
+ Bounding Rect Area 196.8252
+ Screen Position (794.6, -367.4)
+ Distance from last Target 15.19575
+ Distance from last Target Screen 1285.828
+
+Target_017 was clicked at 81.37254
+ Time since Instantiate: 1.468025
+ Bounding Rect Area 138.2973
+ Screen Position (1062.4, -136.3)
+ Distance from last Target 14.42908
+ Distance from last Target Screen 865.5803
+
+Target_018 was clicked at 82.79279
+ Time since Instantiate: 1.42025
+ Bounding Rect Area 547.8712
+ Screen Position (1105.0, -246.7)
+ Distance from last Target 7.621479
+ Distance from last Target Screen 303.0657
+
+Target_019 was clicked at 83.90453
+ Time since Instantiate: 1.111748
+ Bounding Rect Area 237.9576
+ Screen Position (847.1, -130.0)
+ Distance from last Target 4.774328
+ Distance from last Target Screen 330.0598
+
+Target_020 was clicked at 85.87113
+ Time since Instantiate: 1.966599
+ Bounding Rect Area 2647.484
+ Screen Position (816.0, -453.5)
+ Distance from last Target 9.803516
+ Distance from last Target Screen 1039.137
+
+Target_021 was clicked at 90.21605
+ Time since Instantiate: 4.344917
+ Bounding Rect Area 96.15871
+ Screen Position (970.4, -77.3)
+ Distance from last Target 17.211
+ Distance from last Target Screen 1676.669
+
+Target_022 was clicked at 91.30493
+ Time since Instantiate: 1.088882
+ Bounding Rect Area 4384.021
+ Screen Position (791.9, 31.5)
+ Distance from last Target 16.01943
+ Distance from last Target Screen 639.1077
+
+Target_023 was clicked at 93.51585
+ Time since Instantiate: 2.210922
+ Bounding Rect Area 1018.527
+ Screen Position (1087.9, -407.2)
+ Distance from last Target 7.940627
+ Distance from last Target Screen 1284.535
+
+Target_024 was clicked at 95.39383
+ Time since Instantiate: 1.877975
+ Bounding Rect Area 225.0684
+ Screen Position (981.6, -444.8)
+ Distance from last Target 9.473552
+ Distance from last Target Screen 192.5921
+
+Target_025 was clicked at 97.24938
+ Time since Instantiate: 1.855553
+ Bounding Rect Area 179.5051
+ Screen Position (932.2, -255.7)
+ Distance from last Target 7.237355
+ Distance from last Target Screen 387.4786
+
+Target_026 was clicked at 99.19537
+ Time since Instantiate: 1.945992
+ Bounding Rect Area 192.8907
+ Screen Position (787.9, -291.2)
+ Distance from last Target 9.517394
+ Distance from last Target Screen 537.8198
+
+Target_027 was clicked at 100.5721
+ Time since Instantiate: 1.376724
+ Bounding Rect Area 824.7213
+ Screen Position (784.4, -249.8)
+ Distance from last Target 8.186511
+ Distance from last Target Screen 326.2781
+
+Target_028 was clicked at 102.172
+ Time since Instantiate: 1.599884
+ Bounding Rect Area 796.1646
+ Screen Position (932.3, -114.8)
+ Distance from last Target 7.155221
+ Distance from last Target Screen 1369.38
+
+Target_029 was clicked at 104.2946
+ Time since Instantiate: 2.122658
+ Bounding Rect Area 267.9716
+ Screen Position (759.7, -366.4)
+ Distance from last Target 8.265179
+ Distance from last Target Screen 505.9314
+
+Target_030 was clicked at 105.4385
+ Time since Instantiate: 1.143822
+ Bounding Rect Area 2045.031
+ Screen Position (836.2, -490.9)
+ Distance from last Target 7.140192
+ Distance from last Target Screen 158.0899
+
+Target_031 was clicked at 106.338
+ Time since Instantiate: 0.8995667
+ Bounding Rect Area 941.4443
+ Screen Position (936.9, -131.3)
+ Distance from last Target 2.911873
+ Distance from last Target Screen 393.6799
+
+Target_032 was clicked at 110.3497
+ Time since Instantiate: 4.011681
+ Bounding Rect Area 100.7302
+ Screen Position (794.9, -116.5)
+ Distance from last Target 12.7427
+ Distance from last Target Screen 510.1801
+
+Target_033 was clicked at 112.0166
+ Time since Instantiate: 1.666924
+ Bounding Rect Area 109.2718
+ Screen Position (956.6, -375.1)
+ Distance from last Target 8.358526
+ Distance from last Target Screen 354.0892
+
+Target_034 was clicked at 114.2391
+ Time since Instantiate: 2.222473
+ Bounding Rect Area 145.5047
+ Screen Position (1013.3, -436.3)
+ Distance from last Target 6.17259
+ Distance from last Target Screen 258.1828
+
+Target_035 was clicked at 115.6946
+ Time since Instantiate: 1.455482
+ Bounding Rect Area 602.152
+ Screen Position (832.3, -244.6)
+ Distance from last Target 14.62156
+ Distance from last Target Screen 786.6113
+
+Target_036 was clicked at 117.8507
+ Time since Instantiate: 2.156067
+ Bounding Rect Area 450.3963
+ Screen Position (1101.4, -236.5)
+ Distance from last Target 10.34234
+ Distance from last Target Screen 1185.906
+
+Target_037 was clicked at 120.5944
+ Time since Instantiate: 2.743706
+ Bounding Rect Area 310.0652
+ Screen Position (875.5, -171.5)
+ Distance from last Target 14.27403
+ Distance from last Target Screen 10501.07
+
+Target_038 was clicked at 122.139
+ Time since Instantiate: 1.544655
+ Bounding Rect Area 369.2986
+ Screen Position (941.8, -392.4)
+ Distance from last Target 6.500322
+ Distance from last Target Screen 423.5476
+
+Target_039 was clicked at 236.4019
+ Time since Instantiate: 114.2629
+ Bounding Rect Area 76.9743
+ Screen Position (861.6, -115.1)
+ Distance from last Target 16.09793
+ Distance from last Target Screen 1101.91
+
+Target_040 was clicked at 242.8472
+ Time since Instantiate: 6.445282
+ Bounding Rect Area 66.50561
+ Screen Position (846.3, -143.2)
+ Distance from last Target 5.140388
+ Distance from last Target Screen 194.8233
+
+Target_041 was clicked at 245.014
+ Time since Instantiate: 2.166824
+ Bounding Rect Area 204.1553
+ Screen Position (907.7, -92.8)
+ Distance from last Target 7.795827
+ Distance from last Target Screen 163.0627
+
+Target_042 was clicked at 250.7247
+ Time since Instantiate: 5.710663
+ Bounding Rect Area 484.2396
+ Screen Position (882.2, -327.1)
+ Distance from last Target 9.098522
+ Distance from last Target Screen 659.5252
+
+Target_043 was clicked at 252.9802
+ Time since Instantiate: 2.255585
+ Bounding Rect Area 313.7031
+ Screen Position (790.5, 18.8)
+ Distance from last Target 8.514473
+ Distance from last Target Screen 769.7027
+
+Target_044 was clicked at 258.0026
+ Time since Instantiate: 5.022385
+ Bounding Rect Area 269.9491
+ Screen Position (770.1, -216.0)
+ Distance from last Target 5.457679
+ Distance from last Target Screen 340.4186
+
+Target_045 was clicked at 266.769
+ Time since Instantiate: 8.766327
+ Bounding Rect Area 141.8562
+ Screen Position (927.6, -241.0)
+ Distance from last Target 16.91317
+ Distance from last Target Screen 1679.339
+
+Target_046 was clicked at 290.6907
+ Time since Instantiate: 23.92175
+ Bounding Rect Area 130.2375
+ Screen Position (852.7, -243.1)
+ Distance from last Target 20.05803
+ Distance from last Target Screen 2280.29
+
+Target_047 was clicked at 313.9366
+ Time since Instantiate: 23.24585
+ Bounding Rect Area 89.35787
+ Screen Position (857.4, -179.9)
+ Distance from last Target 10.97794
+ Distance from last Target Screen 570.9558
+
+Target_048 was clicked at 355.0794
+ Time since Instantiate: 41.14282
+ Bounding Rect Area 337.696
+ Screen Position (882.8, -280.7)
+ Distance from last Target 9.954287
+ Distance from last Target Screen 397.8029
+
+Target_049 was clicked at 360.4015
+ Time since Instantiate: 5.322113
+ Bounding Rect Area 645.295
+ Screen Position (959.9, -182.5)
+ Distance from last Target 6.555076
+ Distance from last Target Screen 627.1622
+
+Target_050 was clicked at 369.5774
+ Time since Instantiate: 9.175903
+ Bounding Rect Area 818.0746
+ Screen Position (893.8, -274.5)
+ Distance from last Target 3.749343
+ Distance from last Target Screen 401.9728
+
+Target_051 was clicked at 374.9886
+ Time since Instantiate: 5.411224
+ Bounding Rect Area 384.0293
+ Screen Position (809.3, -228.4)
+ Distance from last Target 6.41313
+ Distance from last Target Screen 599.3917
+
+Target_052 was clicked at 381.0563
+ Time since Instantiate: 6.067688
+ Bounding Rect Area 228.9434
+ Screen Position (878.0, -135.3)
+ Distance from last Target 10.34516
+ Distance from last Target Screen 1050.59
+
+Target_053 was clicked at 391.544
+ Time since Instantiate: 10.48767
+ Bounding Rect Area 1775.033
+ Screen Position (921.7, -268.6)
+ Distance from last Target 8.271022
+ Distance from last Target Screen 431.0454
+
+New Run
+
+Cube was clicked at 52.0513
+ Time since Instantiate: 52.0513
+ Bounding Rect Area 1016.117
+ Screen Position (899.1, -146.8)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 2101.445
+
+Target_000 was clicked at 54.65223
+ Time since Instantiate: 2.600929
+ Bounding Rect Area 653.6852
+ Screen Position (909.7, -333.2)
+ Distance from last Target 3.643129
+ Distance from last Target Screen 363.1743
+
+Target_001 was clicked at 56.30766
+ Time since Instantiate: 1.655422
+ Bounding Rect Area 78.57452
+ Screen Position (860.0, -231.9)
+ Distance from last Target 12.18754
+ Distance from last Target Screen 143.7462
+
+Target_002 was clicked at 62.32985
+ Time since Instantiate: 6.022198
+ Bounding Rect Area 198.3432
+ Screen Position (974.2, -368.3)
+ Distance from last Target 10.23029
+ Distance from last Target Screen 426.4666
+
+Target_003 was clicked at 65.21954
+ Time since Instantiate: 2.88969
+ Bounding Rect Area 637.066
+ Screen Position (957.3, -178.7)
+ Distance from last Target 10.8202
+ Distance from last Target Screen 479.1011
+
+Target_004 was clicked at 70.36391
+ Time since Instantiate: 5.144371
+ Bounding Rect Area 1378.608
+ Screen Position (834.2, -482.3)
+ Distance from last Target 8.442637
+ Distance from last Target Screen 1641.97
+
+Target_005 was clicked at 72.27656
+ Time since Instantiate: 1.912643
+ Bounding Rect Area 101.1939
+ Screen Position (867.0, -199.6)
+ Distance from last Target 13.27448
+ Distance from last Target Screen 414.6808
+
+Target_006 was clicked at 73.91983
+ Time since Instantiate: 1.643272
+ Bounding Rect Area 753.4136
+ Screen Position (775.5, -394.7)
+ Distance from last Target 11.58724
+ Distance from last Target Screen 336.8983
+
+Target_007 was clicked at 77.58668
+ Time since Instantiate: 3.666847
+ Bounding Rect Area 761.402
+ Screen Position (801.7, -417.2)
+ Distance from last Target 0.301178
+ Distance from last Target Screen 28.44945
+
+Target_008 was clicked at 80.55408
+ Time since Instantiate: 2.967407
+ Bounding Rect Area 497.4493
+ Screen Position (919.6, -302.7)
+ Distance from last Target 10.98349
+ Distance from last Target Screen 4851.718
+
+Target_009 was clicked at 82.49766
+ Time since Instantiate: 1.943573
+ Bounding Rect Area 1133.382
+ Screen Position (852.7, -199.3)
+ Distance from last Target 5.909941
+ Distance from last Target Screen 545.0947
+
+Target_010 was clicked at 85.08767
+ Time since Instantiate: 2.590012
+ Bounding Rect Area 176.2824
+ Screen Position (894.8, -330.9)
+ Distance from last Target 9.083891
+ Distance from last Target Screen 111.787
+
+Target_011 was clicked at 90.65572
+ Time since Instantiate: 5.568047
+ Bounding Rect Area 949.2404
+ Screen Position (884.4, -385.5)
+ Distance from last Target 7.898312
+ Distance from last Target Screen 281.0573
+
+Target_012 was clicked at 95.77731
+ Time since Instantiate: 5.121597
+ Bounding Rect Area 973.0466
+ Screen Position (892.4, -172.1)
+ Distance from last Target 6.971416
+ Distance from last Target Screen 1659.095
+
+Target_013 was clicked at 105.5881
+ Time since Instantiate: 9.810791
+ Bounding Rect Area 125.6346
+ Screen Position (846.6, -121.3)
+ Distance from last Target 15.20134
+ Distance from last Target Screen 1948.142
+
+Target_014 was clicked at 125.1769
+ Time since Instantiate: 19.5888
+ Bounding Rect Area 227.0323
+ Screen Position (842.0, -415.5)
+ Distance from last Target 13.56226
+ Distance from last Target Screen 685.8381
+
+Target_015 was clicked at 128.7648
+ Time since Instantiate: 3.587898
+ Bounding Rect Area 171.3464
+ Screen Position (813.5, -325.9)
+ Distance from last Target 4.055381
+ Distance from last Target Screen 169.3016
+
+Target_016 was clicked at 135.2658
+ Time since Instantiate: 6.500977
+ Bounding Rect Area 94.03535
+ Screen Position (841.9, -273.9)
+ Distance from last Target 12.00822
+ Distance from last Target Screen 740.8707
+
+Target_017 was clicked at 141.0644
+ Time since Instantiate: 5.798584
+ Bounding Rect Area 178.2737
+ Screen Position (903.8, -290.0)
+ Distance from last Target 15.26335
+ Distance from last Target Screen 797.5446
+
+Target_018 was clicked at 143.6983
+ Time since Instantiate: 2.633957
+ Bounding Rect Area 3118.928
+ Screen Position (838.5, -138.9)
+ Distance from last Target 12.85353
+ Distance from last Target Screen 595.188
+
+Target_019 was clicked at 145.2122
+ Time since Instantiate: 1.513885
+ Bounding Rect Area 1544.865
+ Screen Position (921.5, -140.8)
+ Distance from last Target 1.436015
+ Distance from last Target Screen 211.3099
+
+Target_020 was clicked at 148.5207
+ Time since Instantiate: 3.308456
+ Bounding Rect Area 157.7631
+ Screen Position (942.3, -209.6)
+ Distance from last Target 14.45575
+ Distance from last Target Screen 722.4347
+
+Target_021 was clicked at 152.2652
+ Time since Instantiate: 3.744492
+ Bounding Rect Area 4443.542
+ Screen Position (846.0, -87.6)
+ Distance from last Target 15.22813
+ Distance from last Target Screen 774.5005
+
+Target_022 was clicked at 155.1866
+ Time since Instantiate: 2.921478
+ Bounding Rect Area 1490.119
+ Screen Position (945.1, -143.9)
+ Distance from last Target 5.268614
+ Distance from last Target Screen 2432.359
+
+Target_023 was clicked at 156.8552
+ Time since Instantiate: 1.668533
+ Bounding Rect Area 2760.632
+ Screen Position (928.2, -180.5)
+ Distance from last Target 5.535516
+ Distance from last Target Screen 2760.878
+
+Target_024 was clicked at 162.1858
+ Time since Instantiate: 5.330597
+ Bounding Rect Area 278.6912
+ Screen Position (997.2, -231.1)
+ Distance from last Target 10.6801
+ Distance from last Target Screen 1299.129
+
+Target_025 was clicked at 165.3647
+ Time since Instantiate: 3.178986
+ Bounding Rect Area 162.5691
+ Screen Position (878.4, -163.6)
+ Distance from last Target 15.12446
+ Distance from last Target Screen 1464.632
+
+Target_026 was clicked at 168.9328
+ Time since Instantiate: 3.568069
+ Bounding Rect Area 180.9075
+ Screen Position (941.6, -199.6)
+ Distance from last Target 12.73686
+ Distance from last Target Screen 812.2586
+
+Target_027 was clicked at 172.9529
+ Time since Instantiate: 4.020111
+ Bounding Rect Area 139.4672
+ Screen Position (827.5, -170.4)
+ Distance from last Target 15.12539
+ Distance from last Target Screen 1128.243
+
+Target_028 was clicked at 185.3185
+ Time since Instantiate: 12.36552
+ Bounding Rect Area 376.1156
+ Screen Position (991.2, -165.1)
+ Distance from last Target 17.6794
+ Distance from last Target Screen 2440.747
+
+Target_029 was clicked at 188.2293
+ Time since Instantiate: 2.910843
+ Bounding Rect Area 3289.716
+ Screen Position (898.2, -406.6)
+ Distance from last Target 8.952712
+ Distance from last Target Screen 1388.712
+
+Target_030 was clicked at 191.6512
+ Time since Instantiate: 3.421936
+ Bounding Rect Area 370.5325
+ Screen Position (836.3, -472.7)
+ Distance from last Target 9.166921
+ Distance from last Target Screen 195.1146
+
+Target_031 was clicked at 196.6625
+ Time since Instantiate: 5.011292
+ Bounding Rect Area 161.07
+ Screen Position (966.8, -315.3)
+ Distance from last Target 13.83164
+ Distance from last Target Screen 1046.519
+
+Target_032 was clicked at 199.0445
+ Time since Instantiate: 2.382004
+ Bounding Rect Area 452.3588
+ Screen Position (1011.7, -303.3)
+ Distance from last Target 7.718245
+ Distance from last Target Screen 189.2754
+
+Target_033 was clicked at 201.1982
+ Time since Instantiate: 2.153687
+ Bounding Rect Area 833.9718
+ Screen Position (921.6, -159.6)
+ Distance from last Target 5.114981
+ Distance from last Target Screen 329.1009
+
+Target_034 was clicked at 202.6187
+ Time since Instantiate: 1.420502
+ Bounding Rect Area 746.5434
+ Screen Position (877.7, -110.4)
+ Distance from last Target 2.737608
+ Distance from last Target Screen 353.8489
+
+Target_035 was clicked at 205.5288
+ Time since Instantiate: 2.910126
+ Bounding Rect Area 678.879
+ Screen Position (851.9, -163.0)
+ Distance from last Target 2.31271
+ Distance from last Target Screen 235.8664
+
+Target_036 was clicked at 208.6405
+ Time since Instantiate: 3.111694
+ Bounding Rect Area 148.4176
+ Screen Position (861.6, -188.8)
+ Distance from last Target 11.95193
+ Distance from last Target Screen 473.8073
+
+Target_037 was clicked at 213.751
+ Time since Instantiate: 5.110458
+ Bounding Rect Area 258.5841
+ Screen Position (825.4, -340.5)
+ Distance from last Target 8.694814
+ Distance from last Target Screen 423.9002
+
+Target_038 was clicked at 217.0419
+ Time since Instantiate: 3.290939
+ Bounding Rect Area 163.4903
+ Screen Position (808.3, -335.6)
+ Distance from last Target 8.210895
+ Distance from last Target Screen 306.3257
+
+Target_039 was clicked at 222.2629
+ Time since Instantiate: 5.220993
+ Bounding Rect Area 90.50623
+ Screen Position (884.8, -229.3)
+ Distance from last Target 9.244081
+ Distance from last Target Screen 446.3327
+
+Target_040 was clicked at 225.8949
+ Time since Instantiate: 3.631958
+ Bounding Rect Area 191.0175
+ Screen Position (786.5, -233.9)
+ Distance from last Target 8.360194
+ Distance from last Target Screen 383.2669
+
+Target_041 was clicked at 227.6184
+ Time since Instantiate: 1.723541
+ Bounding Rect Area 625.7474
+ Screen Position (922.6, -154.6)
+ Distance from last Target 9.206269
+ Distance from last Target Screen 334.837
+
+Target_042 was clicked at 229.3728
+ Time since Instantiate: 1.754333
+ Bounding Rect Area 642.785
+ Screen Position (868.8, -346.8)
+ Distance from last Target 3.879724
+ Distance from last Target Screen 369.1638
+
+Target_043 was clicked at 234.9296
+ Time since Instantiate: 5.55687
+ Bounding Rect Area 471.3269
+ Screen Position (885.1, -407.4)
+ Distance from last Target 1.607573
+ Distance from last Target Screen 116.125
+
+Target_044 was clicked at 241.6445
+ Time since Instantiate: 6.714874
+ Bounding Rect Area 229.7929
+ Screen Position (941.2, -145.6)
+ Distance from last Target 8.115731
+ Distance from last Target Screen 761.6287
+
+Target_045 was clicked at 244.7609
+ Time since Instantiate: 3.116409
+ Bounding Rect Area 2941.221
+ Screen Position (738.5, -244.9)
+ Distance from last Target 9.86321
+ Distance from last Target Screen 1022.819
+
+Target_046 was clicked at 247.2859
+ Time since Instantiate: 2.525009
+ Bounding Rect Area 179.4969
+ Screen Position (815.5, -348.2)
+ Distance from last Target 14.3952
+ Distance from last Target Screen 286.4428
+
+Target_047 was clicked at 250.3404
+ Time since Instantiate: 3.054443
+ Bounding Rect Area 517.0091
+ Screen Position (950.0, -166.2)
+ Distance from last Target 11.97138
+ Distance from last Target Screen 500.2573
+
+Target_048 was clicked at 252.3611
+ Time since Instantiate: 2.020782
+ Bounding Rect Area 843.5842
+ Screen Position (715.3, -182.4)
+ Distance from last Target 4.731406
+ Distance from last Target Screen 410.6535
+
+Target_049 was clicked at 257.1957
+ Time since Instantiate: 4.834534
+ Bounding Rect Area 145.1404
+ Screen Position (929.6, -265.2)
+ Distance from last Target 16.00934
+ Distance from last Target Screen 1147.603
+
+Target_050 was clicked at 259.617
+ Time since Instantiate: 2.421326
+ Bounding Rect Area 312.0148
+ Screen Position (1028.3, 6.8)
+ Distance from last Target 12.33577
+ Distance from last Target Screen 575.2233
+
+Target_051 was clicked at 261.5501
+ Time since Instantiate: 1.933105
+ Bounding Rect Area 1351.031
+ Screen Position (838.6, -134.1)
+ Distance from last Target 7.650748
+ Distance from last Target Screen 303.278
+
+Target_052 was clicked at 263.4831
+ Time since Instantiate: 1.932983
+ Bounding Rect Area 4273.537
+ Screen Position (850.1, -80.7)
+ Distance from last Target 4.546673
+ Distance from last Target Screen 1312.464
+
+Target_053 was clicked at 266.2606
+ Time since Instantiate: 2.777466
+ Bounding Rect Area 942.7583
+ Screen Position (886.4, -172.3)
+ Distance from last Target 7.256785
+ Distance from last Target Screen 4043.226
+
+Target_054 was clicked at 267.2383
+ Time since Instantiate: 0.9777527
+ Bounding Rect Area 3688.775
+ Screen Position (818.2, -168.9)
+ Distance from last Target 4.799147
+ Distance from last Target Screen 467.5728
+
+Target_055 was clicked at 268.2274
+ Time since Instantiate: 0.9890442
+ Bounding Rect Area 3368.764
+ Screen Position (845.3, -126.6)
+ Distance from last Target 0.3715852
+ Distance from last Target Screen 89.3022
+
+Target_056 was clicked at 269.3606
+ Time since Instantiate: 1.13324
+ Bounding Rect Area 874.3629
+ Screen Position (886.8, -155.9)
+ Distance from last Target 3.149697
+ Distance from last Target Screen 162.3152
+
+Target_057 was clicked at 270.9519
+ Time since Instantiate: 1.591339
+ Bounding Rect Area 165.2954
+ Screen Position (865.7, -123.4)
+ Distance from last Target 6.965996
+ Distance from last Target Screen 320.3196
+
+Target_058 was clicked at 271.8717
+ Time since Instantiate: 0.9197998
+ Bounding Rect Area 272.1808
+ Screen Position (864.4, -131.4)
+ Distance from last Target 4.77979
+ Distance from last Target Screen 305.8225
+
+Target_059 was clicked at 274.1052
+ Time since Instantiate: 2.233459
+ Bounding Rect Area 186.5032
+ Screen Position (859.3, -126.2)
+ Distance from last Target 4.434701
+ Distance from last Target Screen 192.4075
+
+Target_060 was clicked at 276.194
+ Time since Instantiate: 2.088806
+ Bounding Rect Area 142.2446
+ Screen Position (871.0, -122.6)
+ Distance from last Target 7.273846
+ Distance from last Target Screen 430.3256
+
+Target_061 was clicked at 279.0833
+ Time since Instantiate: 2.889282
+ Bounding Rect Area 316.4353
+ Screen Position (868.7, -122.5)
+ Distance from last Target 6.384542
+ Distance from last Target Screen 403.7423
+
+Target_062 was clicked at 280.8379
+ Time since Instantiate: 1.754608
+ Bounding Rect Area 928.6208
+ Screen Position (867.4, -161.0)
+ Distance from last Target 7.320116
+ Distance from last Target Screen 545.8002
+
+Target_063 was clicked at 282.3051
+ Time since Instantiate: 1.467255
+ Bounding Rect Area 108.7007
+ Screen Position (846.2, -132.3)
+ Distance from last Target 12.52244
+ Distance from last Target Screen 257.1037
+
+Target_064 was clicked at 283.885
+ Time since Instantiate: 1.579834
+ Bounding Rect Area 2569.575
+ Screen Position (860.2, -126.3)
+ Distance from last Target 14.74943
+ Distance from last Target Screen 430.3263
+
+Target_065 was clicked at 291.9826
+ Time since Instantiate: 8.097656
+ Bounding Rect Area 127.3633
+ Screen Position (866.3, -113.1)
+ Distance from last Target 14.25448
+ Distance from last Target Screen 649.2906
+
+Target_066 was clicked at 299.4044
+ Time since Instantiate: 7.421722
+ Bounding Rect Area 134.5085
+ Screen Position (877.5, -138.2)
+ Distance from last Target 23.9643
+ Distance from last Target Screen 5677.486
+
+Target_067 was clicked at 301.8486
+ Time since Instantiate: 2.444214
+ Bounding Rect Area 124.5055
+ Screen Position (859.3, -159.7)
+ Distance from last Target 22.28893
+ Distance from last Target Screen 2359.301
+
+Target_068 was clicked at 304.317
+ Time since Instantiate: 2.468414
+ Bounding Rect Area 136.3228
+ Screen Position (855.5, -124.8)
+ Distance from last Target 9.860229
+ Distance from last Target Screen 473.7653
+
+Target_069 was clicked at 305.7933
+ Time since Instantiate: 1.476318
+ Bounding Rect Area 552.1625
+ Screen Position (850.5, -124.4)
+ Distance from last Target 7.436333
+ Distance from last Target Screen 320.937
+
+Target_070 was clicked at 307.5269
+ Time since Instantiate: 1.733551
+ Bounding Rect Area 1459.577
+ Screen Position (871.9, -122.0)
+ Distance from last Target 5.248865
+ Distance from last Target Screen 586.1239
+
+Target_071 was clicked at 308.8039
+ Time since Instantiate: 1.277039
+ Bounding Rect Area 2203.72
+ Screen Position (877.4, -150.9)
+ Distance from last Target 2.743057
+ Distance from last Target Screen 461.6583
+
+Target_072 was clicked at 310.4375
+ Time since Instantiate: 1.633575
+ Bounding Rect Area 1706.97
+ Screen Position (866.8, -125.5)
+ Distance from last Target 1.59295
+ Distance from last Target Screen 305.7918
+
+Target_073 was clicked at 312.293
+ Time since Instantiate: 1.855499
+ Bounding Rect Area 559.4036
+ Screen Position (847.5, -135.8)
+ Distance from last Target 4.972097
+ Distance from last Target Screen 402.3394
+
+Target_074 was clicked at 315.0262
+ Time since Instantiate: 2.733185
+ Bounding Rect Area 1003.424
+ Screen Position (861.4, -108.1)
+ Distance from last Target 6.985787
+ Distance from last Target Screen 1099.979
+
+Target_075 was clicked at 319.2482
+ Time since Instantiate: 4.222076
+ Bounding Rect Area 296.5221
+ Screen Position (870.9, -116.7)
+ Distance from last Target 6.665376
+ Distance from last Target Screen 427.1687
+
+Target_076 was clicked at 321.893
+ Time since Instantiate: 2.644745
+ Bounding Rect Area 245.0096
+ Screen Position (867.6, -112.7)
+ Distance from last Target 6.294922
+ Distance from last Target Screen 343.8181
+
+Target_077 was clicked at 324.1373
+ Time since Instantiate: 2.244354
+ Bounding Rect Area 449.4076
+ Screen Position (886.2, -80.7)
+ Distance from last Target 12.84772
+ Distance from last Target Screen 1381.451
+
+Target_078 was clicked at 326.0593
+ Time since Instantiate: 1.921936
+ Bounding Rect Area 1138.766
+ Screen Position (873.4, -122.9)
+ Distance from last Target 5.752493
+ Distance from last Target Screen 732.0921
+
+Target_079 was clicked at 328.0929
+ Time since Instantiate: 2.0336
+ Bounding Rect Area 135.7566
+ Screen Position (888.2, -119.7)
+ Distance from last Target 12.33028
+ Distance from last Target Screen 206.2075
+
+Target_080 was clicked at 329.4838
+ Time since Instantiate: 1.3909
+ Bounding Rect Area 777.9592
+ Screen Position (857.7, -138.5)
+ Distance from last Target 11.96844
+ Distance from last Target Screen 321.4743
+
+Target_081 was clicked at 331.1494
+ Time since Instantiate: 1.665649
+ Bounding Rect Area 167.7905
+ Screen Position (838.2, -120.2)
+ Distance from last Target 6.083102
+ Distance from last Target Screen 58.6838
+
+Target_082 was clicked at 334.9592
+ Time since Instantiate: 3.809784
+ Bounding Rect Area 182.4942
+ Screen Position (868.5, -128.3)
+ Distance from last Target 6.833151
+ Distance from last Target Screen 359.7385
+
+New Run
+
+New Run
+
+Cube was clicked at 59.19084
+ Time since Instantiate: 59.19084
+ Bounding Rect Area 1267.516
+ Screen Position (871.4, -118.0)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 6198.48
+
+Target_000 was clicked at 61.0127
+ Time since Instantiate: 1.821861
+ Bounding Rect Area 153.3144
+ Screen Position (839.3, -283.8)
+ Distance from last Target 14.07507
+ Distance from last Target Screen 544.0875
+
+Target_001 was clicked at 62.49055
+ Time since Instantiate: 1.477848
+ Bounding Rect Area 140.0111
+ Screen Position (803.3, -341.8)
+ Distance from last Target 2.539252
+ Distance from last Target Screen 66.5822
+
+Target_002 was clicked at 63.54687
+ Time since Instantiate: 1.056316
+ Bounding Rect Area 3258.584
+ Screen Position (980.3, -109.7)
+ Distance from last Target 16.45213
+ Distance from last Target Screen 381.3514
+
+Target_003 was clicked at 64.93475
+ Time since Instantiate: 1.387878
+ Bounding Rect Area 165.4093
+ Screen Position (1008.1, -390.4)
+ Distance from last Target 13.46003
+ Distance from last Target Screen 381.0328
+
+Target_004 was clicked at 66.21413
+ Time since Instantiate: 1.279381
+ Bounding Rect Area 319.8698
+ Screen Position (844.4, -500.7)
+ Distance from last Target 5.377893
+ Distance from last Target Screen 209.1625
+
+Target_005 was clicked at 67.24579
+ Time since Instantiate: 1.031662
+ Bounding Rect Area 812.4299
+ Screen Position (1016.4, -326.3)
+ Distance from last Target 5.846984
+ Distance from last Target Screen 266.3046
+
+Target_006 was clicked at 70.72337
+ Time since Instantiate: 3.477585
+ Bounding Rect Area 3857.104
+ Screen Position (819.1, -428.6)
+ Distance from last Target 4.675139
+ Distance from last Target Screen 578.1131
+
+Target_007 was clicked at 72.44828
+ Time since Instantiate: 1.724907
+ Bounding Rect Area 81.83095
+ Screen Position (938.9, -154.4)
+ Distance from last Target 17.07788
+ Distance from last Target Screen 1038.177
+
+New Run
+
+Cube was clicked at 13.14465
+ Time since Instantiate: 13.14465
+ Bounding Rect Area 1327.302
+ Screen Position (974.5, -156.4)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 21174.66
+
+New Run
+
+New Run
+
+New Run
+
+Cube was clicked at 32.78035
+ Time since Instantiate: 32.78035
+ Bounding Rect Area 1409.458
+ Screen Position (1021.4, -215.9)
+ Distance from last Target 4.507205
+ Distance from last Target Screen 38844.47
+
+New Run
+
+Cube was clicked at 43.55126
+ Time since Instantiate: 43.55126
+ Bounding Rect Area 25424.73
+ Screen Position (919.9, -109.5)
+ Distance from last Target 2.037777
+ Distance from last Target Screen 7352.289
+
+Target_000 was clicked at 45.5615
+ Time since Instantiate: 2.010239
+ Bounding Rect Area 2939.003
+ Screen Position (867.3, -393.1)
+ Distance from last Target 3.081168
+ Distance from last Target Screen 543.0882
+
+Target_001 was clicked at 46.58363
+ Time since Instantiate: 1.022125
+ Bounding Rect Area 1542.486
+ Screen Position (780.0, -222.6)
+ Distance from last Target 1.636991
+ Distance from last Target Screen 222.1126
+
+Target_002 was clicked at 47.96149
+ Time since Instantiate: 1.377861
+ Bounding Rect Area 246.3233
+ Screen Position (1000.7, -407.7)
+ Distance from last Target 8.74789
+ Distance from last Target Screen 336.0825
+
+Target_003 was clicked at 54.72826
+ Time since Instantiate: 6.766777
+ Bounding Rect Area 2591.553
+ Screen Position (843.0, -469.6)
+ Distance from last Target 8.96693
+ Distance from last Target Screen 421.3354
+
+Target_004 was clicked at 60.32772
+ Time since Instantiate: 5.599461
+ Bounding Rect Area 534.1313
+ Screen Position (1035.3, -407.8)
+ Distance from last Target 13.80911
+ Distance from last Target Screen 1081.69
+
+Target_005 was clicked at 62.13918
+ Time since Instantiate: 1.811459
+ Bounding Rect Area 109.2167
+ Screen Position (938.8, -339.3)
+ Distance from last Target 11.58779
+ Distance from last Target Screen 743.6323
+
+Target_006 was clicked at 70.44987
+ Time since Instantiate: 8.310684
+ Bounding Rect Area 1141.132
+ Screen Position (893.4, -237.4)
+ Distance from last Target 11.44821
+ Distance from last Target Screen 338.4135
+
+Target_007 was clicked at 71.78262
+ Time since Instantiate: 1.332756
+ Bounding Rect Area 244.5464
+ Screen Position (838.0, -334.7)
+ Distance from last Target 7.361177
+ Distance from last Target Screen 256.7596
+
+Target_008 was clicked at 74.43835
+ Time since Instantiate: 2.655731
+ Bounding Rect Area 137.5444
+ Screen Position (837.4, -426.5)
+ Distance from last Target 9.026224
+ Distance from last Target Screen 404.4905
+
+Target_009 was clicked at 75.53786
+ Time since Instantiate: 1.09951
+ Bounding Rect Area 348.5539
+ Screen Position (912.8, -202.3)
+ Distance from last Target 10.05888
+ Distance from last Target Screen 277.4319
+
+Target_010 was clicked at 77.15997
+ Time since Instantiate: 1.622108
+ Bounding Rect Area 1135.305
+ Screen Position (912.4, -443.7)
+ Distance from last Target 3.790296
+ Distance from last Target Screen 312.6033
+
+Target_011 was clicked at 79.00533
+ Time since Instantiate: 1.84536
+ Bounding Rect Area 212.1025
+ Screen Position (820.6, -116.6)
+ Distance from last Target 9.197012
+ Distance from last Target Screen 838.3242
+
+Target_012 was clicked at 80.60512
+ Time since Instantiate: 1.599785
+ Bounding Rect Area 241.9165
+ Screen Position (1016.8, -191.6)
+ Distance from last Target 8.627325
+ Distance from last Target Screen 593.2723
+
+Target_013 was clicked at 84.04985
+ Time since Instantiate: 3.444733
+ Bounding Rect Area 3207.567
+ Screen Position (869.0, -405.5)
+ Distance from last Target 8.871312
+ Distance from last Target Screen 677.7844
+
+Target_014 was clicked at 85.82672
+ Time since Instantiate: 1.776871
+ Bounding Rect Area 162.8958
+ Screen Position (865.0, -147.3)
+ Distance from last Target 11.21509
+ Distance from last Target Screen 615.8306
+
+Target_015 was clicked at 87.04906
+ Time since Instantiate: 1.222336
+ Bounding Rect Area 2773.227
+ Screen Position (950.5, -434.0)
+ Distance from last Target 10.98011
+ Distance from last Target Screen 465.5975
+
+Target_016 was clicked at 88.48228
+ Time since Instantiate: 1.43322
+ Bounding Rect Area 136.2574
+ Screen Position (827.9, -155.3)
+ Distance from last Target 12.56085
+ Distance from last Target Screen 747.3726
+
+Target_017 was clicked at 89.46011
+ Time since Instantiate: 0.977829
+ Bounding Rect Area 5056.858
+ Screen Position (984.7, -357.0)
+ Distance from last Target 12.38361
+ Distance from last Target Screen 346.4597
+
+Target_018 was clicked at 91.34931
+ Time since Instantiate: 1.889206
+ Bounding Rect Area 186.819
+ Screen Position (985.4, -211.8)
+ Distance from last Target 10.62538
+ Distance from last Target Screen 462.9305
+
+Target_019 was clicked at 92.42692
+ Time since Instantiate: 1.077606
+ Bounding Rect Area 488.6475
+ Screen Position (872.1, -226.2)
+ Distance from last Target 6.571254
+ Distance from last Target Screen 325.0598
+
+Target_020 was clicked at 93.43806
+ Time since Instantiate: 1.011147
+ Bounding Rect Area 3167.014
+ Screen Position (906.8, 1.4)
+ Distance from last Target 5.320725
+ Distance from last Target Screen 270.2437
+
+Target_021 was clicked at 96.33804
+ Time since Instantiate: 2.899971
+ Bounding Rect Area 531.8792
+ Screen Position (796.0, -420.7)
+ Distance from last Target 10.01819
+ Distance from last Target Screen 931.3851
+
+Target_022 was clicked at 97.83752
+ Time since Instantiate: 1.499489
+ Bounding Rect Area 139.8639
+ Screen Position (961.2, -279.7)
+ Distance from last Target 10.42883
+ Distance from last Target Screen 637.5251
+
+Target_023 was clicked at 99.47073
+ Time since Instantiate: 1.633202
+ Bounding Rect Area 250.5068
+ Screen Position (817.3, -269.3)
+ Distance from last Target 7.479503
+ Distance from last Target Screen 374.9826
+
+Target_024 was clicked at 101.7272
+ Time since Instantiate: 2.256523
+ Bounding Rect Area 442.5281
+ Screen Position (854.3, -296.2)
+ Distance from last Target 3.081559
+ Distance from last Target Screen 48.65101
+
+Target_025 was clicked at 103.3615
+ Time since Instantiate: 1.634224
+ Bounding Rect Area 1749.332
+ Screen Position (983.6, -234.3)
+ Distance from last Target 6.779166
+ Distance from last Target Screen 394.0334
+
+Target_026 was clicked at 105.5486
+ Time since Instantiate: 2.187149
+ Bounding Rect Area 138.96
+ Screen Position (958.4, -298.0)
+ Distance from last Target 12.41642
+ Distance from last Target Screen 293.5948
+
+Target_027 was clicked at 107.1823
+ Time since Instantiate: 1.633652
+ Bounding Rect Area 91.27964
+ Screen Position (1047.2, -125.8)
+ Distance from last Target 9.60337
+ Distance from last Target Screen 394.0568
+
+Target_028 was clicked at 109.0159
+ Time since Instantiate: 1.833649
+ Bounding Rect Area 246.7507
+ Screen Position (932.1, -356.8)
+ Distance from last Target 9.970424
+ Distance from last Target Screen 390.9038
+
+Target_029 was clicked at 111.1042
+ Time since Instantiate: 2.088295
+ Bounding Rect Area 233.1927
+ Screen Position (870.6, -288.6)
+ Distance from last Target 11.28263
+ Distance from last Target Screen 917.41
+
+Target_030 was clicked at 115.3154
+ Time since Instantiate: 4.211197
+ Bounding Rect Area 227.2001
+ Screen Position (914.9, -420.9)
+ Distance from last Target 6.902264
+ Distance from last Target Screen 359.5682
+
+Target_031 was clicked at 116.5596
+ Time since Instantiate: 1.244202
+ Bounding Rect Area 1231.787
+ Screen Position (1015.8, -318.7)
+ Distance from last Target 10.42743
+ Distance from last Target Screen 460.3024
+
+Target_032 was clicked at 118.3377
+ Time since Instantiate: 1.778038
+ Bounding Rect Area 81.02508
+ Screen Position (880.3, -191.2)
+ Distance from last Target 16.04753
+ Distance from last Target Screen 1028.996
+
+Target_033 was clicked at 119.3043
+ Time since Instantiate: 0.9666214
+ Bounding Rect Area 2017.152
+ Screen Position (803.4, -148.0)
+ Distance from last Target 15.19392
+ Distance from last Target Screen 217.0128
+
+Target_034 was clicked at 121.7264
+ Time since Instantiate: 2.422127
+ Bounding Rect Area 5138.893
+ Screen Position (1041.2, -64.1)
+ Distance from last Target 4.545845
+ Distance from last Target Screen 1783.702
+
+Target_035 was clicked at 123.9924
+ Time since Instantiate: 2.266022
+ Bounding Rect Area 1469.693
+ Screen Position (915.1, -400.9)
+ Distance from last Target 5.99632
+ Distance from last Target Screen 1701.248
+
+Target_036 was clicked at 130.8373
+ Time since Instantiate: 6.844887
+ Bounding Rect Area 4709.538
+ Screen Position (895.7, -140.9)
+ Distance from last Target 4.674915
+ Distance from last Target Screen 895.7384
+
+Target_037 was clicked at 133.2484
+ Time since Instantiate: 2.411087
+ Bounding Rect Area 901.9299
+ Screen Position (842.3, -355.2)
+ Distance from last Target 7.401692
+ Distance from last Target Screen 1390.406
+
+Target_038 was clicked at 135.9922
+ Time since Instantiate: 2.743851
+ Bounding Rect Area 278.6207
+ Screen Position (930.8, -398.3)
+ Distance from last Target 10.80499
+ Distance from last Target Screen 972.9159
+
+Target_039 was clicked at 137.6151
+ Time since Instantiate: 1.622849
+ Bounding Rect Area 290.0692
+ Screen Position (859.1, -309.8)
+ Distance from last Target 8.048016
+ Distance from last Target Screen 574.2372
+
+Target_040 was clicked at 162.4255
+ Time since Instantiate: 24.81041
+ Bounding Rect Area 171.9785
+ Screen Position (889.5, -335.1)
+ Distance from last Target 6.119828
+ Distance from last Target Screen 185.2263
+
+Target_041 was clicked at 163.4699
+ Time since Instantiate: 1.044418
+ Bounding Rect Area 4561.034
+ Screen Position (958.8, -257.2)
+ Distance from last Target 14.10713
+ Distance from last Target Screen 188.4077
+
+Target_042 was clicked at 164.7163
+ Time since Instantiate: 1.246353
+ Bounding Rect Area 361.3006
+ Screen Position (817.5, -325.1)
+ Distance from last Target 9.432155
+ Distance from last Target Screen 367.4505
+
+Target_043 was clicked at 165.8828
+ Time since Instantiate: 1.166534
+ Bounding Rect Area 626.963
+ Screen Position (862.2, -113.3)
+ Distance from last Target 7.103321
+ Distance from last Target Screen 445.5198
+
+Target_044 was clicked at 167.2598
+ Time since Instantiate: 1.376984
+ Bounding Rect Area 152.9389
+ Screen Position (976.2, -315.5)
+ Distance from last Target 10.05585
+ Distance from last Target Screen 311.1531
+
+Target_045 was clicked at 168.9247
+ Time since Instantiate: 1.664902
+ Bounding Rect Area 130.476
+ Screen Position (905.4, -374.6)
+ Distance from last Target 5.98945
+ Distance from last Target Screen 222.9777
+
+Target_046 was clicked at 170.4696
+ Time since Instantiate: 1.544876
+ Bounding Rect Area 163.3051
+ Screen Position (1033.8, -176.2)
+ Distance from last Target 11.98059
+ Distance from last Target Screen 553.8627
+
+Target_047 was clicked at 172.6694
+ Time since Instantiate: 2.19986
+ Bounding Rect Area 96.49473
+ Screen Position (850.0, -186.3)
+ Distance from last Target 13.71113
+ Distance from last Target Screen 714.4183
+
+Target_048 was clicked at 174.7148
+ Time since Instantiate: 2.045334
+ Bounding Rect Area 185.3106
+ Screen Position (862.5, -249.9)
+ Distance from last Target 14.05006
+ Distance from last Target Screen 813.8506
+
+Target_049 was clicked at 176.2918
+ Time since Instantiate: 1.577072
+ Bounding Rect Area 95.6809
+ Screen Position (855.6, -94.1)
+ Distance from last Target 11.46252
+ Distance from last Target Screen 622.3751
+

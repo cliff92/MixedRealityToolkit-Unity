@@ -6,7 +6,6 @@ using System;
 
 public class HeadRay : MonoBehaviour, IPointingSource
 {
-
     private BaseRayStabilizer rayStabilizer;
 
     private bool ownAllInput = true;
@@ -30,6 +29,9 @@ public class HeadRay : MonoBehaviour, IPointingSource
     public float relativeFactor = 1.0f;
 
     public GameObject head;
+    public GameObject visualRay;
+    public Material rayInactiveMaterial;
+    public Material rayActiveMaterial;
 
     private Quaternion startRelativeQuat = Quaternion.identity;
 
@@ -67,7 +69,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
         if (MyoPoseManager.Instance.ClickUp ||
             ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& !MyoPoseManager.Instance.useMyo))
         {
-            DepthRayManager.Instance.UpdateTransparencyRay(10);
+            visualRay.GetComponent<Renderer>().material = rayInactiveMaterial;
         }
 
         Hand hand = null;
@@ -96,7 +98,7 @@ public class HeadRay : MonoBehaviour, IPointingSource
         {
             if (hand.TryGetRotation(out rotation))
             {
-                DepthRayManager.Instance.UpdateTransparencyRay(180);
+                visualRay.GetComponent<Renderer>().material = rayActiveMaterial;
                 startRelativeQuat = rotation;
                 if (hand.TryGetAngularVelocity(out angularVelocity))
                 {
