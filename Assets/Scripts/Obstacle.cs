@@ -7,25 +7,13 @@ public class Obstacle : MonoBehaviour
     private ObjectState state;
     private ObjectState oldState;
 
-    private GameObject depthMarker;
-
     private float angleBetweenRayObj;
 
-    private Vector3 posLastTarget = Vector3.zero;
-
-    private float startTime;
-
-    private void Awake()
+    private void Start()
     {
         material = GetComponent<Renderer>().material;
         defaultColor = material.color;
         state = ObjectState.Default;
-    }
-
-    private void Start()
-    {
-        depthMarker = DepthRayManager.Instance.depthMarker;
-        startTime = Time.time;
     }
 
     private void Update()

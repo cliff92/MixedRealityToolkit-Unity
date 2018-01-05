@@ -77,7 +77,8 @@ namespace Thalmic.Myo
         internal void StartEventThread()
         {
             _eventThreadShutdown = false;
-            _eventThread = new Thread(new ThreadStart(EventThreadFn));
+            ThreadStart threadStart = new ThreadStart(EventThreadFn);
+            _eventThread = new Thread(threadStart);
             _eventThread.Start();
         }
 

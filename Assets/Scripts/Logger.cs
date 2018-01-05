@@ -1,5 +1,6 @@
-﻿using System.IO;
-using UnityEngine;
+﻿using UnityEngine;
+using System.IO;
+using System.Text;
 
 public class Logger : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class Logger : MonoBehaviour
     internal void AppendString(string appendString)
     {
         //asset = Resources.Load(FileName + ".txt") as TextAsset;
-        writer = new StreamWriter(Application.dataPath+"/Resources/" + FileName + ".txt",true);
-        writer.WriteLine(appendString+"\n");
+
+        writer = new StreamWriter(Application.dataPath + "/Resources/" + FileName + ".txt", true);
+        writer.WriteLine(appendString + "\n");
         writer.Close();
     }
 

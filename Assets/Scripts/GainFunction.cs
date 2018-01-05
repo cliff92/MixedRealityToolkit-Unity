@@ -25,7 +25,7 @@ public class GainFunction : MonoBehaviour
     private Quaternion lastRotationData;
     private float lastTimeStep;
 
-    public Text text;
+    //public Text text;
 
     private int counter;
 
@@ -204,7 +204,7 @@ public class GainFunction : MonoBehaviour
                 }
                 break;
         }
-        text.text = "State: " +state.ToString() +"\n Velocity: "+currentVelocity;
+        //text.text = "State: " +state.ToString() +"\n Velocity: "+currentVelocity;
     }
 
     public static void ResetFunction(Vector3 currentAngularVelocity)

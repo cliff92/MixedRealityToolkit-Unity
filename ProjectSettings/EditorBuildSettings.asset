@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenario.unity
     guid: 4f35635a9b6459747baba87e8ccbe050
+  - enabled: 1
+    path: Assets/Measurement.unity
+    guid: 2153c3583128c0c43aa48b07ad9c1a8c

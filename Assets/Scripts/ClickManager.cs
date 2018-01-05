@@ -1,6 +1,7 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// The click manager handles all interaction like left and right click.
@@ -34,7 +35,7 @@ public class ClickManager : MonoBehaviour
     public float timeRightClickMyo = 1.0f;
 
     public GameObject rightClickIndicator;
-    public GameObject depthMarker;
+    public GameObject depthMarkerVisual;
     private Vector3 scaleRCIndicatorDefault;
     private Vector3 differenceRCIandDM;
 
@@ -65,7 +66,7 @@ public class ClickManager : MonoBehaviour
         InputManager.Instance.AddGlobalListener(gameObject);
 
         scaleRCIndicatorDefault = rightClickIndicator.transform.localScale;
-        differenceRCIandDM = depthMarker.transform.localScale - scaleRCIndicatorDefault;
+        differenceRCIandDM = depthMarkerVisual.transform.localScale - scaleRCIndicatorDefault;
     }
 
     private void Update()
@@ -74,7 +75,6 @@ public class ClickManager : MonoBehaviour
         CheckReset();
         CheckLeftClick();
         CheckRightClick();
-        
     }
 
     private void OnDestroy()
@@ -99,7 +99,7 @@ public class ClickManager : MonoBehaviour
     {
         if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.ClickUp)
         {
-            if(currentFocusedObject != null)
+            if (currentFocusedObject != null)
             {
                 OnLeftClick(currentFocusedObject);
             }
@@ -268,11 +268,11 @@ public class ClickManager : MonoBehaviour
                     }
                     break;
                 case "Object":
-                    currentFocusedObject = null;
+                    currentFocusedObject = newFocusedObject;
                     //newFocusedObject.GetComponent<Renderer>().material = objectInFocus;
                     break;
                 default:
-                    currentFocusedObject = null;
+                    currentFocusedObject = newFocusedObject;
                     break;
             }
         }
@@ -280,6 +280,7 @@ public class ClickManager : MonoBehaviour
         {
             currentFocusedObject = null;
         }
+        CheckLeftClick();
     }
 
 

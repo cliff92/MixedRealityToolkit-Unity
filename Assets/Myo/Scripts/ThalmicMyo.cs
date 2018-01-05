@@ -165,7 +165,7 @@ public class ThalmicMyo : MonoBehaviour {
         }
     }
 
-    private Obstacle _lock = new Obstacle();
+    private Object _lock = new Object();
 
     private bool _myoArmSynced = false;
     private Arm _myoArm = Arm.Unknown;

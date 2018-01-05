@@ -30,6 +30,7 @@ public class DepthRayManager : MonoBehaviour
     [Tooltip("The LayerMasks, in prioritized order, that are used to determine the HitObject when raycasting.")]
     private LayerMask[] pointingRaycastLayerMasks;
 
+
     private void Awake()
     {
         Instance = this;
@@ -278,37 +279,63 @@ public class DepthRayManager : MonoBehaviour
         {
             return null;
         }
-
+        float distanceHeadDepthMarker = Vector3.Distance(HeadPosition, depthMarker.transform.position);
         // Return the minimum distance hit within the first layer that has hits.
         // In other words, sort all hit objects first by layerMask, then by distance.
+        // It further first returns hits that are behind the depth marker
         for (int layerMaskIdx = 0; layerMaskIdx < layerMasks.Length; layerMaskIdx++)
         {
-            RaycastHit? minHit = null;
+            RaycastHit? minHitBehindOfDM = null;
+            RaycastHit? minHitInFrontOfDM = null;
 
             for (int hitIdx = 0; hitIdx < hits.Length; hitIdx++)
             {
                 RaycastHit hit = hits[hitIdx];
                 if (hit.transform.gameObject.layer.IsInLayerMask(layerMasks[layerMaskIdx]))
                 {
-                    if (minHit == null)
+                    bool inFrontOfDM = ((Vector3.Distance(hit.point, HeadPosition) - distanceHeadDepthMarker)<0);
+                    float newDist = Vector3.Distance(hit.point, depthMarker.transform.position);
+
+                    if (inFrontOfDM)
                     {
-                        minHit = hit;
+                        if (minHitInFrontOfDM == null)
+                        {
+                            minHitInFrontOfDM = hit;
+                        }
+                        else
+                        {
+                            float minDist = Vector3.Distance(minHitInFrontOfDM.Value.point, depthMarker.transform.position);
+                            if (newDist < minDist)
+                            {
+                                minHitInFrontOfDM = hit;
+                            }
+                        }
                     }
                     else
                     {
-                        float newDist = Vector3.Distance(hit.point, depthMarker.transform.position);
-                        float minDist = Vector3.Distance(minHit.Value.point, depthMarker.transform.position);
-                        if (newDist < minDist)
+                        if (minHitBehindOfDM == null)
                         {
-                            minHit = hit;
+                            minHitBehindOfDM = hit;
+                        }
+                        else
+                        {
+                            float minDist = Vector3.Distance(minHitBehindOfDM.Value.point, depthMarker.transform.position);
+                            if (newDist < minDist)
+                            {
+                                minHitBehindOfDM = hit;
+                            }
                         }
                     }
                 }
             }
 
-            if (minHit != null)
+            if (minHitBehindOfDM != null)
             {
-                return minHit;
+                return minHitBehindOfDM;
+            }
+            if(minHitInFrontOfDM != null)
+            {
+                return minHitInFrontOfDM;
             }
         }
 

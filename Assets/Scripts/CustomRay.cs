@@ -118,17 +118,17 @@ public class CustomRay : MonoBehaviour, IPointingSource
             }
         }
 
-        if (MyoPoseManager.Click)
+        if (MyoPoseManager.Click || MyoPoseManager.ClickUp)
         {
             hand = HandManager.MyoHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.LeftHand;
             click = true;
         }
-        else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if ((Input.GetButton("RelativeRight")|| Input.GetButtonUp("RelativeRight")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.RightHand;
             click = true;
@@ -179,17 +179,17 @@ public class CustomRay : MonoBehaviour, IPointingSource
                 {
                     Hand hand = null;
                     bool click = false;
-                    if (MyoPoseManager.Click)
+                    if (MyoPoseManager.Click || MyoPoseManager.ClickUp)
                     {
                         hand = HandManager.MyoHand;
                         click = true;
                     }
-                    else if (Input.GetButton("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+                    else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.LeftHand;
                         click = true;
                     }
-                    else if (Input.GetButton("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+                    else if ((Input.GetButton("RelativeRight") || Input.GetButtonUp("RelativeRight")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.RightHand;
                         click = true;
@@ -243,11 +243,11 @@ public class CustomRay : MonoBehaviour, IPointingSource
     private void SetRays(Vector3 direction, Vector3 origin)
     {
         float spreadFactor = 0.02f;
-        UnityEngine.Ray ray = new UnityEngine.Ray(origin, direction);
-        UnityEngine.Ray rayUp = new UnityEngine.Ray(origin + head.transform.up * spreadFactor, direction);
-        UnityEngine.Ray rayDown = new UnityEngine.Ray(origin - head.transform.up * spreadFactor, direction);
-        UnityEngine.Ray rayRight = new UnityEngine.Ray(origin + head.transform.right * spreadFactor, direction);
-        UnityEngine.Ray rayLeft = new UnityEngine.Ray(origin - head.transform.right * spreadFactor, direction);
+        Ray ray = new Ray(origin, direction);
+        Ray rayUp = new Ray(origin + head.transform.up * spreadFactor, direction);
+        Ray rayDown = new Ray(origin - head.transform.up * spreadFactor, direction);
+        Ray rayRight = new Ray(origin + head.transform.right * spreadFactor, direction);
+        Ray rayLeft = new Ray(origin - head.transform.right * spreadFactor, direction);
 
         rays = new RayStep[5];
         rays[0].CopyRay(ray, FocusManager.Instance.GetPointingExtent(this));

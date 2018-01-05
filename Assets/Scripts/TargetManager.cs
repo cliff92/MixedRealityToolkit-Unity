@@ -131,7 +131,7 @@ public class TargetManager : MonoBehaviour
     }
     public static void DetachTargetFromDepthMarker()
     {
-        if (Instance.currentlyAttachedObj != null)
+        if (Instance != null && Instance.currentlyAttachedObj != null && Instance.currentlyAttachedObj.tag == "Target")
         {
             Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
