@@ -6,11 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Menu.unity
-    guid: 5a5f3b76916ddd044a82be73ff868d22
+    path: Assets/NewMenu.unity
+    guid: 8bb3618d223eb644ea9decf42817001d
   - enabled: 1
-    path: Assets/Scenario.unity
-    guid: 4f35635a9b6459747baba87e8ccbe050
+    path: Assets/Measurement Occlusion.unity
+    guid: 7414cc95f1c7ce2409bcbd5651d3a34a
   - enabled: 1
-    path: Assets/Measurement.unity
+    path: Assets/Measurement Performance.unity
     guid: 2153c3583128c0c43aa48b07ad9c1a8c
+  - enabled: 1
+    path: Assets/Measurement Sorting.unity
+    guid: c3e24c98424a5d84b9843d6e717c3f09

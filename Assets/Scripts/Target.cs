@@ -109,7 +109,7 @@ public class Target : MonoBehaviour
         log += "\n Screen Position " + WorldToGUIPoint(transform.position);
         log += "\n Distance from last Target " + Vector3.Distance(transform.position, PosLastTarget);
         log += "\n Distance from last Target Screen " + Vector2.Distance(WorldToGUIPoint(transform.position), WorldToGUIPoint(PosLastTarget));
-        Logger.Instance.AppendString(log);
+        Logger.AppendString(log);
     }
 
     /// <summary>

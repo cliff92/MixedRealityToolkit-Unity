@@ -103,7 +103,7 @@ public class ClickManager : MonoBehaviour
             {
                 OnLeftClick(currentFocusedObject);
             }
-            else if(targetsInFoucsSinceLastClickDown.Count==1)
+            else if(targetsInFoucsSinceLastClickDown.Count==1 && targetsInFoucsSinceLastClickDown[0] != null)
             {
                 Target target = targetsInFoucsSinceLastClickDown[0];
                 if (target.LastTimeInFocus > Time.time - delayClickTime)
@@ -269,7 +269,9 @@ public class ClickManager : MonoBehaviour
                     break;
                 case "Object":
                     currentFocusedObject = newFocusedObject;
-                    //newFocusedObject.GetComponent<Renderer>().material = objectInFocus;
+                    break;
+                case "World":
+                    currentFocusedObject = null;
                     break;
                 default:
                     currentFocusedObject = newFocusedObject;

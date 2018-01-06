@@ -75,6 +75,8 @@ public class TargetManager : MonoBehaviour
         if (currentFocusedObject == null)
             return;
         Target target = currentFocusedObject.GetComponent<Target>();
+        if (target == null)
+            return;
         if (target.State != TargetState.Drag)
         {
             target.State = TargetState.Disabled;
@@ -150,12 +152,14 @@ public class TargetManager : MonoBehaviour
         }
     }
 
+    public static void SpawnTarget()
+    {
+        SpawnTarget(Vector3.zero);
+    }
+
     public static void SpawnTarget(Vector3 posLastTarget)
     {
-        if (Instance.currentTarget != null)
-        {
-            Destroy(Instance.currentTarget);
-        }
+        DestroyCurrentTarget();
         Vector3 headPos = CustomRay.Instance.head.transform.position;
         Vector3 headForward = CustomRay.Instance.head.transform.forward;
 
@@ -203,6 +207,14 @@ public class TargetManager : MonoBehaviour
             obj.transform.position = newPos;
             obj.transform.rotation = Random.rotation;
             obj.SetActive(true);
+        }
+    }
+
+    public static void DestroyCurrentTarget()
+    {
+        if (Instance.currentTarget != null)
+        {
+            Destroy(Instance.currentTarget);
         }
     }
 
