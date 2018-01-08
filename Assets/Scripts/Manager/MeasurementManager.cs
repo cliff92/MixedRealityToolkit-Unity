@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class MeasurementManager : MonoBehaviour
 {
     public static MeasurementManager Instance;
-    public string userId;
     public GameObject UI;
     public GameObject StopTrainingButton;
     public TextMesh statusText;
@@ -33,14 +32,7 @@ public class MeasurementManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            DestroyImmediate(gameObject);
-        }
+        Instance = this;
     }
 
     private void Start()
@@ -96,12 +88,23 @@ public class MeasurementManager : MonoBehaviour
         UI.SetActive(false);
 
         string logStartMeasurement;
-        logStartMeasurement = "New Run of User: " + userId;
+        logStartMeasurement = "New Run of User: " + Logger.Instance.userId;
         logStartMeasurement += "\n Current Time: " + Time.time;
         logStartMeasurement += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
         logStartMeasurement += "\n Current Input method: " + InputSwitcher.InputMode;
 
         Logger.AppendString(logStartMeasurement);
+
+        string logTitle = "Name of the gameobject";
+        logTitle += "; Click Time";
+        logTitle += "; Time since Instantiate";
+        logTitle += "; Bounding Rect Area";
+        logTitle += "; Screen Position";
+        logTitle += "; Distance from last Target";
+        logTitle += "; Distance from last Target Screen";
+        logTitle += "; Angle between last and current Target";
+
+        Logger.AppendString(logTitle);
 
         currentTime = 0;
         TargetManager.SpawnTarget();
@@ -113,7 +116,7 @@ public class MeasurementManager : MonoBehaviour
     {
         measurementActive = false;
         UI.SetActive(true);
-        Logger.AppendString("End of Run of User: " + userId);
+        Logger.AppendString("End of Run of User: " + Logger.Instance.userId);
         Logger.AddCurrentTime();
 
         currentTime = 0;
@@ -128,12 +131,23 @@ public class MeasurementManager : MonoBehaviour
         StopTrainingButton.SetActive(true);
 
         string logStartTraining;
-        logStartTraining = "New Trainings Run of User: " + userId;
+        logStartTraining = "New Trainings Run of User: " + Logger.Instance.userId;
         logStartTraining += "\n Current Time: " + Time.time;
         logStartTraining += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
         logStartTraining += "\n Current Input method: " + InputSwitcher.InputMode;
 
         Logger.AppendString(logStartTraining);
+
+        string logTitle = "Name of the gameobject";
+        logTitle += "; Click Time";
+        logTitle += "; Time since Instantiate";
+        logTitle += "; Bounding Rect Area";
+        logTitle += "; Screen Position";
+        logTitle += "; Distance from last Target";
+        logTitle += "; Distance from last Target Screen";
+        logTitle += "; Angle between last and current Target";
+
+        Logger.AppendString(logTitle);
 
         TargetManager.SpawnTarget();
         statusText.text = "Training Active";
@@ -145,7 +159,7 @@ public class MeasurementManager : MonoBehaviour
         UI.SetActive(true);
         StopTrainingButton.SetActive(false);
 
-        Logger.AppendString("End of Trainings Run of User: " + userId);
+        Logger.AppendString("End of Trainings Run of User: " + Logger.Instance.userId);
         Logger.AddCurrentTime();
 
         TargetManager.DestroyCurrentTarget();

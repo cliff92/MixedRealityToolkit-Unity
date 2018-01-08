@@ -22,11 +22,29 @@ public class TargetManager : MonoBehaviour
     public int AmountOfObjects = 100;
     private int targetId = 0;
 
+    public int randomRangeX = 45;
+    public int randomRangeY = 100;
+
+    private Vector3 lastTargetPosition = Vector3.zero;
+    private Vector3 lastTargetDirection = Vector3.forward;
+
     private static int TargetId
     {
         get
         {
+            if (Instance == null)
+                return 0;
             return Instance.targetId++;
+        }
+    }
+
+    public static GameObject CurrentTarget
+    {
+        get
+        {
+            if (Instance == null)
+                return null;
+            return Instance.currentTarget;
         }
     }
 
@@ -66,7 +84,7 @@ public class TargetManager : MonoBehaviour
 
     private void Reset()
     {
-        SpawnTarget(Vector3.zero);
+        SpawnTarget();
         MoveObjects();
     }
 
@@ -80,7 +98,7 @@ public class TargetManager : MonoBehaviour
         if (target.State != TargetState.Drag)
         {
             target.State = TargetState.Disabled;
-            target.LogClick();
+            LogLeftClick(target);
             currentFocusedObject.SetActive(false);
             if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
             {
@@ -92,13 +110,20 @@ public class TargetManager : MonoBehaviour
                 HandManager.RightHand.Virbrate(0.5f, 0.5f);
             }
             Instance.correctSound.Play();
-            SpawnTarget(currentFocusedObject.transform.position);
+            SpawnTarget();
             MoveObjects();
         }
         else
         {
             DetachTargetFromDepthMarker();
         }
+    }
+
+    public static void LogLeftClick(Target target)
+    {
+        target.LogClick(Instance.lastTargetPosition, Instance.lastTargetDirection);
+        Instance.lastTargetDirection = (target.transform.position - DepthRayManager.Instance.HeadPosition).normalized;
+        Instance.lastTargetPosition = target.transform.position;
     }
 
     public static void AttachTargetToDepthMarker(GameObject currentFocusedObject, Handeness handenessDidNotClicked)
@@ -154,11 +179,6 @@ public class TargetManager : MonoBehaviour
 
     public static void SpawnTarget()
     {
-        SpawnTarget(Vector3.zero);
-    }
-
-    public static void SpawnTarget(Vector3 posLastTarget)
-    {
         DestroyCurrentTarget();
         Vector3 headPos = CustomRay.Instance.head.transform.position;
         Vector3 headForward = CustomRay.Instance.head.transform.forward;
@@ -166,15 +186,15 @@ public class TargetManager : MonoBehaviour
         GameObject newTarget = Instantiate(Instance.targetPrefab, Instance.targets.transform);
         string id = string.Format("{0,3:000}", TargetId);
         newTarget.name = "Target_"+ id;
-        newTarget.GetComponent<Target>().PosLastTarget = posLastTarget;
 
         bool correctPos = false;
         Vector3 newPos = Vector3.zero;
         while(!correctPos)
         {
-            float x = Random.Range(-45, 45);
-            float y = Random.Range(-45, 45);
-            float z = Random.Range(-45, 45);
+            float x = Random.Range(-Instance.randomRangeX, Instance.randomRangeX);
+            float y = Random.Range(-Instance.randomRangeY, Instance.randomRangeY);
+            //float z = Random.Range(-160, 160);
+            float z = 0;
             float distance = Random.Range(3, 20);
             Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
             newPos = headPos + newDirection;
@@ -196,9 +216,10 @@ public class TargetManager : MonoBehaviour
             newPosFound = false;
             while(!newPosFound)
             {
-                float x = Random.Range(-45, 45);
-                float y = Random.Range(-45, 45);
-                float z = Random.Range(-45, 45);
+                float x = Random.Range(-Instance.randomRangeX, Instance.randomRangeX);
+                float y = Random.Range(-Instance.randomRangeY, Instance.randomRangeY);
+                //float z = Random.Range(-45, 45);
+                float z = 0;
                 float distance = Random.Range(3, 20);
                 Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
                 newPos = headPos + newDirection;

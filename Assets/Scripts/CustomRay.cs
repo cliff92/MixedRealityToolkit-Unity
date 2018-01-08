@@ -37,6 +37,8 @@ public class CustomRay : MonoBehaviour, IPointingSource
 
     private RayInputDevice deviceType = RayInputDevice.Unknown;
 
+    private Vector3 currentDirection = Vector3.forward;
+
     // Use this for initialization
     void Start()
     {
@@ -242,6 +244,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
     /// <param name="direction"></param>
     private void SetRays(Vector3 direction, Vector3 origin)
     {
+        currentDirection = direction;
         float spreadFactor = 0.02f;
         Ray ray = new Ray(origin, direction);
         Ray rayUp = new Ray(origin + head.transform.up * spreadFactor, direction);
@@ -339,6 +342,11 @@ public class CustomRay : MonoBehaviour, IPointingSource
         {
             return deviceType;
         }
+    }
+
+    public static Vector3 RayDirection()
+    {
+        return Instance.currentDirection;
     }
 }
 public enum RayInputDevice

@@ -16,8 +16,6 @@ public class Target : MonoBehaviour
 
     private float angleBetweenRayObj;
 
-    private Vector3 posLastTarget = Vector3.zero;
-
     private float startTime;
 
     private void Awake()
@@ -100,15 +98,25 @@ public class Target : MonoBehaviour
         }
     }
 
-    internal void LogClick()
+    internal void LogClick(Vector3 posLastTarget , Vector3 directionLastTarget)
     {
         Rect boundingRect = GUIRectWithObject(gameObject);
-        String log = gameObject.name+" was clicked at "+ Time.time;
-        log += "\n Time since Instantiate: " + (Time.time - startTime);
-        log += "\n Bounding Rect Area " + boundingRect.size.x * boundingRect.size.y;
-        log += "\n Screen Position " + WorldToGUIPoint(transform.position);
-        log += "\n Distance from last Target " + Vector3.Distance(transform.position, PosLastTarget);
-        log += "\n Distance from last Target Screen " + Vector2.Distance(WorldToGUIPoint(transform.position), WorldToGUIPoint(PosLastTarget));
+        float timeClicked = Time.time;
+        float timeSinceInstantiate = timeClicked - startTime;
+        float boundingRectArea = boundingRect.size.x * boundingRect.size.y;
+        Vector3 screenPosition = WorldToGUIPoint(transform.position);
+        float distanceFromLastTarget = Vector3.Distance(transform.position, posLastTarget);
+        float distanceFromLastTargetScreen = Vector2.Distance(WorldToGUIPoint(transform.position), WorldToGUIPoint(posLastTarget));
+        float angleBetweenLastAndCurrent = Vector3.Angle(transform.position - DepthRayManager.Instance.HeadPosition, directionLastTarget);
+
+        String log = gameObject.name;
+        log += "; " + timeClicked;
+        log += "; " + timeSinceInstantiate;
+        log += "; " + boundingRectArea;
+        log += "; " + screenPosition;
+        log += "; " + distanceFromLastTarget;
+        log += "; " + distanceFromLastTargetScreen;
+        log += "; " + angleBetweenLastAndCurrent;
         Logger.AppendString(log);
     }
 
@@ -217,19 +225,6 @@ public class Target : MonoBehaviour
         {
             startTimeInFocus = value;
             lastTimeInFocus = value;
-        }
-    }
-
-    public Vector3 PosLastTarget
-    {
-        get
-        {
-            return posLastTarget;
-        }
-
-        set
-        {
-            posLastTarget = value;
         }
     }
 

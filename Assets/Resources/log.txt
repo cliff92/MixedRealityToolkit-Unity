@@ -1,123 +1,71 @@
 New Run
 
-New Trainings Run of User: 1
- Current Time: 13.06771
- Current Scenario: Measurement Occlusion
+New Run of User: 1
+ Current Time: 14.11177
+ Current Scenario: Measurement Performance
  Current Input method: HeadHybrid
 
-Target_000 was clicked at 14.44523
- Time since Instantiate: 1.377522
- Bounding Rect Area 1506.287
- Screen Position (1071.8, -215.9)
- Distance from last Target 5.382274
- Distance from last Target Screen 33341.5
+Name of the gameobject, Click Time, Time since Instantiate, Bounding Rect Area, Screen Position, Distance from last Target, Distance from last Target Screen, Angle between last and current Target
 
-Target_001 was clicked at 16.40168
- Time since Instantiate: 1.95645
- Bounding Rect Area 145.2166
- Screen Position (820.5, -189.4)
- Distance from last Target 9.008607
- Distance from last Target Screen 395.1741
+Target_000, 16.07631, 1.964542, 132.4916, (918.7, -353.9, 0.0), 17.94964, 1470.321, 41.02461
 
-Target_002 was clicked at 18.53461
- Time since Instantiate: 2.132931
- Bounding Rect Area 3076.195
- Screen Position (652.0, -246.7)
- Distance from last Target 10.55094
- Distance from last Target Screen 585.7177
+Target_001, 17.59838, 1.522066, 1699.768, (788.1, -208.0, 0.0), 14.92185, 1072.925, 56.63479
 
-Target_003 was clicked at 19.5465
- Time since Instantiate: 1.011889
- Bounding Rect Area 4196.093
- Screen Position (652.7, -118.3)
- Distance from last Target 1.337656
- Distance from last Target Screen 210.1475
+Target_002, 19.48738, 1.888996, 132.329, (793.6, -398.5, 0.0), 15.27719, 915.0548, 49.29767
 
-Target_004 was clicked at 21.04646
- Time since Instantiate: 1.49996
- Bounding Rect Area 329.5887
- Screen Position (968.8, -295.6)
- Distance from last Target 7.816411
- Distance from last Target Screen 491.4564
+Target_003, 21.63209, 2.144711, 260.5609, (991.9, -117.8, 0.0), 17.00905, 1360.953, 66.57547
 
-Target_005 was clicked at 22.62542
- Time since Instantiate: 1.57896
- Bounding Rect Area 461.4384
- Screen Position (728.7, -72.6)
- Distance from last Target 6.778647
- Distance from last Target Screen 557.0813
+Target_004, 22.95387, 1.321785, 618.1133, (1062.5, -185.7, 0.0), 3.489398, 146.0157, 11.37316
 
-Target_006 was clicked at 23.97966
- Time since Instantiate: 1.35424
- Bounding Rect Area 437.2293
- Screen Position (1010.6, -187.8)
- Distance from last Target 5.096484
- Distance from last Target Screen 443.2103
+Target_005, 24.48713, 1.53326, 6232.795, (965.9, -349.3, 0.0), 6.089111, 529.4507, 40.41394
 
-Target_007 was clicked at 25.19261
- Time since Instantiate: 1.212948
- Bounding Rect Area 1095.091
- Screen Position (652.8, -144.3)
- Distance from last Target 5.151949
- Distance from last Target Screen 520.8649
+Target_006, 25.92039, 1.433264, 663.6804, (996.2, -137.2, 0.0), 4.809105, 508.0148, 33.76765
 
-Target_008 was clicked at 30.50179
- Time since Instantiate: 5.309185
- Bounding Rect Area 146.8007
- Screen Position (786.1, -320.7)
- Distance from last Target 13.10634
- Distance from last Target Screen 392.9932
+Target_007, 28.55371, 2.633318, 2970.642, (620.1, -385.2, 0.0), 11.53506, 472.4044, 147.5261
 
-Target_009 was clicked at 32.77988
- Time since Instantiate: 2.27809
- Bounding Rect Area 639.4399
- Screen Position (1058.5, -207.5)
- Distance from last Target 15.59269
- Distance from last Target Screen 975.2785
+Target_008, 29.98733, 1.433617, 167.3598, (868.2, -260.5, 0.0), 14.52171, 1915.319, 63.36533
 
-Target_010 was clicked at 35.33424
- Time since Instantiate: 2.554359
- Bounding Rect Area 380.9989
- Screen Position (752.4, -397.5)
- Distance from last Target 12.78572
- Distance from last Target Screen 1300.543
+Target_009, 31.94246, 1.955135, 375.9039, (966.9, -121.6, 0.0), 16.34479, 2026.662, 75.69988
 
-Target_011 was clicked at 37.29056
- Time since Instantiate: 1.956318
- Bounding Rect Area 179.7588
- Screen Position (989.9, -223.1)
- Distance from last Target 8.638176
- Distance from last Target Screen 578.2936
+Target_010, 33.7869, 1.844439, 142.442, (904.5, -312.7, 0.0), 20.00844, 7175.761, 82.82137
 
-Target_012 was clicked at 40.67883
- Time since Instantiate: 3.388271
- Bounding Rect Area 241.7749
- Screen Position (991.1, -396.2)
- Distance from last Target 2.926773
- Distance from last Target Screen 175.0109
+Target_011, 35.72154, 1.934635, 2603.103, (987.5, -357.5, 0.0), 17.84346, 1817.196, 68.68752
 
-Target_013 was clicked at 44.07841
- Time since Instantiate: 3.399578
- Bounding Rect Area 704.3024
- Screen Position (738.6, -441.7)
- Distance from last Target 7.123036
- Distance from last Target Screen 444.6374
+Target_012, 37.37606, 1.654518, 8097.906, (670.8, -350.5, 0.0), 6.327669, 3822.999, 100.8363
 
-Target_014 was clicked at 46.23505
- Time since Instantiate: 2.156635
- Bounding Rect Area 664.0353
- Screen Position (1010.0, -390.2)
- Distance from last Target 8.381211
- Distance from last Target Screen 998.9297
+Target_013, 39.07578, 1.699718, 947.5763, (937.7, -0.9, 0.0), 7.320306, 5245.055, 104.8072
 
-Target_015 was clicked at 48.49024
- Time since Instantiate: 2.255196
- Bounding Rect Area 149.0706
- Screen Position (1001.0, -220.8)
- Distance from last Target 8.774755
- Distance from last Target Screen 363.0864
+Target_014, 40.509, 1.43322, 5280.21, (771.5, 1.7, 0.0), 5.444285, 1306.564, 64.93915
 
-End of Trainings Run of User: 1
+Target_015, 42.65335, 2.14436, 329.744, (648.5, -429.1, 0.0), 13.95638, 912.4879, 63.32687
 
-Current Time: 49.35684
+Target_016, 44.03154, 1.378189, 1343.165, (883.8, -103.1, 0.0), 17.28024, 2247.578, 108.1326
+
+Target_017, 51.58781, 7.556271, 222.4201, (695.7, -217.4, 0.0), 14.38692, 2281.34, 84.25734
+
+Target_018, 54.06461, 2.476791, 165.8163, (1064.9, -143.5, 0.0), 25.39717, 763.5333, 141.2637
+
+Target_019, 56.33104, 2.266438, 274.0866, (723.9, -328.3, 0.0), 25.74819, 835.5528, 135.0018
+
+Target_020, 57.9529, 1.621861, 198.7585, (612.1, -321.3, 0.0), 3.968762, 115.6467, 8.437802
+
+Target_021, 60.23263, 2.279728, 161.1607, (844.7, -35.8, 0.0), 24.19821, 5909.459, 97.08552
+
+Target_022, 62.32078, 2.08815, 155.8498, (984.7, -342.4, 0.0), 13.70996, 609.5273, 45.97247
+
+Target_023, 64.36451, 2.043728, 1800.297, (707.6, -345.2, 0.0), 20.12556, 17553.94, 91.07889
+
+Target_024, 65.34213, 0.977623, 3390.124, (942.6, -172.5, 0.0), 4.935737, 997.8917, 55.38459
+
+Target_025, 67.15291, 1.810776, 333.0805, (618.4, -480.6, 0.0), 15.52204, 1284.095, 74.99028
+
+Target_026, 69.09771, 1.944801, 759.621, (1041.1, -236.6, 0.0), 21.28477, 1136.032, 121.1817
+
+Target_027, 70.61928, 1.521568, 331.7131, (895.1, -338.7, 0.0), 8.448995, 744.7221, 44.23687
+
+Target_028, 72.77547, 2.156197, 548.7298, (624.5, -337.8, 0.0), 15.81515, 2556.954, 86.27786
+
+End of Run of User: 1
+
+Current Time: 74.1086
 
