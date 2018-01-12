@@ -74,7 +74,7 @@ public class Target : MonoBehaviour
         float distanceObjHead = Vector3.Distance(transform.position, headPos);
 
         if (angleBetweenRayObj < 30 && angleBetweenRayObj > -30 
-            && distanceMarkerHead > distanceObjHead - 0.05)
+            && distanceMarkerHead > distanceObjHead - 0.05 && SceneHandler.UseDepthMarker)
         {
             if (ClickManager.Instance.CurrentFocusedObject == gameObject)
             {
@@ -117,6 +117,25 @@ public class Target : MonoBehaviour
         log += "; " + distanceFromLastTarget;
         log += "; " + distanceFromLastTargetScreen;
         log += "; " + angleBetweenLastAndCurrent;
+
+        if (SceneHandler.ScenarioType == ScenarioType.Occlusion
+            || SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            int obstacleLayerMask = 1 << LayerMask.NameToLayer("ObstacleLayer");
+            int innerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, transform.position, 0.05f, obstacleLayerMask).Length;
+            int outerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, transform.position, 0.2f, obstacleLayerMask).Length;
+
+            log += "; " + innerNumberOfElementsInFront;
+            log += "; " + outerNumberOfElementsInFront;
+
+            Vector3 point2 = transform.position + (transform.position - DepthRayManager.Instance.HeadPosition) * 100;
+            int innerNumberOfElementsBehind = Physics.OverlapCapsule(point2, transform.position, 0.05f, obstacleLayerMask).Length;
+            int outerNumberOfElementsBehind = Physics.OverlapCapsule(point2, transform.position, 0.2f, obstacleLayerMask).Length;
+            log += "; " + innerNumberOfElementsBehind;
+            log += "; " + outerNumberOfElementsBehind;
+            //Debug.Log("Number of Elements In Front - Back Inner/Outer: " + innerNumberOfElementsInFront + "; "
+            //    + outerNumberOfElementsInFront + "; " + innerNumberOfElementsBehind + "; " + outerNumberOfElementsBehind);
+        }
         Logger.AppendString(log);
     }
 

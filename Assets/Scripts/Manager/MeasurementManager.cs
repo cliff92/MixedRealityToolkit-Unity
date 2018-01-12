@@ -107,7 +107,7 @@ public class MeasurementManager : MonoBehaviour
         Logger.AppendString(logTitle);
 
         currentTime = 0;
-        TargetManager.SpawnTarget();
+        TargetManager.Reset();
 
         statusText.text = "Measurement Active";
     }
@@ -121,7 +121,9 @@ public class MeasurementManager : MonoBehaviour
 
         currentTime = 0;
         TargetManager.DestroyCurrentTarget();
+        TargetManager.DeactivateAllObstacles();
         statusText.text = "Menu";
+
     }
 
     private void StartTraining()
@@ -147,9 +149,17 @@ public class MeasurementManager : MonoBehaviour
         logTitle += "; Distance from last Target Screen";
         logTitle += "; Angle between last and current Target";
 
+        if(SceneHandler.ScenarioType == ScenarioType.Occlusion || SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            logTitle += "; Amount of objects in front of Target (small)";
+            logTitle += "; Amount of objects in front of Target (big)";
+            logTitle += "; Amount of objects in back of Target (small)";
+            logTitle += "; Amount of objects in back of Target (big)";
+        }
+
         Logger.AppendString(logTitle);
 
-        TargetManager.SpawnTarget();
+        TargetManager.Reset();
         statusText.text = "Training Active";
     }
 
@@ -163,6 +173,7 @@ public class MeasurementManager : MonoBehaviour
         Logger.AddCurrentTime();
 
         TargetManager.DestroyCurrentTarget();
+        TargetManager.DeactivateAllObstacles();
         statusText.text = "Menu";
     }
 }

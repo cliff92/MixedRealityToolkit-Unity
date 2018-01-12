@@ -24,10 +24,10 @@ public class TargetFinder : MonoBehaviour
 
             float angleBetween = Vector3.Angle(rayDirection, targetDirection);
 
-            if (angleBetween>10)
+            if (angleBetween>5)
             {
                 Color color = targetFinderMaterial.color;
-                color.a = 1f * Mathf.Pow(Mathf.Abs(angleBetween) / 180f, 2);
+                color.a = Mathf.Pow(Mathf.Abs(angleBetween) / 180f, 0.25f);
                 targetFinderMaterial.color = color;
                 ActivateChildren();
                 transform.forward = targetPos - transform.position;

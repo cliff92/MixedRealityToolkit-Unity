@@ -164,11 +164,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1850730992894404, guid: d29bc40b7f3df26479d6a0aac211c355,
     type: 2}
   m_PrefabInternal: {fileID: 278819985}
---- !u!1 &279251010 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1712332601903300, guid: 81dabdc66a399f840a045497aa7c1049,
-    type: 2}
-  m_PrefabInternal: {fileID: 1744473899}
 --- !u!1001 &294593603
 Prefab:
   m_ObjectHideFlags: 0
@@ -327,6 +322,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1327327114017874, guid: cd0488b2e104e9e4a996e82ee1c69758, type: 2}
+      propertyPath: m_Name
+      value: CustomRay
+      objectReference: {fileID: 0}
     - target: {fileID: 114470809930434348, guid: cd0488b2e104e9e4a996e82ee1c69758,
         type: 2}
       propertyPath: head
@@ -336,12 +335,7 @@ Prefab:
         type: 2}
       propertyPath: visualRay
       value: 
-      objectReference: {fileID: 279251010}
-    - target: {fileID: 114785009729926400, guid: cd0488b2e104e9e4a996e82ee1c69758,
-        type: 2}
-      propertyPath: text
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1744473900}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd0488b2e104e9e4a996e82ee1c69758, type: 2}
   m_IsPrefabParent: 0
@@ -589,6 +583,11 @@ Prefab:
       propertyPath: statusText
       value: 
       objectReference: {fileID: 1873722721}
+    - target: {fileID: 114916407309262618, guid: 836eb378eaf747a46b40174c0542cf3d,
+        type: 2}
+      propertyPath: AmountOfObjects
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 836eb378eaf747a46b40174c0542cf3d, type: 2}
   m_IsPrefabParent: 0
@@ -630,6 +629,11 @@ Prefab:
     - target: {fileID: 4030791502187912, guid: 6d15bcd5e4572d0479287ad44314d58b, type: 2}
       propertyPath: m_RootOrder
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 102939487779015164, guid: 6d15bcd5e4572d0479287ad44314d58b,
+        type: 2}
+      propertyPath: m_Text
+      value: Measurement Performance
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d15bcd5e4572d0479287ad44314d58b, type: 2}
@@ -868,6 +872,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 81dabdc66a399f840a045497aa7c1049, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1744473900 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1319448388068978, guid: 81dabdc66a399f840a045497aa7c1049,
+    type: 2}
+  m_PrefabInternal: {fileID: 1744473899}
 --- !u!1001 &1830504691
 Prefab:
   m_ObjectHideFlags: 0

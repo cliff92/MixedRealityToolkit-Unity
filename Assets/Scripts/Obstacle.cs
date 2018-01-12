@@ -72,12 +72,12 @@ public class Obstacle : MonoBehaviour
                 material.color = color;
                 break;
             case ObjectState.InFocus:
-                color = TargetManager.Instance.objectInFocusMat.color;
+                color = defaultColor;
                 material.color = color;
                 break;
             case ObjectState.InFocusTransparent:
-                color = TargetManager.Instance.objectInFocusMat.color;
-                color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                color = defaultColor;
+                color.a = 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
                 break;
             case ObjectState.Disabled:

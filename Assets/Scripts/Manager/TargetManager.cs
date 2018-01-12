@@ -24,9 +24,10 @@ public class TargetManager : MonoBehaviour
 
     public int randomRangeX = 45;
     public int randomRangeY = 100;
+    public int maximumAngleBetweenTwoTargets = 90;
 
     private Vector3 lastTargetPosition = Vector3.zero;
-    private Vector3 lastTargetDirection = Vector3.forward;
+    private Vector3 lastTargetDirection = Vector3.zero;
 
     private static int TargetId
     {
@@ -82,7 +83,7 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    private void Reset()
+    public static void Reset()
     {
         SpawnTarget();
         MoveObjects();
@@ -187,23 +188,38 @@ public class TargetManager : MonoBehaviour
         string id = string.Format("{0,3:000}", TargetId);
         newTarget.name = "Target_"+ id;
 
-        bool correctPos = false;
         Vector3 newPos = Vector3.zero;
-        while(!correctPos)
+        Vector3 newDirection = Vector3.zero;
+        float distance = 0;
+        do
         {
             float x = Random.Range(-Instance.randomRangeX, Instance.randomRangeX);
             float y = Random.Range(-Instance.randomRangeY, Instance.randomRangeY);
             //float z = Random.Range(-160, 160);
             float z = 0;
-            float distance = Random.Range(3, 20);
-            Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
+            distance = Random.Range(3, 20);
+            newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
             newPos = headPos + newDirection;
-
-            correctPos = !Physics.Raycast(headPos, newDirection, distance);
         }
+        while (!CorrectPosition(headPos, newDirection, distance));
 
         newTarget.transform.position = newPos;
         Instance.currentTarget = newTarget;
+    }
+
+    private static bool CorrectPosition(Vector3 headPos, Vector3 newDirection, float distance)
+    {
+        bool correct = true;
+
+        correct = !Physics.Raycast(headPos, newDirection, distance);
+        if(Instance.lastTargetDirection != Vector3.zero)
+        {
+            float angleBetweenLastAndCurrent = Vector3.Angle(newDirection, Instance.lastTargetDirection);
+            if (angleBetweenLastAndCurrent > Instance.maximumAngleBetweenTwoTargets)
+                correct = false;
+        }
+
+        return correct;
     }
 
     public static void MoveObjects()
@@ -211,8 +227,10 @@ public class TargetManager : MonoBehaviour
         Vector3 headPos = CustomRay.Instance.head.transform.position;
         bool newPosFound = false;
         Vector3 newPos = Vector3.zero;
-        foreach (GameObject obj in Instance.objectArray)
+
+        for(int i=0;i< Instance.objectArray.Length;i++)
         {
+            GameObject obj = Instance.objectArray[i];
             newPosFound = false;
             while(!newPosFound)
             {
@@ -220,14 +238,45 @@ public class TargetManager : MonoBehaviour
                 float y = Random.Range(-Instance.randomRangeY, Instance.randomRangeY);
                 //float z = Random.Range(-45, 45);
                 float z = 0;
-                float distance = Random.Range(3, 20);
+                float distance = Random.Range(5, 20);
                 Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
                 newPos = headPos + newDirection;
-                newPosFound = (Vector3.Distance(Instance.currentTarget.transform.position, newPos) > 0.05f);
+                obj.transform.position = newPos;
+                obj.transform.localScale = new Vector3(Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f), Random.Range(0.5f, 1.5f));
+                obj.SetActive(true);
+                newPosFound = CheckPosition(newPos, i, obj.GetComponent<Collider>());
             }
-            obj.transform.position = newPos;
-            obj.transform.rotation = Random.rotation;
-            obj.SetActive(true);
+        }
+    }
+
+    private static bool CheckPosition(Vector3 newPos, int i, Collider collider)
+    {
+        if(Vector3.Distance(Instance.currentTarget.transform.position, newPos) < 0.05f)
+        {
+            return false;
+        }
+
+        if(CurrentTarget.GetComponent<Collider>().bounds.Intersects(collider.bounds))
+        {
+            return false;
+        }
+
+        for(int j = 0;j<i;j++)
+        {
+            GameObject obj = Instance.objectArray[j];
+            if (obj.GetComponent<Collider>().bounds.Intersects(collider.bounds))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void DeactivateAllObstacles()
+    {
+        foreach (GameObject obj in Instance.objectArray)
+        {
+            obj.SetActive(false);
         }
     }
 

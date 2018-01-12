@@ -95,4 +95,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StoredSamples: 10
-  text: {fileID: 0}

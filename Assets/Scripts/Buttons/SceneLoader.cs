@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneHandler : MonoBehaviour, ICustomClickHandler
+public class SceneLoader : MonoBehaviour, ICustomClickHandler
 {
     public GameObject[] gameObjects;
     public int sceneNumber;
@@ -17,6 +17,8 @@ public class SceneHandler : MonoBehaviour, ICustomClickHandler
         {
             Destroy(gameObjects[i]);
         }
+
+        SceneHandler.UpdateScenarioType(sceneNumber);
         SceneManager.LoadScene(sceneNumber);
     }
 }

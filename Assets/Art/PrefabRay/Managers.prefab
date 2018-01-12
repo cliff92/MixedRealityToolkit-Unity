@@ -42,6 +42,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1413160554519618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4495996747775700}
+  - component: {fileID: 114052752291393408}
+  m_Layer: 0
+  m_Name: SceneHandler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1413679354650026
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,6 +224,19 @@ Transform:
   m_Father: {fileID: 4977165634240862}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4495996747775700
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413160554519618}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4977165634240862}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4636369361931108
 Transform:
   m_ObjectHideFlags: 1
@@ -277,6 +306,7 @@ Transform:
   - {fileID: 4213128612232106}
   - {fileID: 4718485015096806}
   - {fileID: 4682041971046806}
+  - {fileID: 4495996747775700}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -360,6 +390,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114052752291393408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1413160554519618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05f40c1c76e16b44f84f17af7db60f13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114337765438468450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -438,7 +479,9 @@ MonoBehaviour:
   pointingExtent: 100
   pointingRaycastLayerMasks:
   - serializedVersion: 2
-    m_Bits: 4294967291
+    m_Bits: 4294966728
+  - serializedVersion: 2
+    m_Bits: 4294966779
 --- !u!114 &114916407309262618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -460,7 +503,10 @@ MonoBehaviour:
     type: 2}
   objectPrefab: {fileID: 1820484476100638, guid: f95e4e06e45b7104990259cca7af2ee0,
     type: 2}
-  AmountOfObjects: 0
+  AmountOfObjects: 200
+  randomRangeX: 45
+  randomRangeY: 100
+  maximumAngleBetweenTwoTargets: 90
 --- !u!114 &114963763194817316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -472,5 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb7b5eda1203c484bbab3db45c7bb83e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  userId: 1
   UI: {fileID: 0}
+  StopTrainingButton: {fileID: 0}
+  statusText: {fileID: 0}
+  measurementDuration: 60

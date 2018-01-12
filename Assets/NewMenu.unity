@@ -986,7 +986,7 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1578622714}
   - {fileID: 836378811}
-  sceneNumber: 2
+  sceneNumber: 1
 --- !u!114 &985549479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1765,7 +1765,7 @@ MonoBehaviour:
   gameObjects:
   - {fileID: 1578622714}
   - {fileID: 836378811}
-  sceneNumber: 1
+  sceneNumber: 2
 --- !u!114 &1825451927
 MonoBehaviour:
   m_ObjectHideFlags: 0

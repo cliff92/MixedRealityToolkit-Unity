@@ -34,7 +34,7 @@ public class DepthRayManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        pointingRaycastLayerMasks = new LayerMask[] { LayerMask.GetMask("TargetLayer"), Physics.DefaultRaycastLayers };
+        //pointingRaycastLayerMasks = new LayerMask[] { LayerMask.GetMask("TargetLayer"), Physics.DefaultRaycastLayers };
     }
 
     private void Start()
@@ -59,14 +59,14 @@ public class DepthRayManager : MonoBehaviour
         float rotationAngle;
         if (HandManager.IsMyoTracked)
         {
-            if (ClickManager.IsClick && HandManager.MyoHand.TryGetRotationAroundZ(out rotationAngle))
+            if (HandManager.MyoHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
         }
         else
         {
-            if (ClickManager.IsClick && HandManager.RightHand.TryGetRotationAroundZ(out rotationAngle))
+            if (HandManager.RightHand.TryGetRotationAroundZ(out rotationAngle))
             {
                 MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
             }
@@ -110,6 +110,11 @@ public class DepthRayManager : MonoBehaviour
 
     private void MoveDepthRayRelZ(int rotationAngle)
     {
+        float factor = 20;
+        if (ClickManager.IsClick)
+        {
+            factor = 5;
+        }
         //change position
         Vector3 origin = pointer.StartPoint;
 
@@ -118,32 +123,44 @@ public class DepthRayManager : MonoBehaviour
         {
             if (rotationAngle > 0 && rotationAngle < 180)
             {
-                stepsize = 4 * ((rotationAngle + 80) / 180.0f) * Time.deltaTime;
+                stepsize = factor * ((rotationAngle + 80) / 180.0f) * Time.deltaTime;
             }
             else if (rotationAngle < -50 && rotationAngle > -180)
             {
-                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
             }
         } else
         {
             if (rotationAngle > 30 && rotationAngle < 180)
             {
-                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
             }
             else if (rotationAngle < -30 && rotationAngle > -180)
             {
-                stepsize = 4 * (rotationAngle / 180.0f) * Time.deltaTime;
+                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
             }
         }
 
         Vector3 newPos = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
 
-        if (Vector3.Distance(newPos, origin) < Vector3.Distance(depthMarker.transform.position, origin) 
-            && Vector3.Distance(newPos, origin) < 0.5f)
-            return;
-        depthMarker.transform.position = newPos;
+        depthMarker.transform.position = CheckDepthMarkerPos(newPos, origin);
+    }
 
-        
+    private Vector3 CheckDepthMarkerPos(Vector3 newPos, Vector3 origin)
+    {
+        if (Vector3.Distance(newPos, origin) < Vector3.Distance(depthMarker.transform.position, origin)
+            && Vector3.Distance(newPos, origin) < 0.5f)
+        {
+            return depthMarker.transform.position;
+        }
+        RaycastHit hit;
+        int layerMask = 1 << LayerMask.NameToLayer("WorldLayer");
+        if (Physics.Raycast(origin, newPos - origin, out hit, Vector3.Distance(origin, newPos), layerMask))
+        {
+            newPos = hit.point - (newPos - origin).normalized * 0.05f;
+        }
+
+        return newPos;
     }
 
     public void MoveDepthMarkerToFocus()

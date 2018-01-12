@@ -29,7 +29,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
     public float relativeFactor = 1.0f;
 
     public GameObject head;
-    public GameObject visualRay;
+    private GameObject[] partsVisualRay;
     public Material rayInactiveMaterial;
     public Material rayActiveMaterial;
 
@@ -44,7 +44,8 @@ public class CustomRay : MonoBehaviour, IPointingSource
     {
         RayStabilizer = gameObject.GetComponent<BaseRayStabilizer>();
         OwnAllInput = true;
-        PrioritizedLayerMasksOverride = null;
+        //PrioritizedLayerMasksOverride = null;
+        partsVisualRay = GameObject.FindGameObjectsWithTag("PartVisualRay");
     }
 
     private void Awake()
@@ -71,7 +72,10 @@ public class CustomRay : MonoBehaviour, IPointingSource
         if (MyoPoseManager.ClickUp ||
             ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& InputSwitcher.InputMode != InputMode.HeadMyoHybrid))
         {
-            visualRay.GetComponent<Renderer>().material = rayInactiveMaterial;
+            foreach(GameObject part in partsVisualRay)
+            {
+                part.GetComponent<Renderer>().material = rayInactiveMaterial;
+            }
         }
 
         Hand hand = null;
@@ -100,7 +104,10 @@ public class CustomRay : MonoBehaviour, IPointingSource
         {
             if (hand.TryGetRotation(out rotation))
             {
-                visualRay.GetComponent<Renderer>().material = rayActiveMaterial;
+                foreach (GameObject part in partsVisualRay)
+                {
+                    part.GetComponent<Renderer>().material = rayActiveMaterial;
+                }
                 startRelativeQuat = rotation;
                 if (hand.TryGetAngularVelocity(out angularVelocity))
                 {
