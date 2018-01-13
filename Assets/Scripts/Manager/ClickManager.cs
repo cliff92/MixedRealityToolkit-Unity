@@ -11,7 +11,6 @@ public class ClickManager : MonoBehaviour
 {
     public static ClickManager Instance;
 
-
     //different events that can be used
     public delegate void LeftClickMethod(GameObject gameObject);
     public event LeftClickMethod LeftClick;
@@ -27,12 +26,6 @@ public class ClickManager : MonoBehaviour
 
     private List<Target> targetsInFoucsSinceLastClickDown;
     private VelocityHandler velocityHandler;
-
-    [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
-    public float delayClickTime = 0.1f;
-
-    public float timeRightClickController = 1.0f;
-    public float timeRightClickMyo = 1.0f;
 
     public GameObject rightClickIndicator;
     public GameObject depthMarkerVisual;
@@ -55,7 +48,7 @@ public class ClickManager : MonoBehaviour
     {
         Instance = this;
         targetsInFoucsSinceLastClickDown = new List<Target>();
-        velocityHandler = new VelocityHandler(delayClickTime*2);
+        velocityHandler = new VelocityHandler(VariablesManager.DelayClickTime*2);
     }
 
     private void Start()
@@ -73,8 +66,7 @@ public class ClickManager : MonoBehaviour
     {
         velocityHandler.UpdateLists();
         CheckReset();
-        CheckLeftClick();
-        CheckRightClick();
+        CheckClick();
     }
 
     private void OnDestroy()
@@ -91,6 +83,14 @@ public class ClickManager : MonoBehaviour
         }
     }
 
+    private void CheckClick()
+    {
+        if (!CheckRightClick())
+        {
+            CheckLeftClick();
+        }
+    }
+
     /// <summary>
     /// This method evalutes if the button was released and which object was clicked.
     /// A delay is included to avoid false clicks due to movement while perfoming the click.
@@ -99,6 +99,16 @@ public class ClickManager : MonoBehaviour
     {
         if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.ClickUp)
         {
+            if(TargetManager.IsAnyObjectAttached())
+            {
+                TargetManager.DetachTargetFromDepthMarker();
+                targetsInFoucsSinceLastClickDown = new List<Target>();
+                return;
+            }
+
+            //If current object in focus is not null just make a left click on this object
+            // else check if there is some older object in the list of targets since last click down
+            // There we also check if the velocity was over a threshold and if so no click is made
             if (currentFocusedObject != null)
             {
                 OnLeftClick(currentFocusedObject);
@@ -106,7 +116,7 @@ public class ClickManager : MonoBehaviour
             else if(targetsInFoucsSinceLastClickDown.Count==1 && targetsInFoucsSinceLastClickDown[0] != null)
             {
                 Target target = targetsInFoucsSinceLastClickDown[0];
-                if (target.LastTimeInFocus > Time.time - delayClickTime)
+                if (target.LastTimeInFocus > Time.time - VariablesManager.DelayClickTime)
                 {
                     bool click = false;
                     if (MyoPoseManager.ClickUp 
@@ -149,7 +159,7 @@ public class ClickManager : MonoBehaviour
                 float timeDifference = float.MaxValue;
                 foreach (Target target in targetsInFoucsSinceLastClickDown)
                 {
-                    if(Mathf.Abs(target.LastTimeInFocus-timeStempWithMinVel)<timeDifference && target.LastTimeInFocus > Time.time - delayClickTime)
+                    if(Mathf.Abs(target.LastTimeInFocus-timeStempWithMinVel)<timeDifference && target.LastTimeInFocus > Time.time - VariablesManager.DelayClickTime)
                     {
                         timeDifference = Mathf.Abs(target.LastTimeInFocus - timeStempWithMinVel);
                         targetClosestToTimeStemp = target;
@@ -160,9 +170,6 @@ public class ClickManager : MonoBehaviour
                     OnLeftClick(targetClosestToTimeStemp.gameObject);
                 }
             }
-            else{
-                TargetManager.DetachTargetFromDepthMarker();
-            }
             //Reset list
             targetsInFoucsSinceLastClickDown = new List<Target>();
         }
@@ -170,35 +177,33 @@ public class ClickManager : MonoBehaviour
 
     /// <summary>
     /// This method checks if the current focused object was more than a certain time in focus.
-    /// If this is the case, a right click is triggered.
+    /// If this is the case, a right click is triggered and true is returned.
     /// </summary>
-    private void CheckRightClick()
+    private bool CheckRightClick()
     {
-        float timeRightClick = timeRightClickController;
-        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
-        {
-            timeRightClick = timeRightClickMyo;
-        }
+        if (!SceneHandler.UseRightClick || currentFocusedObject == null || TargetManager.IsAnyObjectAttached())
+            return false;
+
         if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Click)
         {
+            //Change time between Myo and Controller
+            float timeRightClick = VariablesManager.TimeRightClickController;
+            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+            {
+                timeRightClick = VariablesManager.TimeRightClickMyo;
+            }
+
             isClick = true;
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
-            if (timeTargetInFocusAndButtonDown >= 0 && currentFocusedObject != null)
+            if (timeTargetInFocusAndButtonDown >= 0)
             {
                 timeTargetInFocusAndButtonDown += Time.deltaTime;
                 rightClickIndicator.transform.localScale = scaleRCIndicatorDefault + Mathf.Min(1f,timeTargetInFocusAndButtonDown / timeRightClick) * differenceRCIandDM;
                 if (timeTargetInFocusAndButtonDown > timeRightClick)
                 {
                     OnRightClick(currentFocusedObject);
-                    if (Input.GetButton("RelativeLeft") || MyoPoseManager.Arm == Thalmic.Myo.Arm.Left)
-                    {
-                        TargetManager.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Right);
-                    }
-                    else
-                    {
-                        TargetManager.AttachTargetToDepthMarker(currentFocusedObject, Handeness.Left);
-                    }
                     timeTargetInFocusAndButtonDown = -1;
+                    return true;
                 }
             }
         }
@@ -207,6 +212,7 @@ public class ClickManager : MonoBehaviour
             isClick = false;
             rightClickIndicator.transform.localScale = scaleRCIndicatorDefault;
         }
+        return false;
     }
 
     /// <summary>
@@ -221,68 +227,70 @@ public class ClickManager : MonoBehaviour
         }
         timeTargetInFocusAndButtonDown = -1f;
 
-        if (newFocusedObject != null)
-        {
-            switch (newFocusedObject.tag)
-            {
-                case "Target":
-                    bool update = false;
-                    Vector3 angularVelocity = Vector3.zero;
-                    switch (CustomRay.Instance.DeviceType)
-                    {
-                        case RayInputDevice.Unknown:
-                            break;
-                        case RayInputDevice.Myo:
-                            if (HandManager.MyoHand.TryGetAngularVelocity(out angularVelocity)
-                                && angularVelocity.magnitude < 0.5f && MyoPoseManager.Click)
-                            {
-                                update = true;
-                            }
-                            break;
-                        case RayInputDevice.ControllerLeft:
-                            if (HandManager.LeftHand.TryGetAngularVelocity(out angularVelocity)
-                                && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeLeft"))
-                            {
-                                update = true;
-                            }
-                            break;
-                        case RayInputDevice.ControllerRight:
-                            if (HandManager.RightHand.TryGetAngularVelocity(out angularVelocity)
-                                && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeRight"))
-                            {
-                                update = true;
-                            }
-                            break;
-                    }
-                    timeTargetInFocusAndButtonDown = 0;
-                    Target target = newFocusedObject.GetComponent<Target>();
-                    if (!TargetManager.IsAnyObjectAttached() && target.State != TargetState.Drag && update)
-                    {
-                        target.StartTimeInFocus = Time.time;
-                        targetsInFoucsSinceLastClickDown.Add(target);
-                        currentFocusedObject = newFocusedObject;
-                    }
-                    else
-                    {
-                        currentFocusedObject = null;
-                    }
-                    break;
-                case "Object":
-                    currentFocusedObject = newFocusedObject;
-                    break;
-                case "World":
-                    currentFocusedObject = null;
-                    break;
-                default:
-                    currentFocusedObject = newFocusedObject;
-                    break;
-            }
-        }
-        else
+        if (newFocusedObject == null || TargetManager.IsAnyObjectAttached())
         {
             currentFocusedObject = null;
         }
-        CheckLeftClick();
+        else
+        {
+            //check if update should be happen 
+            // velocity under a threshold and click
+            bool update = false;
+            Vector3 angularVelocity = Vector3.zero;
+            switch (CustomRay.Instance.DeviceType)
+            {
+                case RayInputDevice.Unknown:
+                    break;
+                case RayInputDevice.Myo:
+                    if (HandManager.MyoHand.TryGetAngularVelocity(out angularVelocity)
+                        && angularVelocity.magnitude < 0.5f && MyoPoseManager.Click)
+                    {
+                        update = true;
+                    }
+                    break;
+                case RayInputDevice.ControllerLeft:
+                    if (HandManager.LeftHand.TryGetAngularVelocity(out angularVelocity)
+                        && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeLeft"))
+                    {
+                        update = true;
+                    }
+                    break;
+                case RayInputDevice.ControllerRight:
+                    if (HandManager.RightHand.TryGetAngularVelocity(out angularVelocity)
+                        && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeRight"))
+                    {
+                        update = true;
+                    }
+                    break;
+            }
+            if (!update)
+            {
+                currentFocusedObject = null;
+            }
+            else
+            {
+                switch (newFocusedObject.tag)
+                {
+                    case "Target":
+                        Target target = newFocusedObject.GetComponent<Target>();
+                        target.StartTimeInFocus = Time.time;
+                        targetsInFoucsSinceLastClickDown.Add(target);
+                        timeTargetInFocusAndButtonDown = 0;
+                        currentFocusedObject = newFocusedObject;
+                        break;
+                    case "Obstacle":
+                        currentFocusedObject = newFocusedObject;
+                        break;
+                    case "UI":
+                        currentFocusedObject = newFocusedObject;
+                        break;
+                    default:
+                        currentFocusedObject = null;
+                        break;
+                }
+            }
+        }
+        //CheckLeftClick();
     }
 
 

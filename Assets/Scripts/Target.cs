@@ -18,6 +18,8 @@ public class Target : MonoBehaviour
 
     private float startTime;
 
+    private PrimitiveType primitiveType;
+
     private void Awake()
     {
         material = GetComponent<Renderer>().material;
@@ -38,24 +40,13 @@ public class Target : MonoBehaviour
         UpdateTransparancy();
         UpdateMaterial();
         if (state == TargetState.InFocus
-            || state == TargetState.Drag
             || state == TargetState.InFocusTransparent)
         {
             lastTimeInFocus = Time.time;
         }
-    }
-
-    private void LateUpdate()
-    {
         if (state == TargetState.Drag)
         {
             transform.position = depthMarker.transform.position;
-            Quaternion quat;
-            if (handDidNotClick != null)
-            {
-                handDidNotClick.TryGetRotation(out quat);
-                transform.localRotation = quat;
-            }
         }
     }
 
@@ -63,7 +54,6 @@ public class Target : MonoBehaviour
     {
         if (state == TargetState.Drag)
             return;
-
         Vector3 headPos = DepthRayManager.Instance.HeadPosition;
         Vector3 rayDirection = DepthRayManager.Instance.RayDirection;
         float distanceMarkerHead = DepthRayManager.Instance.DistanceHeadDepthMarker;
@@ -100,13 +90,13 @@ public class Target : MonoBehaviour
 
     internal void LogClick(Vector3 posLastTarget , Vector3 directionLastTarget)
     {
-        Rect boundingRect = GUIRectWithObject(gameObject);
+        Rect boundingRect = Helper.GUIRectWithObject(gameObject);
         float timeClicked = Time.time;
         float timeSinceInstantiate = timeClicked - startTime;
         float boundingRectArea = boundingRect.size.x * boundingRect.size.y;
-        Vector3 screenPosition = WorldToGUIPoint(transform.position);
+        Vector3 screenPosition = Helper.WorldToGUIPoint(transform.position);
         float distanceFromLastTarget = Vector3.Distance(transform.position, posLastTarget);
-        float distanceFromLastTargetScreen = Vector2.Distance(WorldToGUIPoint(transform.position), WorldToGUIPoint(posLastTarget));
+        float distanceFromLastTargetScreen = Vector2.Distance(Helper.WorldToGUIPoint(transform.position), Helper.WorldToGUIPoint(posLastTarget));
         float angleBetweenLastAndCurrent = Vector3.Angle(transform.position - DepthRayManager.Instance.HeadPosition, directionLastTarget);
 
         String log = gameObject.name;
@@ -164,12 +154,12 @@ public class Target : MonoBehaviour
                 color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
                 break;
-            case TargetState.Disabled:
-                break;
             case TargetState.Drag:
-                color = new Color(1,0,0);
-                color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                color = new Color(1, 1, 0, 1);
+                //color.a = 0.4f + 0.6f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
+                break;
+            case TargetState.Disabled:
                 break;
         }
     }
@@ -224,7 +214,7 @@ public class Target : MonoBehaviour
                 handDidNotClick = HandManager.RightHand;
         }
     }
-
+    
     public float LastTimeInFocus
     {
         get
@@ -247,44 +237,17 @@ public class Target : MonoBehaviour
         }
     }
 
-    public static Rect GUIRectWithObject(GameObject go)
+    public PrimitiveType PrimitiveType
     {
-        Vector3 cen = go.GetComponent<Renderer>().bounds.center;
-        Vector3 ext = go.GetComponent<Renderer>().bounds.extents;
-        Vector2[] extentPoints = new Vector2[8]
-         {
-               WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z-ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y-ext.y, cen.z-ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y-ext.y, cen.z+ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y-ext.y, cen.z+ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y+ext.y, cen.z-ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y+ext.y, cen.z-ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x-ext.x, cen.y+ext.y, cen.z+ext.z)),
-               WorldToGUIPoint(new Vector3(cen.x+ext.x, cen.y+ext.y, cen.z+ext.z))
-         };
-        Vector2 min = extentPoints[0];
-        Vector2 max = extentPoints[0];
-        foreach (Vector2 v in extentPoints)
+        get
         {
-            min = Vector2.Min(min, v);
-            max = Vector2.Max(max, v);
+            return primitiveType;
         }
-        return new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
-    }
 
-    public static Vector2 WorldToGUIPoint(Vector3 world)
-    {
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(world);
-        screenPoint.y = (float)Screen.height - screenPoint.y;
-        return screenPoint;
+        set
+        {
+            primitiveType = value;
+        }
     }
-}
-public enum TargetState {
-    Default,
-    InFocus,
-    Disabled,
-    Drag,
-    Transparent,
-    InFocusTransparent
 }
 

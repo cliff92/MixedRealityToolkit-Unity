@@ -262,8 +262,3 @@ public class Hand
     }
 }
 
-public enum Handeness
-{
-    Left, Right, Unknown
-}
-

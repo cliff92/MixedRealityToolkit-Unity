@@ -83,6 +83,15 @@ public class DepthRayManager : MonoBehaviour
 
         SelectObject();
         UpdateFocusedObjects();
+
+        if (pointer != null && pointer.End.Object!= null)
+        {
+            Logger.UpdateLogMesh(pointer.End.Object.name);
+        }
+        else
+        {
+            Logger.UpdateLogMesh("Null");
+        }
     }
 
     private void MoveAndScaleDepthMarker()

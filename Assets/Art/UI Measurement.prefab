@@ -41,9 +41,9 @@ GameObject:
   - component: {fileID: 23250719524069838}
   - component: {fileID: 114431935594599188}
   - component: {fileID: 114673300707082956}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Box
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,9 +121,9 @@ GameObject:
   - component: {fileID: 23770010940191936}
   - component: {fileID: 114133951760119758}
   - component: {fileID: 114810363215586262}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Box
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,9 +158,9 @@ GameObject:
   - component: {fileID: 23356875961826312}
   - component: {fileID: 114640348338684604}
   - component: {fileID: 114205989198069850}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Box
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -178,9 +178,9 @@ GameObject:
   - component: {fileID: 23586896796655910}
   - component: {fileID: 114683784802439980}
   - component: {fileID: 114568811047694382}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Box
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

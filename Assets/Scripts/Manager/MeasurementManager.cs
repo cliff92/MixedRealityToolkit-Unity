@@ -7,12 +7,16 @@ public class MeasurementManager : MonoBehaviour
     public GameObject UI;
     public GameObject StopTrainingButton;
     public TextMesh statusText;
-    public float measurementDuration = 60;
 
     private float currentTime = 0;
 
     private bool measurementActive = false;
     private bool trainingActive = false;
+
+    private Vector3 lastTargetPosition = Vector3.zero;
+    private Vector3 lastTargetDirection = Vector3.zero;
+
+    private int remainingSortingObjects = 10;
 
     public static bool MeasurementActive
     {
@@ -37,8 +41,14 @@ public class MeasurementManager : MonoBehaviour
 
     private void Start()
     {
+        TargetManager.Instance.TargetClicked += OnTargetClicked;
         StopTrainingButton.SetActive(false);
         statusText.text = "Menu";
+    }
+
+    private void OnDestroy()
+    {
+        TargetManager.Instance.TargetClicked -= OnTargetClicked;
     }
 
     private void Update()
@@ -47,7 +57,7 @@ public class MeasurementManager : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            if (currentTime > measurementDuration)
+            if (currentTime > VariablesManager.MeasurementDuration)
             {
                 StopMeasurement();
             }
@@ -121,7 +131,7 @@ public class MeasurementManager : MonoBehaviour
 
         currentTime = 0;
         TargetManager.DestroyCurrentTarget();
-        TargetManager.DeactivateAllObstacles();
+        ObstacleManager.DeactivateAllObstacles();
         statusText.text = "Menu";
 
     }
@@ -159,8 +169,23 @@ public class MeasurementManager : MonoBehaviour
 
         Logger.AppendString(logTitle);
 
-        TargetManager.Reset();
         statusText.text = "Training Active";
+
+        switch (SceneHandler.ScenarioType)
+        {
+            case ScenarioType.Menu:
+                break;
+            case ScenarioType.Performance:
+                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
+                break;
+            case ScenarioType.Occlusion:
+                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
+                ObstacleManager.MoveObjects();
+                break;
+            case ScenarioType.Sorting:
+                TargetManager.SpawnTwoTypeTargets(VariablesManager.AmountOfSortingObjects, PrimitiveType.Cube, PrimitiveType.Capsule);
+                break;
+        }
     }
 
     private void StopTraining()
@@ -172,8 +197,51 @@ public class MeasurementManager : MonoBehaviour
         Logger.AppendString("End of Trainings Run of User: " + Logger.Instance.userId);
         Logger.AddCurrentTime();
 
-        TargetManager.DestroyCurrentTarget();
-        TargetManager.DeactivateAllObstacles();
         statusText.text = "Menu";
+
+        switch (SceneHandler.ScenarioType)
+        {
+            case ScenarioType.Menu:
+                break;
+            case ScenarioType.Performance:
+                TargetManager.DestroyCurrentTarget();
+                break;
+            case ScenarioType.Occlusion:
+                ObstacleManager.DeactivateAllObstacles();
+                TargetManager.DestroyCurrentTarget();
+                break;
+            case ScenarioType.Sorting:
+                TargetManager.DestroyTargets();
+                ObstacleManager.DeactivateAllObstacles();
+                break;
+        }
+    }
+
+    private void OnTargetClicked(Target target)
+    {
+        LogLeftClick(target);
+        switch (SceneHandler.ScenarioType)
+        {
+            case ScenarioType.Menu:
+                break;
+            case ScenarioType.Performance:
+                TargetManager.SpawnSingleTarget(lastTargetDirection,PrimitiveType.Cube);
+                break;
+            case ScenarioType.Occlusion:
+                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
+                ObstacleManager.MoveObjects();
+                break;
+            case ScenarioType.Sorting:
+                //ObstacleManager.MoveObjects();
+                break;
+        }
+    }
+
+
+    public static void LogLeftClick(Target target)
+    {
+        target.LogClick(Instance.lastTargetPosition, Instance.lastTargetDirection);
+        Instance.lastTargetDirection = (target.transform.position - DepthRayManager.Instance.HeadPosition).normalized;
+        Instance.lastTargetPosition = target.transform.position;
     }
 }

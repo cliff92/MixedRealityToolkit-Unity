@@ -156,9 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2118d14b1af40b4680a91f3269ddc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayClickTime: 0.25
-  timeRightClickController: 1
-  timeRightClickMyo: 1
   rightClickIndicator: {fileID: 1563196632}
   depthMarkerVisual: {fileID: 685175195}
 --- !u!1 &276875425
@@ -936,6 +933,14 @@ Prefab:
       propertyPath: sceneNumber
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1419691154750488, guid: 3df8b3b214c25b14bb9495869a145709, type: 2}
+      propertyPath: m_TagString
+      value: UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419691154750488, guid: 3df8b3b214c25b14bb9495869a145709, type: 2}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3df8b3b214c25b14bb9495869a145709, type: 2}
   m_IsPrefabParent: 0
@@ -952,9 +957,9 @@ GameObject:
   - component: {fileID: 985549480}
   - component: {fileID: 985549479}
   - component: {fileID: 985549478}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1731,9 +1736,9 @@ GameObject:
   - component: {fileID: 1825451928}
   - component: {fileID: 1825451927}
   - component: {fileID: 1825451926}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: Cube
-  m_TagString: Object
+  m_TagString: UI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -4,8 +4,8 @@ public class Obstacle : MonoBehaviour
     private Material material;
     private Color defaultColor;
 
-    private ObjectState state;
-    private ObjectState oldState;
+    private ObstacleState state;
+    private ObstacleState oldState;
 
     private float angleBetweenRayObj;
 
@@ -13,7 +13,7 @@ public class Obstacle : MonoBehaviour
     {
         material = GetComponent<Renderer>().material;
         defaultColor = material.color;
-        state = ObjectState.Default;
+        state = ObstacleState.Default;
     }
 
     private void Update()
@@ -38,22 +38,22 @@ public class Obstacle : MonoBehaviour
         {
             if (ClickManager.Instance.CurrentFocusedObject == gameObject)
             {
-                state = ObjectState.InFocusTransparent;
+                state = ObstacleState.InFocusTransparent;
             }
             else
             {
-                state = ObjectState.Transparent;
+                state = ObstacleState.Transparent;
             }
         }
         else
         {
             if (ClickManager.Instance.CurrentFocusedObject == gameObject)
             {
-                state = ObjectState.InFocus;
+                state = ObstacleState.InFocus;
             }
             else
             {
-                state = ObjectState.Default;
+                state = ObstacleState.Default;
             }
         }
     }
@@ -63,34 +63,25 @@ public class Obstacle : MonoBehaviour
         Color color;
         switch (state)
         {
-            case ObjectState.Default:
+            case ObstacleState.Default:
                 material.color = defaultColor;
                 break;
-            case ObjectState.Transparent:
+            case ObstacleState.Transparent:
                 color = defaultColor;
                 color.a = 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
                 break;
-            case ObjectState.InFocus:
-                color = defaultColor;
+            case ObstacleState.InFocus:
+                color = new Color(1,1,0,1);
                 material.color = color;
                 break;
-            case ObjectState.InFocusTransparent:
-                color = defaultColor;
+            case ObstacleState.InFocusTransparent:
+                color = new Color(1, 1, 0, 1);
                 color.a = 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f;
                 material.color = color;
                 break;
-            case ObjectState.Disabled:
+            case ObstacleState.Disabled:
                 break;
         }
     }
-}
-
-public enum ObjectState
-{
-    Default,
-    InFocus,
-    Disabled,
-    Transparent,
-    InFocusTransparent
 }

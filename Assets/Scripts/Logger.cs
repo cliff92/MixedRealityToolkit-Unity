@@ -7,13 +7,14 @@ public class Logger : MonoBehaviour
 {
     public static Logger Instance;
     public string userId = "ck92";
-    public string FileName = "log"; 
+    public string FileName = "log";
+    public TextMesh textMesh;
     // This contains the name of the file. Don't add the ".txt"
     // Assign in inspector
     private StreamWriter writer; // This is the writer that writes to the file
     internal static void AppendString(string appendString)
     {
-        Instance.writer = new StreamWriter(Application.dataPath + "/Resources/" + Instance.FileName + "_" + Instance.userId + ".txt", true);
+        Instance.writer = new StreamWriter(Application.dataPath + "/StreamingAssets/" + Instance.FileName + "_" + Instance.userId + ".txt", true);
         Instance.writer.WriteLine(appendString);
         Instance.writer.Close();
     }
@@ -44,5 +45,10 @@ public class Logger : MonoBehaviour
     public void ChangeUserId(InputField inputfield)
     {
         Instance.userId = inputfield.text;
+    }
+
+    public static void UpdateLogMesh(string log)
+    {
+        Instance.textMesh.text = log;
     }
 }

@@ -8,6 +8,8 @@ TagManager:
   - World
   - Object
   - PartVisualRay
+  - Obstacle
+  - UI
   layers:
   - Default
   - TransparentFX
@@ -20,7 +22,7 @@ TagManager:
   - TargetLayer
   - WorldLayer
   - ObstacleLayer
-  - 
+  - UILayer
   - 
   - 
   - 

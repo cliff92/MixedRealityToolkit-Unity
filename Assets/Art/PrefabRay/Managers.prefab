@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1277418712136270}
   m_IsPrefabParent: 1
+--- !u!1 &1231367414302174
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4650051624590654}
+  - component: {fileID: 114471716598337566}
+  m_Layer: 0
+  m_Name: VariablesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1277418712136270
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,6 +187,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1985334815657042
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4604563695436560}
+  - component: {fileID: 114035499477445608}
+  m_Layer: 0
+  m_Name: ObstacleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4213128612232106
 Transform:
   m_ObjectHideFlags: 1
@@ -237,6 +269,19 @@ Transform:
   m_Father: {fileID: 4977165634240862}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4604563695436560
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985334815657042}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4977165634240862}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4636369361931108
 Transform:
   m_ObjectHideFlags: 1
@@ -249,6 +294,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4362212322676932}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4650051624590654
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231367414302174}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4977165634240862}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4682041971046806
 Transform:
@@ -307,6 +365,8 @@ Transform:
   - {fileID: 4718485015096806}
   - {fileID: 4682041971046806}
   - {fileID: 4495996747775700}
+  - {fileID: 4650051624590654}
+  - {fileID: 4604563695436560}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -390,6 +450,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114035499477445608
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1985334815657042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3aef9ea51ca8ec42b9b07245f00eaeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstacleNotInFocusMat: {fileID: 2100000, guid: a5e47154b1bb82a418052dbf0b68e0f7,
+    type: 2}
+  objectInFocusMat: {fileID: 2100000, guid: 18730c47ded1fa04fbc93615a2302083, type: 2}
 --- !u!114 &114052752291393408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,11 +499,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2118d14b1af40b4680a91f3269ddc5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayClickTime: 0.25
-  timeRightClickController: 1
-  timeRightClickMyo: 1
   rightClickIndicator: {fileID: 0}
   depthMarkerVisual: {fileID: 0}
+--- !u!114 &114471716598337566
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1231367414302174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f30e9d4ed247f499ebfdfe2319e6cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomRangeX: 45
+  randomRangeY: 100
+  maximumAngleBetweenTwoTargets: 90
+  measurementDuration: 60
+  trainingsDuration: 60
+  amountOfObstacles: 400
+  amountOfSortingObjects: 10
+  delayClickTime: 0.1
+  timeRightClickController: 1
+  timeRightClickMyo: 1
 --- !u!114 &114489921902396852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -479,9 +571,11 @@ MonoBehaviour:
   pointingExtent: 100
   pointingRaycastLayerMasks:
   - serializedVersion: 2
-    m_Bits: 4294966728
+    m_Bits: 4294964680
   - serializedVersion: 2
-    m_Bits: 4294966779
+    m_Bits: 4294965448
+  - serializedVersion: 2
+    m_Bits: 33
 --- !u!114 &114916407309262618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -495,18 +589,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetInFocusMat: {fileID: 2100000, guid: 2e51fd1c629e9b04385b0de346a31560, type: 2}
   targetNotInFocusMat: {fileID: 2100000, guid: 0545f9d30a7f61b4087ad12158e58a3b, type: 2}
-  objectNotInFocusMat: {fileID: 2100000, guid: a5e47154b1bb82a418052dbf0b68e0f7, type: 2}
-  objectInFocusMat: {fileID: 2100000, guid: 18730c47ded1fa04fbc93615a2302083, type: 2}
   correctSound: {fileID: 82649528578735912}
   targets: {fileID: 0}
-  targetPrefab: {fileID: 1820484476100638, guid: d4030a2636189d345b56bebc7482f6ac,
-    type: 2}
-  objectPrefab: {fileID: 1820484476100638, guid: f95e4e06e45b7104990259cca7af2ee0,
-    type: 2}
-  AmountOfObjects: 200
-  randomRangeX: 45
-  randomRangeY: 100
-  maximumAngleBetweenTwoTargets: 90
 --- !u!114 &114963763194817316
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -521,4 +605,3 @@ MonoBehaviour:
   UI: {fileID: 0}
   StopTrainingButton: {fileID: 0}
   statusText: {fileID: 0}
-  measurementDuration: 60

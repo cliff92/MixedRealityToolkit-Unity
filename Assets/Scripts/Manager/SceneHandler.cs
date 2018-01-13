@@ -8,6 +8,7 @@ public class SceneHandler : MonoBehaviour
     private static ScenarioType scenarioType = ScenarioType.Menu;
 
     private bool useDepthMarker = false;
+    private bool useRightClick = false;
 
     private GameObject depthmarker;
 
@@ -32,22 +33,33 @@ public class SceneHandler : MonoBehaviour
         }
     }
 
+    public static bool UseRightClick
+    {
+        get
+        {
+            return Instance.useRightClick;
+        }
+    }
+
     private void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
-            UpdateScenarioType(SceneManager.GetActiveScene().buildIndex);
+            DontDestroyOnLoad(this);
         }
-        else
+        else if(Instance != this)
         {
             Destroy(this);
+            return;
         }
+        UpdateScenarioType(SceneManager.GetActiveScene().buildIndex);
     }
 
     private void Start()
     {
         useDepthMarker = false;
+        useRightClick = false;
         depthmarker = GameObject.Find("DepthMarker");
         switch (scenarioType)
         {
@@ -60,6 +72,7 @@ public class SceneHandler : MonoBehaviour
                 break;
             case ScenarioType.Sorting:
                 useDepthMarker = true;
+                useRightClick = true;
                 break;
         }
         if(useDepthMarker)
@@ -90,9 +103,4 @@ public class SceneHandler : MonoBehaviour
                 break;
         }
     }
-}
-
-public enum ScenarioType
-{
-    Menu, Performance, Occlusion, Sorting
 }

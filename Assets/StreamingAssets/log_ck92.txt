@@ -1,0 +1,389 @@
+New Run
+New Run
+New Run
+New Run
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.66333
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.37916
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.17011
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 13.67929; 2.50918; 7181.648; (1079.7, -349.0, 0.0); 15.86798; 1288.922; 90
+Target_001; 15.13534; 1.456044; 4861.852; (854.2, -138.3, 0.0); 15.82726; 2050.433; 70.6571
+Target_002; 16.14599; 1.010658; 99776.38; (941.3, -19.4, 0.0); 9.131599; 218.5339; 17.21145
+Target_003; 17.16826; 1.02227; 35042.86; (808.0, -195.2, 0.0); 3.508895; 620.9299; 43.10775
+Target_004; 19.71391; 2.545649; 10345.54; (1075.6, -223.3, 0.0); 11.11184; 2888.657; 88.72469
+Target_005; 22.19017; 2.476257; 36093.11; (874.9, -390.0, 0.0); 7.750061; 874.6431; 50.85735
+Target_006; 23.90324; 1.713066; 3534.659; (1023.6, -287.6, 0.0); 15.07492; 605.4448; 41.62571
+Target_007; 24.91227; 1.009037; 3441.22; (991.0, -284.2, 0.0); 1.449199; 59.25473; 4.360535
+Target_008; 26.27917; 1.366898; 8516.714; (822.6, -176.7, 0.0); 16.77767; 1262.287; 61.52079
+Target_009; 32.12451; 5.845337; 115777.8; (706.8, -57.7, 0.0); 9.276628; 2500.666; 85.85822
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.9498
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 15.11591; 2.166113; 8519.296; (1071.1, -259.5, 0.0); 12.50193; 3657.775; 90
+Target_001; 20.50478; 5.388864; 6209.795; (758.8, -389.5, 0.0); 19.84954; 8689.699; 88.93615
+Target_002; 22.04997; 1.545195; 18669.89; (669.9, -89.6, 0.0); 11.87717; 630.9769; 43.19943
+Target_003; 23.52883; 1.478863; 16927.21; (793.1, -428.2, 0.0); 7.204604; 632.2821; 45.77992
+Target_004; 25.02679; 1.497953; 34151.8; (652.9, -216.0, 0.0); 5.566065; 403.2265; 28.67259
+Target_005; 26.13801; 1.111225; 112301; (655.4, -412.0, 0.0); 2.361267; 207.9141; 14.98461
+Target_006; 27.80511; 1.667093; 14369.18; (995.2, -374.7, 0.0); 9.894133; 3335.132; 76.26134
+End of Trainings Run of User: ck92
+Current Time: 28.8607
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.44797
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 32.88987; 20.4419; 6956.433; (527.1, -348.0, 0.0); 14.00667; 5531.91; 90
+Target_001; 36.35588; 3.466015; 61034.38; (589.0, -449.3, 0.0); 10.70142; 650.8293; 47.69896
+Target_002; 43.20058; 6.8447; 16339.58; (945.7, -149.7, 0.0); 7.970579; 2458.367; 75.16155
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.73289
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 17.22393; 5.49104; 2481.4; (681.7, -136.5, 0.0); 18.09884; 13675.58; 90
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.61986
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 18.28434; 5.664481; 27445.57; (562.8, -281.3, 0.0); 7.404834; 8698.675; 90
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.37453
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 14.58447; 3.209944; 136562; (1085.7, 16.4, 0.0); 2.973992; 10132.15; 90
+Target_001; 18.1291; 3.544626; 2912.543; (1047.2, -31.2, 0.0); 14.56227; 911.4301; 56.04301
+Target_002; 19.14073; 1.011627; 21450.77; (907.9, 33.3, 0.0); 10.45773; 246.134; 18.80619
+Target_003; 20.74122; 1.600494; 3540.845; (995.0, -342.5, 0.0); 13.26099; 566.3782; 42.7858
+Target_004; 22.59525; 1.854029; 2705.135; (856.6, -203.5, 0.0); 21.35563; 5755.965; 80.27209
+Target_005; 24.06194; 1.466696; 11133.39; (1067.7, -252.0, 0.0); 14.42334; 1012.076; 62.37101
+Target_006; 25.18485; 1.12291; 15357.52; (801.1, 7.4, 0.0); 9.070037; 1047.769; 61.38372
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.50489
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.09855
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.39075
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 12.91851; 1.52776; 15977.21; (840.0, -371.8, 0.0); 9.812923; 2561.78; 90
+Target_001; 14.64637; 1.727859; 7705.729; (959.9, -450.1, 0.0); 12.48427; 1171.85; 55.8447
+Target_002; 15.69037; 1.043994; 8811.712; (1017.0, -118.3, 0.0); 9.665318; 586.5621; 39.45138
+Target_003; 16.91737; 1.227008; 4212.649; (843.8, -236.9, 0.0); 14.47457; 1996.004; 71.68188
+Target_004; 18.10435; 1.186974; 59693.17; (670.6, -93.3, 0.0); 12.63464; 956.2582; 61.97741
+Target_005; 19.19446; 1.090113; 4532.592; (945.3, -236.6, 0.0); 12.78813; 1183.682; 63.7452
+Target_006; 20.4139; 1.219444; 7140.629; (727.6, -158.6, 0.0); 12.5089; 936.075; 58.30721
+Target_007; 21.3238; 0.9098911; 50778.02; (595.5, -318.5, 0.0); 6.345228; 235.162; 17.24502
+Target_008; 22.34601; 1.022211; 3637.64; (904.8, -210.8, 0.0); 13.34847; 1310.236; 61.0924
+Target_009; 23.50196; 1.155954; 62256.95; (984.1, -408.3, 0.0); 12.63891; 786.3531; 52.53901
+End of Trainings Run of User: ck92
+Current Time: 24.68994
+New Run
+New Trainings Run of User: ck92
+ Current Time: 21.84038
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 27.70605; 5.865669; 110006.1; (1013.4, -211.9, 0.0); 3.557127; 3993.722; 90; 0; 0; 2; 2
+Target_001; 29.28442; 1.578375; 17065.44; (943.4, -391.8, 0.0); 6.428747; 312.6755; 23.18485; 0; 0; 1; 1
+Target_002; 30.82877; 1.544348; 72288.56; (810.4, -238.4, 0.0); 5.523903; 304.3474; 22.13642; 0; 0; 1; 1
+Target_003; 34.9062; 4.077436; 17045.78; (865.2, -225.0, 0.0); 7.710138; 2322.412; 70.49672; 1; 1; 0; 0
+Target_004; 36.47296; 1.566753; 3595.103; (951.5, -286.5, 0.0); 10.54738; 484.3268; 34.84708; 0; 0; 0; 0
+Target_005; 39.95454; 3.481579; 90258.7; (866.0, -104.4, 0.0); 13.71719; 523.1339; 36.22234; 0; 0; 1; 2
+Target_006; 42.42223; 2.46769; 8007.38; (932.3, -317.4, 0.0); 11.99823; 1126.9; 63.42327; 1; 1; 0; 0
+Target_007; 43.84242; 1.420193; 96971.3; (886.1, -182.8, 0.0); 11.15547; 816.4159; 46.00987; 0; 0; 0; 1
+Target_008; 50.48647; 6.644054; 3481.548; (919.1, -325.7, 0.0); 13.13204; 178.4101; 13.45624; 0; 0; 1; 1
+Target_009; 53.23916; 2.752686; 117924.2; (750.1, -439.7, 0.0); 15.57055; 1632.064; 75.80732; 0; 0; 2; 2
+Target_010; 54.93863; 1.699474; 7647.563; (784.0, -323.7, 0.0); 10.16408; 179.0811; 11.94639; 1; 1; 0; 0
+Target_011; 60.30497; 5.366337; 20951.07; (822.2, -257.4, 0.0); 6.256983; 131.0156; 9.571812; 1; 1; 2; 2
+Target_012; 62.10623; 1.801258; 2916.294; (749.0, -175.7, 0.0); 11.68622; 397.7048; 29.10271; 1; 1; 0; 0
+Target_013; 63.49535; 1.389122; 110307.3; (939.0, -68.8, 0.0); 16.47142; 891.3683; 54.50457; 0; 0; 2; 3
+Target_014; 65.83035; 2.334995; 62428.25; (1001.0, -94.0, 0.0); 4.39031; 1822.908; 75.54017; 0; 0; 1; 1
+Target_015; 71.17236; 5.34201; 35605.13; (939.2, -370.8, 0.0); 4.229619; 631.7684; 44.07251; 0; 0; 1; 1
+Target_016; 74.13931; 2.966957; 5401.036; (846.3, -166.2, 0.0); 12.29009; 1978.893; 69.38932; 0; 2; 0; 0
+Target_017; 75.78352; 1.644203; 34414.94; (911.4, -174.1, 0.0); 11.72332; 1376.101; 63.92287; 0; 0; 0; 0
+End of Trainings Run of User: ck92
+Current Time: 77.85331
+New Run
+New Trainings Run of User: ck92
+ Current Time: 10.7957
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 35.57607; 24.78037; 30056.1; (1041.8, -103.0, 0.0); 5.658366; 9028.354; 90; 0; 0; 3; 3
+End of Trainings Run of User: ck92
+Current Time: 75.15502
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.41053
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 16.57701; 4.16648; 13418.73; (958.6, -334.0, 0.0); 9.941328; 1375.446; 90
+Target_001; 17.97883; 1.401815; 15589.02; (731.3, -115.3, 0.0); 10.62182; 1869.492; 76.58566
+Target_002; 19.39965; 1.42082; 29066.71; (899.8, -324.7, 0.0); 8.475515; 1992.81; 72.68981
+Target_003; 27.48884; 8.089191; 16969.09; (695.2, -105.4, 0.0); 9.418965; 2169.404; 83.02495
+Target_004; 28.93411; 1.445271; 28909.02; (818.1, -110.7, 0.0); 8.38262; 4536.66; 76.15261
+Target_005; 30.0673; 1.133192; 5706.165; (817.3, -148.3, 0.0); 10.02185; 642.0597; 43.40807
+Target_006; 31.47946; 1.412157; 2490.092; (860.1, -102.4, 0.0); 15.4417; 1128.199; 56.83193
+Target_007; 32.41236; 0.9328995; 13242.02; (988.7, -16.7, 0.0); 10.84174; 256.1532; 20.2837
+Target_008; 33.55658; 1.144218; 6295.991; (859.7, -262.3, 0.0); 9.453253; 800.9962; 51.52667
+Target_009; 35.18913; 1.632553; 17696.39; (533.9, -250.9, 0.0); 14.6233; 1693.839; 86.73126
+Target_010; 36.25562; 1.06649; 13039.32; (847.0, -10.5, 0.0); 10.46064; 2976.836; 75.59156
+Target_011; 37.68952; 1.433899; 14130.45; (1030.7, -107.0, 0.0); 10.38757; 2010.477; 80.63894
+Target_012; 38.8364; 1.146881; 14078.35; (1018.9, -127.2, 0.0); 0.2494818; 22.2764; 1.733252
+Target_013; 39.74625; 0.9098434; 140208.7; (940.2, -293.2, 0.0); 5.45224; 336.7094; 25.3156
+Target_014; 40.61233; 0.8660812; 26430.79; (1095.1, -35.6, 0.0); 3.83244; 426.4533; 32.6545
+Target_015; 41.57904; 0.9667091; 4102.323; (933.1, -292.8, 0.0); 12.2019; 396.5763; 30.0181
+Target_016; 42.63729; 1.058258; 26080.52; (781.7, -169.4, 0.0); 15.36652; 1205.5; 63.43885
+Target_017; 43.92657; 1.289276; 3090.881; (934.2, -273.6, 0.0); 15.76985; 756.092; 48.97382
+Target_018; 45.05665; 1.130077; 159866.9; (620.7, -183.7, 0.0); 18.75368; 1602.238; 79.876
+Target_019; 46.16796; 1.111317; 2461.645; (962.9, -145.4, 0.0); 16.82434; 1146.144; 61.75567
+Target_020; 47.13446; 0.9664993; 31630.7; (873.6, -441.2, 0.0); 14.05294; 640.0533; 45.73319
+Target_021; 48.05665; 0.9221878; 3337.472; (767.4, -207.4, 0.0); 11.98471; 341.4008; 24.39024
+Target_022; 48.95621; 0.8995628; 5847.029; (685.6, -160.1, 0.0); 7.940996; 317.5853; 24.85051
+Target_023; 49.79037; 0.834156; 7298.64; (841.3, -342.9, 0.0); 5.783046; 308.315; 23.79532
+Target_024; 50.71489; 0.9245186; 3270.514; (634.1, -129.0, 0.0); 10.39592; 427.5887; 32.40869
+Target_025; 51.55668; 0.8417892; 55957.73; (492.3, -48.6, 0.0); 14.14935; 184.6138; 12.68284
+Target_026; 52.30084; 0.7441635; 46682.94; (790.8, 44.1, 0.0); 2.392527; 399.4626; 27.53112
+Target_027; 53.73518; 1.434341; 6154.623; (995.8, -409.1, 0.0); 14.54773; 1453.012; 74.78516
+Target_028; 54.81293; 1.077744; 4154.308; (959.0, -81.9, 0.0); 10.26163; 580.8923; 41.16528
+Target_029; 56.26894; 1.456013; 62014.41; (897.2, -255.6, 0.0); 10.84609; 449.192; 32.72369
+Target_030; 57.73449; 1.465553; 8880.659; (1002.7, -340.2, 0.0); 10.84017; 702.0554; 49.05653
+Target_031; 58.54545; 0.810955; 161612.5; (1066.6, -294.3, 0.0); 10.05552; 153.1188; 10.42147
+Target_032; 59.50088; 0.9554329; 31199.71; (1123.5, -207.2, 0.0); 3.565446; 350.1008; 25.94513
+Target_033; 60.90095; 1.40007; 7163.1; (846.0, -248.2, 0.0); 11.94126; 6684.333; 83.28238
+Target_034; 62.16825; 1.267303; 8636.592; (769.0, -390.2, 0.0); 10.01899; 658.4601; 45.09031
+Target_035; 63.61244; 1.444187; 203830.9; (459.1, -46.9, 0.0); 12.99019; 945.8741; 64.15496
+Target_036; 64.63364; 1.021194; 86130.86; (768.9, -529.2, 0.0); 3.903697; 774.0526; 50.72021
+Target_037; 66.22333; 1.589691; 3123.554; (903.6, -227.1, 0.0); 17.91586; 9619.828; 80.66782
+Target_038; 67.13746; 0.9141312; 70126.98; (728.1, -36.0, 0.0); 16.00669; 806.8439; 54.81522
+Target_039; 70.93345; 3.79599; 3168.803; (928.7, -155.8, 0.0); 14.2878; 236.2058; 18.16877
+Target_040; 72.76746; 1.834015; 2655.781; (842.6, -38.4, 0.0); 12.39609; 641.5093; 42.03299
+Target_041; 74.45599; 1.688522; 9279.972; (846.3, -279.2, 0.0); 9.866897; 493.6419; 37.32043
+Target_042; 75.44774; 0.9917526; 8520.359; (986.6, -248.1, 0.0); 5.320765; 379.6355; 28.68722
+End of Trainings Run of User: ck92
+Current Time: 77.44772
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.91094
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 13.12194; 1.211002; 17796.38; (728.3, -80.8, 0.0); 7.090877; 9792.245; 90
+Target_001; 14.53297; 1.411028; 2404.441; (886.9, -189.5, 0.0); 17.17008; 2047.182; 71.63745
+Target_002; 16.13262; 1.599647; 40984.56; (637.8, -437.5, 0.0); 18.60053; 1682.147; 83.50018
+Target_003; 17.13262; 0.9999981; 3813.417; (852.1, 2.1, 0.0); 12.15514; 835.0306; 52.86264
+Target_004; 18.08867; 0.9560509; 3429.809; (955.1, -33.9, 0.0); 9.030117; 487.2578; 35.91883
+Target_005; 19.5439; 1.455236; 4319.997; (629.1, -215.3, 0.0); 17.29161; 1106.778; 69.86151
+Target_006; 23.06815; 3.524244; 6849.044; (910.9, -239.4, 0.0); 7.548386; 371.7868; 27.90158
+Target_007; 24.12232; 1.054171; 10758.37; (725.1, -457.3, 0.0); 5.395821; 326.7217; 23.90708
+Target_008; 26.76953; 2.647209; 5100.277; (1009.6, -172.6, 0.0); 9.556773; 591.4487; 41.12783
+Target_009; 28.46712; 1.697596; 7640.228; (525.4, -265.9, 0.0); 13.12842; 801.9734; 57.92914
+Target_010; 29.77971; 1.312584; 8466.562; (593.5, -211.5, 0.0); 2.640187; 129.1732; 8.392344
+Target_011; 30.82333; 1.043625; 6705.104; (504.5, -112.3, 0.0); 2.213353; 137.7817; 9.861309
+End of Trainings Run of User: ck92
+Current Time: 32.24506
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.96239
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 37.07942; 25.11703; 3071.839; (914.1, -146.1, 0.0); 19.03467; 12609; 90; 1; 2; 0; 0
+Target_001; 39.78571; 2.706291; 4664.564; (928.8, -230.7, 0.0); 17.16297; 1022.68; 58.47423; 1; 2; 0; 0
+Target_002; 41.49812; 1.712406; 6261.9; (913.7, -331.5, 0.0); 5.925403; 297.1839; 22.49299; 1; 1; 0; 0
+Target_003; 43.33123; 1.833118; 3054.738; (784.7, -188.0, 0.0); 15.55329; 1253.307; 61.849; 0; 1; 0; 1
+Target_004; 47.64085; 4.309616; 64489.37; (696.6, -397.0, 0.0); 14.00448; 606.3155; 45.90891; 0; 0; 0; 0
+Target_005; 60.61788; 12.97703; 68638.86; (852.7, -75.3, 0.0); 5.637415; 2817.955; 75.48019; 0; 0; 1; 1
+Target_006; 66.83892; 6.221039; 218330; (580.5, -385.1, 0.0); 4.243261; 1104.253; 73.06196; 0; 0; 0; 1
+Target_007; 85.61774; 18.77882; 5541.371; (906.8, -157.6, 0.0); 10.92227; 615.8914; 40.4618; 1; 1; 0; 0
+Target_008; 87.40564; 1.787903; 24133.32; (951.1, -283.3, 0.0); 6.271466; 144.6647; 11.38392; 0; 0; 0; 2
+Target_009; 92.23869; 4.833046; 8364.893; (618.7, -312.1, 0.0); 7.474151; 468.2628; 35.18039; 0; 1; 0; 0
+Target_010; 94.51828; 2.279594; 24136.38; (872.9, -302.0, 0.0); 11.30379; 1781.29; 66.42261; 1; 1; 1; 2
+Target_011; 99.67221; 5.153931; 16310.89; (791.9, -171.6, 0.0); 5.16934; 569.2793; 39.29473; 0; 0; 0; 1
+Target_012; 102.8517; 3.17952; 193963.7; (727.6, -420.2, 0.0); 5.438647; 343.961; 25.87835; 0; 0; 0; 1
+End of Trainings Run of User: ck92
+Current Time: 105.4285
+New Trainings Run of User: ck92
+ Current Time: 109.93
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 111.3056; 1.375526; 8894.947; (928.3, -339.0, 0.0); 11.88132; 1585.851; 90
+Target_001; 112.7387; 1.433182; 14847.98; (730.6, -85.1, 0.0); 11.89969; 1662.127; 75.25967
+Target_002; 116.1178; 3.379097; 5096.068; (1010.3, -165.0, 0.0); 9.124907; 600.8311; 43.69144
+Target_003; 116.9283; 0.8104095; 21918.24; (988.0, -211.1, 0.0); 7.712406; 266.0221; 20.89964
+Target_004; 118.2386; 1.310394; 4583.013; (993.1, -268.7, 0.0); 13.25373; 818.1789; 52.37548
+Target_005; 119.3732; 1.13456; 63873.38; (738.4, -139.1, 0.0); 16.34063; 3457.52; 87.27095
+Target_006; 120.9854; 1.612236; 3466.157; (1109.5, -163.9, 0.0); 18.2755; 2288.143; 87.53297
+Target_007; 121.7068; 0.721344; 16520.5; (918.9, -216.7, 0.0); 10.87043; 283.2572; 21.14599
+Target_008; 123.0732; 1.366379; 156985.7; (1243.1, 34.5, 0.0); 7.349736; 941.3196; 65.88371
+Target_009; 123.8841; 0.8109589; 111767.2; (899.5, 12.1, 0.0); 2.287504; 768.2986; 44.53239
+Target_010; 125.273; 1.388832; 10846.72; (1025.0, -264.1, 0.0); 9.228598; 644.4722; 46.64207
+Target_011; 126.429; 1.156075; 3340.92; (894.6, -61.7, 0.0); 10.6666; 700.8502; 45.12743
+Target_012; 127.3643; 0.9353027; 8411.603; (850.8, -277.1, 0.0); 7.188685; 343.3318; 26.89872
+New Run
+New Trainings Run of User: ck92
+ Current Time: 13.02503
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 29.78361; 16.75857; 18547.49; (1119.5, -167.6, 0.0); 7.404925; 3217.001; 90; 0; 0; 0; 0
+Target_001; 68.51818; 38.73457; 21521.03; (1036.1, -304.2, 0.0); 5.354002; 764.1368; 40.81641; 0; 1; 1; 1
+Target_002; 94.52523; 26.00705; 109700.4; (1033.9, -137.5, 0.0); 5.677718; 412.3151; 30.92201; 0; 0; 2; 2
+Target_003; 96.00476; 1.47953; 55544.49; (958.0, -327.0, 0.0); 3.634468; 759.9154; 45.17471; 0; 0; 0; 0
+New Run
+New Trainings Run of User: ck92
+ Current Time: 11.23587
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.48117
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 66.24786; 53.76668; 41603.53; (721.1, -355.0, 0.0); 6.907626; 2430.196; 90; 0; 0; 1; 1
+Target_001; 80.33805; 14.09019; 3035.53; (933.3, -228.5, 0.0); 15.4919; 1646.685; 65.24364; 1; 1; 0; 0
+Target_002; 85.49233; 5.154282; 6636.411; (772.3, -256.5, 0.0); 19.74771; 2529.682; 80.84818; 0; 0; 0; 0
+Target_003; 115.7703; 30.27802; 86374.69; (870.6, -150.3, 0.0); 12.3055; 2079.629; 69.84668; 0; 0; 0; 0
+Target_004; 119.038; 3.267609; 127429.6; (827.2, -343.2, 0.0); 1.526356; 382.6965; 29.20229; 0; 0; 1; 1
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.6395
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 21.34788; 8.708377; 3201.553; (592.7, -174.1, 0.0); 17.12296; 7442.585; 90; 1; 1; 0; 1
+Target_001; 23.49202; 2.144136; 3379.303; (734.9, -96.0, 0.0); 11.13944; 678.7079; 38.20215; 0; 1; 0; 0
+Target_002; 39.29874; 15.80673; 60498.6; (723.8, -88.2, 0.0); 13.01345; 53.66947; 3.948486; 0; 0; 1; 1
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.17585
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 15.20735; 3.031505; 4681.269; (1021.9, -265.6, 0.0); 14.39829; 14017.42; 90; 0; 0; 0; 0
+Target_001; 17.99952; 2.792166; 206856.8; (746.8, -426.5, 0.0); 13.05895; 1097.309; 64.5673; 0; 0; 1; 1
+Target_002; 19.37779; 1.378269; 143943.4; (544.9, -453.0, 0.0); 1.586459; 295.4572; 19.8547; 0; 0; 1; 1
+Target_003; 25.70971; 6.331926; 176435.9; (763.7, -417.4, 0.0); 1.484529; 237.0427; 16.65901; 0; 0; 0; 0
+Target_004; 26.8635; 1.153788; 106970.6; (867.1, -99.5, 0.0); 2.126027; 619.3393; 40.52328; 0; 0; 1; 1
+Target_005; 28.033; 1.169502; 38094.19; (731.8, 9.2, 0.0); 2.735814; 357.3085; 27.54583; 0; 0; 0; 1
+Target_006; 36.33524; 8.302238; 6209.723; (903.5, -318.3, 0.0); 12.58169; 3306.823; 84.49923; 1; 1; 0; 0
+Target_007; 38.48239; 2.147144; 1953.634; (934.9, -102.5, 0.0); 14.1504; 762.3713; 47.93118; 2; 2; 0; 0
+Target_008; 40.51035; 2.027958; 76963.49; (833.4, -226.7, 0.0); 18.74616; 2681.019; 79.61715; 0; 0; 1; 2
+Target_009; 44.93514; 4.424797; 8217.058; (845.8, -110.1, 0.0); 6.779918; 383.3284; 27.9751; 0; 0; 0; 1
+Target_010; 46.76605; 1.83091; 26147.42; (796.9, -355.1, 0.0); 5.330814; 392.1441; 30.54416; 0; 1; 0; 0
+Target_011; 52.14524; 5.379185; 13092.79; (877.4, -138.8, 0.0); 5.929109; 747.919; 45.51471; 0; 0; 1; 1
+Target_012; 53.69052; 1.545284; 20842.65; (914.1, -35.2, 0.0); 5.510747; 624.4268; 43.0958; 0; 0; 0; 0
+Target_013; 56.25462; 2.564098; 6012.552; (940.4, -390.0, 0.0); 10.84132; 794.5618; 55.48024; 1; 2; 0; 0
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.4437
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 17.26903; 4.825324; 47450.89; (691.8, -170.0, 0.0); 5.542391; 2551.235; 90; 0; 0; 0; 0
+Target_001; 20.42325; 3.154222; 6363.519; (939.1, -247.5, 0.0); 9.028335; 391.6894; 29.54093; 1; 1; 0; 0
+Target_002; 25.04661; 4.62336; 8566.198; (788.9, -167.6, 0.0); 3.608609; 182.4546; 14.40962; 1; 1; 0; 0
+Target_003; 28.081; 3.034389; 2781.861; (988.5, -86.0, 0.0); 18.64203; 2211.573; 80.13167; 1; 2; 0; 0
+Target_004; 43.14822; 15.06722; 4442.603; (832.8, -124.6, 0.0); 13.21765; 818.0498; 50.69647; 0; 1; 0; 0
+Target_005; 45.28922; 2.141003; 147864.3; (781.3, -280.4, 0.0); 10.55827; 811.1699; 53.96928; 0; 0; 1; 1
+Target_006; 46.78988; 1.500652; 83484.26; (603.3, -486.6, 0.0); 2.757159; 397.7441; 27.37622; 0; 0; 1; 2
+Target_007; 58.0682; 11.27832; 2694.351; (885.9, -145.8, 0.0); 16.15495; 6932.697; 82.4929; 2; 2; 0; 0
+Target_008; 60.1502; 2.082005; 11860.69; (1043.8, -326.0, 0.0); 13.01644; 756.7346; 53.78072; 0; 1; 0; 0
+Target_009; 62.7328; 2.5826; 46092.98; (1123.1, -428.8, 0.0); 7.938531; 626.0059; 44.37881; 0; 0; 1; 1
+Target_010; 64.21124; 1.478443; 16197.48; (873.8, -205.2, 0.0); 5.872572; 831.3871; 46.64552; 0; 0; 0; 0
+Target_011; 65.78889; 1.577644; 4920.912; (838.1, -278.5, 0.0); 8.90407; 511.4981; 35.95002; 0; 1; 0; 0
+Target_012; 67.29166; 1.502777; 8377.912; (806.6, -51.8, 0.0); 9.611472; 609.0953; 43.13293; 1; 1; 0; 0
+Target_013; 75.78841; 8.496742; 21705.11; (646.8, -425.2, 0.0); 10.83282; 1019.083; 69.10762; 0; 1; 0; 0
+Target_014; 101.0585; 25.27007; 1991.684; (882.3, -108.9, 0.0); 20.22794; 6670.949; 84.27528; 2; 3; 0; 0
+Target_015; 102.9322; 1.873703; 16240.79; (952.3, -296.1, 0.0); 13.40009; 532.4905; 39.98019; 1; 1; 0; 1
+Target_016; 105.0764; 2.144264; 10573.34; (810.0, -261.8, 0.0); 12.60739; 3408.628; 76.94675; 0; 0; 0; 0
+Target_017; 125.209; 20.13258; 28966.91; (968.4, -335.2, 0.0); 10.66029; 1780.647; 68.27844; 1; 1; 1; 2
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.16307
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+New Run
+New Trainings Run of User: ck92
+ Current Time: 14.04765
+ Current Scenario: Measurement Occlusion
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+Target_000; 16.5279; 2.480251; 1258.14; (805.2, -205.7, 0.0); 13.35791; 6743.091; 90; 0; 0; 0; 0
+Target_001; 19.97088; 3.442984; 1347.879; (697.5, -203.3, 0.0); 17.03201; 1613.572; 77.62067; 1; 2; 1; 1
+Target_002; 21.82693; 1.856041; 7228.797; (928.3, -72.1, 0.0); 9.325523; 411.7878; 31.01309; 1; 1; 1; 2
+Target_003; 23.35011; 1.523188; 6966.526; (929.3, -80.3, 0.0); 3.521523; 460.3531; 33.52412; 0; 0; 1; 1
+Target_004; 27.34916; 3.999046; 2963.758; (921.4, -253.0, 0.0); 7.806659; 956.1151; 58.30528; 1; 2; 0; 0
+Target_005; 28.75474; 1.405582; 8141.474; (860.6, -204.9, 0.0); 4.522469; 250.8782; 18.39492; 0; 0; 0; 0
+Target_006; 30.28304; 1.528296; 3033.948; (954.5, -104.6, 0.0); 3.701947; 249.6037; 19.55552; 0; 1; 0; 0
+Target_007; 32.45005; 2.167009; 2175.647; (878.4, -205.3, 0.0); 4.67863; 278.6416; 21.8294; 1; 2; 0; 0
+Target_008; 38.20454; 5.754498; 22260.1; (1044.0, -341.2, 0.0); 9.030998; 757.7438; 49.9141; 0; 0; 1; 3
+Target_009; 42.89309; 4.688541; 567.2169; (906.3, -179.0, 0.0); 17.84663; 2209.558; 66.91769; 1; 1; 0; 0
+Target_010; 45.32978; 2.436695; 1440.599; (989.5, -84.5, 0.0); 21.61855; 3785.915; 87.81335; 0; 0; 0; 0
+Target_011; 46.80582; 1.476036; 5579.871; (807.7, -50.4, 0.0); 8.144981; 711.7597; 47.02615; 0; 0; 0; 1
+Target_012; 48.97109; 2.165272; 11952.68; (998.7, -275.1, 0.0); 4.339959; 605.0367; 45.01792; 0; 0; 1; 1
+Target_013; 51.81517; 2.844078; 1962.031; (923.2, -209.4, 0.0); 8.345632; 1288.316; 55.85347; 1; 1; 0; 0
+Target_014; 54.30495; 2.48978; 1978.017; (802.2, -159.4, 0.0); 12.29331; 1779.153; 71.15556; 1; 1; 0; 0
+Target_015; 55.64836; 1.34341; 15591.77; (878.6, -173.1, 0.0); 6.997784; 112.6431; 8.993505; 0; 0; 0; 0
+Target_016; 57.1602; 1.511845; 1580.291; (731.2, -58.6, 0.0); 8.280029; 223.6864; 17.82887; 0; 0; 0; 0
+Target_017; 59.30424; 2.144035; 4599.307; (841.5, -222.3, 0.0); 6.280592; 378.534; 28.48155; 1; 1; 1; 1
+Target_018; 61.15238; 1.848141; 33543.73; (927.8, -313.2, 0.0); 5.917686; 517.3716; 36.41578; 0; 0; 2; 3
+Target_019; 62.48484; 1.332462; 5375.208; (1004.3, -322.0, 0.0); 4.106712; 144.4924; 10.85739; 0; 0; 0; 0
+Target_020; 64.54951; 2.064674; 25258.29; (828.9, -316.5, 0.0); 4.206734; 242.3013; 15.56927; 0; 0; 0; 1
+Target_021; 66.4051; 1.855583; 11052.13; (993.7, -233.3, 0.0); 4.42906; 1124.835; 60.42562; 0; 0; 0; 0
+End of Trainings Run of User: ck92
+Current Time: 67.58224
+New Run of User: ck92
+ Current Time: 73.74544
+ Current Scenario: Measurement Performance
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target
+Target_000; 74.89641; 1.15097; 688.9235; (959.6, -212.9, 0.0); 16.37004; 6796.858; 90
+Target_001; 75.95367; 1.057266; 1837.245; (1002.1, -402.9, 0.0); 6.140182; 258.5331; 19.32106
+New Run
+New Trainings Run of User: ck92
+ Current Time: 12.96419
+ Current Scenario: Measurement Sorting
+ Current Input method: HeadHybrid
+Name of the gameobject; Click Time; Time since Instantiate; Bounding Rect Area; Screen Position; Distance from last Target; Distance from last Target Screen; Angle between last and current Target; Amount of objects in front of Target (small); Amount of objects in front of Target (big); Amount of objects in back of Target (small); Amount of objects in back of Target (big)
+End of Trainings Run of User: ck92
+Current Time: 50.8215

@@ -356,10 +356,3 @@ public class CustomRay : MonoBehaviour, IPointingSource
         return Instance.currentDirection;
     }
 }
-public enum RayInputDevice
-{
-    Unknown,
-    Myo,
-    ControllerLeft,
-    ControllerRight
-}
