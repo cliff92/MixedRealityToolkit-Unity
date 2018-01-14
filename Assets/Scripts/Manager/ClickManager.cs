@@ -188,7 +188,7 @@ public class ClickManager : MonoBehaviour
         {
             //Change time between Myo and Controller
             float timeRightClick = VariablesManager.TimeRightClickController;
-            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
             {
                 timeRightClick = VariablesManager.TimeRightClickMyo;
             }

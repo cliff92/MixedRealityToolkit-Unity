@@ -49,6 +49,8 @@ public class Logger : MonoBehaviour
 
     public static void UpdateLogMesh(string log)
     {
-        Instance.textMesh.text = log;
+        if(Instance != null)
+            if(Instance.textMesh!= null)
+                Instance.textMesh.text = log;
     }
 }

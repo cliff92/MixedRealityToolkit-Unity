@@ -16,7 +16,8 @@ public class MeasurementManager : MonoBehaviour
     private Vector3 lastTargetPosition = Vector3.zero;
     private Vector3 lastTargetDirection = Vector3.zero;
 
-    private int remainingSortingObjects = 10;
+    private int totalNumberOfObjectsToSort;
+    private int numberOfObjectsSorted;
 
     public static bool MeasurementActive
     {
@@ -101,7 +102,7 @@ public class MeasurementManager : MonoBehaviour
         logStartMeasurement = "New Run of User: " + Logger.Instance.userId;
         logStartMeasurement += "\n Current Time: " + Time.time;
         logStartMeasurement += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
-        logStartMeasurement += "\n Current Input method: " + InputSwitcher.InputMode;
+        logStartMeasurement += "\n Current Input method: " + VariablesManager.InputMode;
 
         Logger.AppendString(logStartMeasurement);
 
@@ -117,9 +118,10 @@ public class MeasurementManager : MonoBehaviour
         Logger.AppendString(logTitle);
 
         currentTime = 0;
-        TargetManager.Reset();
 
         statusText.text = "Measurement Active";
+
+        StartScenario();
     }
 
     private void StopMeasurement()
@@ -130,10 +132,11 @@ public class MeasurementManager : MonoBehaviour
         Logger.AddCurrentTime();
 
         currentTime = 0;
-        TargetManager.DestroyCurrentTarget();
+        TargetManager.DeactivateTargets();
         ObstacleManager.DeactivateAllObstacles();
         statusText.text = "Menu";
 
+        StopScenario();
     }
 
     private void StartTraining()
@@ -146,7 +149,7 @@ public class MeasurementManager : MonoBehaviour
         logStartTraining = "New Trainings Run of User: " + Logger.Instance.userId;
         logStartTraining += "\n Current Time: " + Time.time;
         logStartTraining += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
-        logStartTraining += "\n Current Input method: " + InputSwitcher.InputMode;
+        logStartTraining += "\n Current Input method: " + VariablesManager.InputMode;
 
         Logger.AppendString(logStartTraining);
 
@@ -171,21 +174,7 @@ public class MeasurementManager : MonoBehaviour
 
         statusText.text = "Training Active";
 
-        switch (SceneHandler.ScenarioType)
-        {
-            case ScenarioType.Menu:
-                break;
-            case ScenarioType.Performance:
-                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
-                break;
-            case ScenarioType.Occlusion:
-                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
-                ObstacleManager.MoveObjects();
-                break;
-            case ScenarioType.Sorting:
-                TargetManager.SpawnTwoTypeTargets(VariablesManager.AmountOfSortingObjects, PrimitiveType.Cube, PrimitiveType.Capsule);
-                break;
-        }
+        StartScenario();
     }
 
     private void StopTraining()
@@ -199,23 +188,51 @@ public class MeasurementManager : MonoBehaviour
 
         statusText.text = "Menu";
 
+        StopScenario();
+    }
+
+    private void StartScenario()
+    {
         switch (SceneHandler.ScenarioType)
         {
             case ScenarioType.Menu:
                 break;
             case ScenarioType.Performance:
-                TargetManager.DestroyCurrentTarget();
+                TargetManager.ActivateSingleTarget(lastTargetDirection);
+                break;
+            case ScenarioType.Occlusion:
+                TargetManager.ActivateSingleTarget(lastTargetDirection);
+                ObstacleManager.MoveObjects();
+                break;
+            case ScenarioType.Sorting:
+                TargetManager.MoveAllTargets();
+                ObstacleManager.MoveObjects();
+                Instance.numberOfObjectsSorted = 0;
+                Instance.totalNumberOfObjectsToSort = TargetManager.CurrentTargets.Length;
+                break;
+        }
+    }
+
+    private void StopScenario()
+    {
+        switch (SceneHandler.ScenarioType)
+        {
+            case ScenarioType.Menu:
+                break;
+            case ScenarioType.Performance:
+                TargetManager.DeactivateTargets();
                 break;
             case ScenarioType.Occlusion:
                 ObstacleManager.DeactivateAllObstacles();
-                TargetManager.DestroyCurrentTarget();
+                TargetManager.DeactivateTargets();
                 break;
             case ScenarioType.Sorting:
-                TargetManager.DestroyTargets();
+                TargetManager.DeactivateTargets();
                 ObstacleManager.DeactivateAllObstacles();
                 break;
         }
     }
+
 
     private void OnTargetClicked(Target target)
     {
@@ -225,14 +242,13 @@ public class MeasurementManager : MonoBehaviour
             case ScenarioType.Menu:
                 break;
             case ScenarioType.Performance:
-                TargetManager.SpawnSingleTarget(lastTargetDirection,PrimitiveType.Cube);
+                TargetManager.ActivateSingleTarget(lastTargetDirection);
                 break;
             case ScenarioType.Occlusion:
-                TargetManager.SpawnSingleTarget(lastTargetDirection, PrimitiveType.Cube);
+                TargetManager.ActivateSingleTarget(lastTargetDirection);
                 ObstacleManager.MoveObjects();
                 break;
             case ScenarioType.Sorting:
-                //ObstacleManager.MoveObjects();
                 break;
         }
     }
@@ -243,5 +259,21 @@ public class MeasurementManager : MonoBehaviour
         target.LogClick(Instance.lastTargetPosition, Instance.lastTargetDirection);
         Instance.lastTargetDirection = (target.transform.position - DepthRayManager.Instance.HeadPosition).normalized;
         Instance.lastTargetPosition = target.transform.position;
+    }
+
+    public static void LogStoreAction(Target target)
+    {
+        Instance.numberOfObjectsSorted++;
+
+        if(Instance.numberOfObjectsSorted >= Instance.totalNumberOfObjectsToSort)
+        {
+            TargetManager.DeactivateTargets();
+            ObstacleManager.DeactivateAllObstacles();
+            TargetManager.MoveAllTargets();
+            ObstacleManager.MoveObjects();
+            Instance.numberOfObjectsSorted = 0;
+            Instance.totalNumberOfObjectsToSort = TargetManager.CurrentTargets.Length;
+            //One run finished
+        }
     }
 }

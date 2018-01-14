@@ -8,12 +8,10 @@ public class TargetManager : MonoBehaviour
 
     public AudioSource correctSound;
 
-    private GameObject currentTarget;
     private GameObject currentlyAttachedObj;
     private GameObject[] targetArray;
 
     public GameObject targets;
-    private GameObject targetPrefab;
     private int targetId = 0;
 
     public delegate void TargetClickedMethod(Target target);
@@ -25,30 +23,9 @@ public class TargetManager : MonoBehaviour
     public delegate void TargetDetachedMethod(Target target);
     public event TargetDetachedMethod TargetDetached;
 
-    private static int TargetId
-    {
-        get
-        {
-            if (Instance == null)
-                return 0;
-            return Instance.targetId++;
-        }
-    }
-
-    public static GameObject CurrentTarget
-    {
-        get
-        {
-            if (Instance == null)
-                return null;
-            return Instance.currentTarget;
-        }
-    }
-
     private void Awake()
     {
         Instance = this;
-        targetPrefab = Resources.Load("TargetPrefab", typeof(GameObject)) as GameObject;
     }
 
     private void Start()
@@ -56,6 +33,9 @@ public class TargetManager : MonoBehaviour
         ClickManager.Instance.LeftClick += LeftClick;
         ClickManager.Instance.RightClick += RightClick;
         ClickManager.Instance.Reset += Reset;
+        targetArray = GameObject.FindGameObjectsWithTag("Target");
+        DeactivateTargets();
+        Debug.Log(targetArray.Length);
     }
 
     private void OnDestroy()
@@ -67,21 +47,23 @@ public class TargetManager : MonoBehaviour
 
     public static void Reset()
     {
-        SpawnTarget(Vector3.zero,PrimitiveType.Cube);
+        MoveAllTargets();
         ObstacleManager.MoveObjects();
     }
 
     private void LeftClick(GameObject currentFocusedObject)
     {
+        if (!SceneHandler.UseLeftClick)
+            return;
         if (currentFocusedObject == null)
             return;
         Target target = currentFocusedObject.GetComponent<Target>();
-        if (target == null)
+        if (target == null || target.State == TargetState.Disabled)
             return;
 
         target.State = TargetState.Disabled;
         currentFocusedObject.SetActive(false);
-        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
         {
             MyoPoseManager.Instance.Vibrate();
         }
@@ -107,39 +89,38 @@ public class TargetManager : MonoBehaviour
         }
     }
 
-    public static void SpawnSingleTarget(Vector3 lastTargetDirection, PrimitiveType primitiveType)
+    public static void ActivateSingleTarget(Vector3 lastTargetDirection)
     {
-        DestroyTargets();
-        Instance.currentTarget = SpawnTarget(lastTargetDirection, primitiveType);
-    }
-
-    public static void SpawnTwoTypeTargets(int amount, PrimitiveType primitiveType, PrimitiveType primitiveType2)
-    {
-        DestroyTargets();
-        Instance.targetArray = new GameObject[2*amount];
-
-        for(int i=0;i<amount; i++)
+        DeactivateTargets();
+        if (Instance.targetArray != null)
         {
-            Instance.targetArray[i] = SpawnTarget(Vector3.zero, primitiveType);
-            Instance.targetArray[i+amount] = SpawnTarget(Vector3.zero, primitiveType2);
+            MoveTarget(Instance.targetArray[0], lastTargetDirection);
+        }
+        else
+        {
+            Debug.LogError("No Targets Found");
         }
     }
 
-    private static GameObject SpawnTarget(Vector3 lastTargetDirection, PrimitiveType primitiveType)
+    public static void MoveAllTargets()
+    {
+        DeactivateTargets();
+
+        foreach(GameObject target in Instance.targetArray)
+        {
+            MoveTarget(target, Vector3.zero);
+        }
+    }
+
+    private static void MoveTarget(GameObject target, Vector3 lastTargetDirection)
     {
         Vector3 headPos = CustomRay.Instance.head.transform.position;
         Vector3 headForward = CustomRay.Instance.head.transform.forward;
 
-        GameObject newTarget = GameObject.CreatePrimitive(primitiveType);
-        newTarget.transform.parent = Instance.targets.transform;
-        newTarget.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        newTarget.GetComponent<Renderer>().material = Instance.targetNotInFocusMat;
-        newTarget.AddComponent<Target>();
-        newTarget.tag = "Target";
-        newTarget.layer = LayerMask.NameToLayer("TargetLayer");
+        target.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
         string id = string.Format("{0,3:000}", TargetId);
-        newTarget.name = "Target_"+ id;
+        target.name = "Target_"+ id;
 
         Vector3 newPos = Vector3.zero;
         Vector3 newDirection = Vector3.zero;
@@ -153,27 +134,49 @@ public class TargetManager : MonoBehaviour
             distance = Random.Range(3, 20);
             newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
             newPos = headPos + newDirection;
+            target.transform.position = newPos;
+            target.SetActive(true);
         }
-        while (!CorrectPosition(headPos, newDirection, lastTargetDirection, distance));
-
-        newTarget.transform.position = newPos;
-
-        return newTarget;
+        while (!CorrectPosition(headPos, newDirection, lastTargetDirection, distance, target.GetComponent<Collider>()));
     }
 
-    private static bool CorrectPosition(Vector3 headPos, Vector3 newDirection, Vector3 lastTargetDirection, float distance)
+    private static bool CorrectPosition(Vector3 headPos, Vector3 newDirection, Vector3 lastTargetDirection, float distance, Collider collider)
     {
-        bool correct = true;
+        if(!VariablesManager.WorldCollider.bounds.Intersects(collider.bounds))
+        {
+            return false;
+        }
 
-        correct = !Physics.Raycast(headPos, newDirection, distance);
         if(lastTargetDirection != Vector3.zero)
         {
             float angleBetweenLastAndCurrent = Vector3.Angle(newDirection, lastTargetDirection);
-            if (angleBetweenLastAndCurrent > VariablesManager.MaximumAngleBetweenTwoTargets)
-                correct = false;
+            if (angleBetweenLastAndCurrent > VariablesManager.MaximumAngleBetweenTwoTargets
+                || angleBetweenLastAndCurrent < VariablesManager.MinimumAngleBetweenTwoTargets)
+                return false;
         }
 
-        return correct;
+        foreach(GameObject target in Instance.targetArray)
+        {
+            if (target == collider.gameObject)
+                continue;
+            if(target.activeSelf)
+            {
+                if (target != null && target.GetComponent<Collider>().bounds.Intersects(collider.bounds))
+                {
+                    return false;
+                }
+            }
+        }
+
+        foreach (Collider col in VariablesManager.InvalidSpawingAreas)
+        {
+            if (col.bounds.Intersects(collider.bounds))
+            {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static void AttachTargetToDepthMarker(GameObject currentFocusedObject, Handeness handenessDidNotClicked)
@@ -194,7 +197,7 @@ public class TargetManager : MonoBehaviour
                 target.HandnessDidNotClick = handenessDidNotClicked;
                 Instance.currentlyAttachedObj = currentFocusedObject;
             }
-            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
@@ -206,13 +209,22 @@ public class TargetManager : MonoBehaviour
             Instance.correctSound.Play();
         }
     }
+
+    public static void DetachTargetFromDepthMarker(GameObject target)
+    {
+        if(Instance.currentlyAttachedObj == target)
+        {
+            DetachTargetFromDepthMarker();
+        }
+    }
+
     public static void DetachTargetFromDepthMarker()
     {
         if (Instance != null && Instance.currentlyAttachedObj != null)
         {
             Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
-            if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
             {
                 MyoPoseManager.Instance.Vibrate();
             }
@@ -235,34 +247,58 @@ public class TargetManager : MonoBehaviour
         return false;
     }
 
-    public static void DestroyTarget(GameObject target)
+
+    private static int TargetId
     {
-        if (target != null)
+        get
         {
-            Destroy(target);
+            if (Instance == null)
+                return 0;
+            return Instance.targetId++;
         }
     }
 
-    public static void DestroyCurrentTarget()
+    public static GameObject[] CurrentTargets
     {
-        if (Instance.currentTarget != null)
+        get
         {
-            Destroy(Instance.currentTarget);
-            Instance.currentTarget = null;
+            if (Instance != null && Instance.targetArray != null)
+            {
+                return Instance.targetArray;
+            }
+            return null;
         }
     }
 
-    public static void DestroyTargets()
+    public static GameObject CurrentTarget
     {
-        DestroyCurrentTarget();
+        get
+        {
+            if (Instance != null && Instance.targetArray != null && Instance.targetArray.Length == 1)
+            {
+                return Instance.targetArray[0];
+            }
+            return null;
+        }
+    }
+
+    public static GameObject CurrentlyAttachedObj
+    {
+        get
+        {
+            return Instance.currentlyAttachedObj;
+        }
+    }
+
+    public static void DeactivateTargets()
+    {
         if (Instance.targetArray != null)
         {
             for (int i = 0; i < Instance.targetArray.Length; i++)
             {
                 if (Instance.targetArray[i] != null)
                 {
-                    Destroy(Instance.targetArray[i]);
-                    Instance.targetArray[i] = null;
+                    Instance.targetArray[i].SetActive(false);
                 }
             }
         }

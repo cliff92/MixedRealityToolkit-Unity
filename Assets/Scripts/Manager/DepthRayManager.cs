@@ -128,7 +128,7 @@ public class DepthRayManager : MonoBehaviour
         Vector3 origin = pointer.StartPoint;
 
         float stepsize = 0;
-        if (InputSwitcher.InputMode == InputMode.HeadMyoHybrid)
+        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
         {
             if (rotationAngle > 0 && rotationAngle < 180)
             {

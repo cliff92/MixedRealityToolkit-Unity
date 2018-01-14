@@ -103,7 +103,7 @@ public class HandManager : MonoBehaviour
         myoHand.isAngularVelAvailable = true;
         myoHand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
         myoHand.isRollAroundZ = true;
-        isMyoTracked = (InputSwitcher.InputMode == InputMode.HeadMyoHybrid);
+        isMyoTracked = (VariablesManager.InputMode == InputMode.HeadMyoHybrid);
     }
 
     private void InteractionManager_InteractionSourceLost(InteractionSourceLostEventArgs obj)

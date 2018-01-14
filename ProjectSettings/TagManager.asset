@@ -10,6 +10,7 @@ TagManager:
   - PartVisualRay
   - Obstacle
   - UI
+  - WorldCollider
   layers:
   - Default
   - TransparentFX

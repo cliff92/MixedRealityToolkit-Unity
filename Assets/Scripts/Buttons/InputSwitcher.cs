@@ -6,8 +6,6 @@ public class InputSwitcher : MonoBehaviour, ICustomClickHandler
 
     public TextMesh statusText;
 
-    private InputMode inputMode = InputMode.HeadHybrid;
-
     private void Awake()
     {
         Instance = this;
@@ -27,37 +25,21 @@ public class InputSwitcher : MonoBehaviour, ICustomClickHandler
     }
 
     private void SwitchInput(){
-        switch (inputMode)
+        switch (VariablesManager.InputMode)
         {
             case InputMode.HeadMyoHybrid:
-                inputMode = InputMode.HeadHybrid;
+                VariablesManager.InputMode = InputMode.HeadHybrid;
                 break;
             case InputMode.HeadHybrid:
-                inputMode = InputMode.RayHeadOrigin;
+                VariablesManager.InputMode = InputMode.RayHeadOrigin;
                 break;
             case InputMode.RayHeadOrigin:
-                inputMode = InputMode.RayControllerOrigin;
+                VariablesManager.InputMode = InputMode.RayControllerOrigin;
                 break;
             case InputMode.RayControllerOrigin:
-                inputMode = InputMode.HeadMyoHybrid;
+                VariablesManager.InputMode = InputMode.HeadMyoHybrid;
                 break;
         }
-        statusText.text = "Current Technique " + InputMode;
+        statusText.text = "Current Technique " + VariablesManager.InputMode;
     }
-
-    public static InputMode InputMode
-    {
-        get
-        {
-            return Instance.inputMode;
-        }
-    }
-}
-
-public enum InputMode
-{
-    HeadMyoHybrid,
-    HeadHybrid,
-    RayControllerOrigin,
-    RayHeadOrigin
 }

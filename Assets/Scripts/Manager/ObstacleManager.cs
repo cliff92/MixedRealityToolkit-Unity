@@ -2,8 +2,6 @@
 public class ObstacleManager : MonoBehaviour
 {
     public static ObstacleManager Instance;
-
-    private GameObject obstaclePrefab;
     
     public Material obstacleNotInFocusMat;
     public Material objectInFocusMat;
@@ -13,44 +11,25 @@ public class ObstacleManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        obstaclePrefab = Resources.Load("ObstaclePrefab", typeof(GameObject)) as GameObject;
     }
 
     private void Start()
     {
-        InstantiateObstacles();
-    }
-
-    private void InstantiateObstacles()
-    {
-        obstacleArray = new GameObject[VariablesManager.AmountOfObstacles];
-        for (int i = 0; i < VariablesManager.AmountOfObstacles; i++)
-        {
-            //GameObject newObject = Instantiate(Instance.obstaclePrefab, TargetManager.Instance.targets.transform);
-
-            GameObject newObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            //newObject.transform.parent = Instance.targets.transform;
-            newObject.GetComponent<Renderer>().material = Instance.obstacleNotInFocusMat;
-            newObject.AddComponent<Obstacle>();
-            newObject.tag = "Obstacle";
-            newObject.layer = LayerMask.NameToLayer("ObstacleLayer");
-
-            newObject.SetActive(false);
-            obstacleArray[i] = newObject;
-        }
+        obstacleArray = GameObject.FindGameObjectsWithTag("Obstacle");
+        DeactivateAllObstacles();
+        Debug.Log(obstacleArray.Length);
     }
 
     public static void MoveObjects()
     {
         Vector3 headPos = CustomRay.Instance.head.transform.position;
-        bool newPosFound = false;
         Vector3 newPos = Vector3.zero;
 
-        for (int i = 0; i < Instance.obstacleArray.Length; i++)
-        {
-            GameObject obj = Instance.obstacleArray[i];
-            newPosFound = false;
-            while (!newPosFound)
+        DeactivateAllObstacles();
+        int i = 0;
+        foreach(GameObject obstacle in Instance.obstacleArray)
+        { 
+            do
             {
                 float x = Random.Range(-VariablesManager.RandomRangeX, VariablesManager.RandomRangeX);
                 float y = Random.Range(-VariablesManager.RandomRangeY, VariablesManager.RandomRangeY);
@@ -59,25 +38,32 @@ public class ObstacleManager : MonoBehaviour
                 float distance = Random.Range(5, 20);
                 Vector3 newDirection = Quaternion.Euler(x, y, z) * Vector3.forward * distance;
                 newPos = headPos + newDirection;
-                obj.transform.position = newPos;
+                obstacle.transform.position = newPos;
                 float size = Random.Range(0.5f, 2f);
-                obj.transform.localScale = new Vector3(size, size, size);
-                obj.SetActive(true);
-                newPosFound = CheckPosition(newPos, i, obj.GetComponent<Collider>());
-            }
+                obstacle.transform.localScale = new Vector3(size, size, size);
+                obstacle.SetActive(true);
+            } while (!CheckPosition(newPos, i, obstacle.GetComponent<Collider>()));
+            i++;
         }
     }
 
     private static bool CheckPosition(Vector3 newPos, int i, Collider collider)
     {
-        if (Vector3.Distance(TargetManager.CurrentTarget.transform.position, newPos) < 0.05f)
-        {
-            return false;
-        }
+        GameObject[] targets = TargetManager.CurrentTargets;
 
-        if (TargetManager.CurrentTarget.GetComponent<Collider>().bounds.Intersects(collider.bounds))
+        if(targets != null)
         {
-            return false;
+            foreach(GameObject target in targets)
+            {
+                if (target != null && Vector3.Distance(target.transform.position, newPos) < 0.05f)
+                {
+                    return false;
+                }
+                if (target != null && target.GetComponent<Collider>().bounds.Intersects(collider.bounds))
+                {
+                    return false;
+                }
+            }
         }
 
         for (int j = 0; j < i; j++)
@@ -88,6 +74,20 @@ public class ObstacleManager : MonoBehaviour
                 return false;
             }
         }
+
+        if (!VariablesManager.WorldCollider.bounds.Intersects(collider.bounds))
+        {
+            return false;
+        }
+
+        foreach(Collider col in VariablesManager.InvalidSpawingAreas)
+        {
+            if (col.bounds.Intersects(collider.bounds))
+            {
+                return false;
+            }
+        }
+
         return true;
     }
 
@@ -96,6 +96,16 @@ public class ObstacleManager : MonoBehaviour
         foreach (GameObject obj in Instance.obstacleArray)
         {
             obj.SetActive(false);
+        }
+    }
+
+    public static int AmountOfObstacles
+    {
+        get
+        {
+            if (Instance != null && Instance.obstacleArray != null)
+                return Instance.obstacleArray.Length;
+            return 0;
         }
     }
 }

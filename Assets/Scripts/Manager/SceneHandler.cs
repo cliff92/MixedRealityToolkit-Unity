@@ -9,6 +9,7 @@ public class SceneHandler : MonoBehaviour
 
     private bool useDepthMarker = false;
     private bool useRightClick = false;
+    private bool useLeftClick = false;
 
     private GameObject depthmarker;
 
@@ -41,6 +42,14 @@ public class SceneHandler : MonoBehaviour
         }
     }
 
+    public static bool UseLeftClick
+    {
+        get
+        {
+            return Instance.useLeftClick;
+        }
+    }
+
     private void Awake()
     {
         if(Instance == null)
@@ -60,15 +69,19 @@ public class SceneHandler : MonoBehaviour
     {
         useDepthMarker = false;
         useRightClick = false;
+        useLeftClick = false;
         depthmarker = GameObject.Find("DepthMarker");
         switch (scenarioType)
         {
             case ScenarioType.Menu:
+                useLeftClick = true;
                 break;
             case ScenarioType.Performance:
+                useLeftClick = true;
                 break;
             case ScenarioType.Occlusion:
                 useDepthMarker = true;
+                useLeftClick = true;
                 break;
             case ScenarioType.Sorting:
                 useDepthMarker = true;

@@ -11,7 +11,7 @@ public class TargetFinder : MonoBehaviour
     private void UpdateTargetMarker()
     {
         GameObject target = TargetManager.CurrentTarget;
-        if(target == null)
+        if(target == null || !target.activeSelf)
         {
             DeactivateChildren();
         }

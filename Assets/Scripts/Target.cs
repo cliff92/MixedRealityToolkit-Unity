@@ -18,13 +18,16 @@ public class Target : MonoBehaviour
 
     private float startTime;
 
+    [SerializeField]
     private PrimitiveType primitiveType;
+
+    private float startTimeInStorage = -1;
 
     private void Awake()
     {
         material = GetComponent<Renderer>().material;
         defaultColor = material.color;
-        state = TargetState.Default;
+        State = TargetState.Default;
         lastTimeInFocus = 0;
         startTimeInFocus = 0;
     }
@@ -50,6 +53,16 @@ public class Target : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        State = TargetState.Default;
+    }
+
+    private void OnDisable()
+    {
+        State = TargetState.Disabled;
+    }
+
     public void UpdateTransparancy()
     {
         if (state == TargetState.Drag)
@@ -68,22 +81,22 @@ public class Target : MonoBehaviour
         {
             if (ClickManager.Instance.CurrentFocusedObject == gameObject)
             {
-                state = TargetState.InFocusTransparent;
+                State = TargetState.InFocusTransparent;
             }
             else
             {
-                state = TargetState.Transparent;
+                State = TargetState.Transparent;
             }
         }
         else
         {
             if (ClickManager.Instance.CurrentFocusedObject == gameObject)
             {
-                state = TargetState.InFocus;
+                State = TargetState.InFocus;
             }
             else
             {
-                state = TargetState.Default;
+                State = TargetState.Default;
             }
         }
     }
@@ -161,6 +174,30 @@ public class Target : MonoBehaviour
                 break;
             case TargetState.Disabled:
                 break;
+        }
+    }
+
+    public void Store(PrimitiveType primitiveType)
+    {
+        MeasurementManager.LogStoreAction(this);
+        if (primitiveType==this.primitiveType)
+        {
+            //correct stored
+            string log = "";
+            // Time when stored
+            // Correct or Incorrect stored
+            // Information about the manipulation phase
+            Logger.AppendString(log);
+            TargetManager.DetachTargetFromDepthMarker(gameObject);
+            State = TargetState.Disabled;
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            //incorrect stored
+            State = TargetState.Disabled;
+            TargetManager.DetachTargetFromDepthMarker(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
@@ -247,6 +284,19 @@ public class Target : MonoBehaviour
         set
         {
             primitiveType = value;
+        }
+    }
+
+    public float StartTimeInStorage
+    {
+        get
+        {
+            return startTimeInStorage;
+        }
+
+        set
+        {
+            startTimeInStorage = value;
         }
     }
 }

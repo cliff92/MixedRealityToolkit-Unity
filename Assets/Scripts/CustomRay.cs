@@ -70,7 +70,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
         Quaternion rotation;
 
         if (MyoPoseManager.ClickUp ||
-            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& InputSwitcher.InputMode != InputMode.HeadMyoHybrid))
+            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& VariablesManager.InputMode != InputMode.HeadMyoHybrid))
         {
             foreach(GameObject part in partsVisualRay)
             {
@@ -88,13 +88,13 @@ public class CustomRay : MonoBehaviour, IPointingSource
             clickDown = true;
             deviceType = RayInputDevice.Myo;
         }
-        else if (Input.GetButtonDown("RelativeLeft") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if (Input.GetButtonDown("RelativeLeft") && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.LeftHand;
             clickDown = true;
             deviceType = RayInputDevice.ControllerLeft;
         }
-        else if(Input.GetButtonDown("RelativeRight") && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if(Input.GetButtonDown("RelativeRight") && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.RightHand;
             clickDown = true;
@@ -132,12 +132,12 @@ public class CustomRay : MonoBehaviour, IPointingSource
             hand = HandManager.MyoHand;
             click = true;
         }
-        else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.LeftHand;
             click = true;
         }
-        else if ((Input.GetButton("RelativeRight")|| Input.GetButtonUp("RelativeRight")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+        else if ((Input.GetButton("RelativeRight")|| Input.GetButtonUp("RelativeRight")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
         {
             hand = HandManager.RightHand;
             click = true;
@@ -176,7 +176,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
     {
         Vector3 forward;
         Vector3 position;
-        switch (InputSwitcher.InputMode)
+        switch (VariablesManager.InputMode)
         {
             case InputMode.HeadMyoHybrid:
             case InputMode.HeadHybrid:
@@ -193,12 +193,12 @@ public class CustomRay : MonoBehaviour, IPointingSource
                         hand = HandManager.MyoHand;
                         click = true;
                     }
-                    else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+                    else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.LeftHand;
                         click = true;
                     }
-                    else if ((Input.GetButton("RelativeRight") || Input.GetButtonUp("RelativeRight")) && InputSwitcher.InputMode != InputMode.HeadMyoHybrid)
+                    else if ((Input.GetButton("RelativeRight") || Input.GetButtonUp("RelativeRight")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
                     {
                         hand = HandManager.RightHand;
                         click = true;
