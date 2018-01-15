@@ -53,15 +53,23 @@ public class TargetManager : MonoBehaviour
 
     private void LeftClick(GameObject currentFocusedObject)
     {
-        if (!SceneHandler.UseLeftClick)
-            return;
         if (currentFocusedObject == null)
+        {
+            Logger.IncreaseClickMissCount();
             return;
+        }
         Target target = currentFocusedObject.GetComponent<Target>();
         if (target == null || target.State == TargetState.Disabled)
+        {
+            Logger.IncreaseClickWrongCount();
+            return;
+        }
+        Logger.IncreaseClickCorrectCount();
+
+        if (!SceneHandler.UseLeftClick)
             return;
 
-        target.State = TargetState.Disabled;
+        target.Deactivate();
         currentFocusedObject.SetActive(false);
         if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
         {
@@ -136,6 +144,7 @@ public class TargetManager : MonoBehaviour
             newPos = headPos + newDirection;
             target.transform.position = newPos;
             target.SetActive(true);
+            target.GetComponent<Target>().Activate();
         }
         while (!CorrectPosition(headPos, newDirection, lastTargetDirection, distance, target.GetComponent<Collider>()));
     }
@@ -192,7 +201,7 @@ public class TargetManager : MonoBehaviour
             Target target = currentFocusedObject.GetComponent<Target>();
             if (target.State != TargetState.Drag)
             {
-                DepthRayManager.Instance.MoveDepthMarkerToFocus();
+                DepthMarker.Instance.MoveDepthMarkerToFocus();
                 target.State = TargetState.Drag;
                 target.HandnessDidNotClick = handenessDidNotClicked;
                 Instance.currentlyAttachedObj = currentFocusedObject;
@@ -207,6 +216,8 @@ public class TargetManager : MonoBehaviour
                 HandManager.RightHand.Virbrate(0.5f, 0.5f);
             }
             Instance.correctSound.Play();
+            target.StartTimeAttached = Time.time;
+            MeasurementManager.OnLeftClick(target);
         }
     }
 
@@ -235,6 +246,15 @@ public class TargetManager : MonoBehaviour
             }
             Instance.correctSound.Play();
             Instance.currentlyAttachedObj = null;
+
+            if (target.insideStorage)
+            {
+                Logger.IncreaseDetachCountInsideStorage();
+            }
+            else
+            {
+                Logger.IncreaseDetachCoutOutsideStorage();
+            }
         }
     }
 

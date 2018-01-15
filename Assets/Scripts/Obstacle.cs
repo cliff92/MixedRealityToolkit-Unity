@@ -76,8 +76,7 @@ public class Obstacle : MonoBehaviour
                 material.color = color;
                 break;
             case ObstacleState.InFocusTransparent:
-                color = new Color(1, 1, 0, 1);
-                color.a = 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f;
+                color = new Color(1, 1, 0, 0.2f + 0.8f * Mathf.Abs(angleBetweenRayObj) / 30f);
                 material.color = color;
                 break;
             case ObstacleState.Disabled:

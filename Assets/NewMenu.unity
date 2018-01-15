@@ -339,8 +339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ec7cb95c49f5a4f84d84a83f745ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rayVisual: {fileID: 604796639}
-  depthMarker: {fileID: 1847570099}
   pointingExtent: 100
   pointingRaycastLayerMasks:
   - serializedVersion: 2
@@ -488,14 +486,16 @@ MonoBehaviour:
   randomRangeX: 45
   randomRangeY: 100
   maximumAngleBetweenTwoTargets: 90
+  minimumAngleBetweenTwoTargets: 10
   measurementDuration: 60
   trainingsDuration: 60
-  amountOfObstacles: 400
-  amountOfSortingObjects: 10
   delayClickTime: 0.1
   timeRightClickController: 1
   timeRightClickMyo: 1
   inputMode: 1
+  timeUntilStored: 2
+  worldCollider: {fileID: 0}
+  invalidSpawingAreas: []
 --- !u!1 &403307363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2059,14 +2059,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114981379608343274, guid: 34edc3c9a22b1744babbb4b5fe592328,
+        type: 2}
+      propertyPath: rayVisual
+      value: 
+      objectReference: {fileID: 604796639}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34edc3c9a22b1744babbb4b5fe592328, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1847570099 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1356951377868008, guid: 34edc3c9a22b1744babbb4b5fe592328,
-    type: 2}
-  m_PrefabInternal: {fileID: 1830504691}
 --- !u!1 &1867069286
 GameObject:
   m_ObjectHideFlags: 0

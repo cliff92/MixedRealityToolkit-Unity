@@ -11,7 +11,9 @@ public class Storage : MonoBehaviour
             Target target = other.GetComponent<Target>();
             if (target != null)
             {
-                target.StartTimeInStorage = Time.time;
+                target.InsideStorage = true;
+                if(target.State != TargetState.Drag)
+                    target.StartTimeInStorage = Time.time;
             }
         }
     }
@@ -23,12 +25,17 @@ public class Storage : MonoBehaviour
             Target target = other.GetComponent<Target>();
             if(target != null)
             {
-                if(target.StartTimeInStorage>0)
+                target.InsideStorage = true;
+                if (target.StartTimeInStorage>0 && target.State != TargetState.Drag)
                 {
                     if (Time.time - target.StartTimeInStorage> VariablesManager.TimeUntilStored)
                     {
                         target.Store(primitiveType);
                     }
+                }
+                else if(target.State != TargetState.Drag)
+                {
+                    target.StartTimeInStorage = Time.time;
                 }
             }
         }
@@ -41,6 +48,7 @@ public class Storage : MonoBehaviour
             Target target = other.GetComponent<Target>();
             if (target != null)
             {
+                target.InsideStorage = false;
                 target.StartTimeInStorage = -1;
             }
         }

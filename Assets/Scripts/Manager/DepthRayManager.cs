@@ -6,10 +6,7 @@ using UnityEngine.EventSystems;
 public class DepthRayManager : MonoBehaviour
 {
     public static DepthRayManager Instance;
-
-    public GameObject rayVisual;
-    public GameObject depthMarker;
-
+    
     public float pointingExtent = 100;
 
     public delegate void FocusEnteredMethod(GameObject focusedObject);
@@ -46,8 +43,6 @@ public class DepthRayManager : MonoBehaviour
     private void StartUp()
     {
         CustomRay.Instance.OnPreRaycast();
-        MoveAndScaleDepthMarker();
-        MoveRayVisual();
         SelectObject();
         UpdateFocusedObjects();
     }
@@ -55,138 +50,8 @@ public class DepthRayManager : MonoBehaviour
     private void Update()
     {
         CustomRay.Instance.OnPreRaycast();
-
-        float rotationAngle;
-        if (HandManager.IsMyoTracked)
-        {
-            if (HandManager.MyoHand.TryGetRotationAroundZ(out rotationAngle))
-            {
-                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
-            }
-        }
-        else
-        {
-            if (HandManager.RightHand.TryGetRotationAroundZ(out rotationAngle))
-            {
-                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
-            }
-        }
-        
-
-        if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Jump)
-        {
-            MoveDepthMarkerToFocus();
-        }
-
-        MoveAndScaleDepthMarker();
-        MoveRayVisual();
-
         SelectObject();
         UpdateFocusedObjects();
-
-        if (pointer != null && pointer.End.Object!= null)
-        {
-            Logger.UpdateLogMesh(pointer.End.Object.name);
-        }
-        else
-        {
-            Logger.UpdateLogMesh("Null");
-        }
-    }
-
-    private void MoveAndScaleDepthMarker()
-    {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
-        float distance = Vector3.Distance(depthMarker.transform.position, origin);
-        Vector3 newPos = origin + direction * distance;
-
-        depthMarker.transform.position = newPos;
-        depthMarker.transform.rotation = Quaternion.LookRotation(direction);
-
-        //Scale depthmarker based on distance to origin
-        depthMarker.transform.localScale = new Vector3(1, 1, 1) * Mathf.Sqrt(Vector3.Distance(newPos, origin));
-    }
-
-    private void MoveRayVisual()
-    {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        rayVisual.transform.rotation = rotation;
-        rayVisual.transform.position = origin;
-    }
-
-    private void MoveDepthRayRelZ(int rotationAngle)
-    {
-        float factor = 20;
-        if (ClickManager.IsClick)
-        {
-            factor = 5;
-        }
-        //change position
-        Vector3 origin = pointer.StartPoint;
-
-        float stepsize = 0;
-        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-        {
-            if (rotationAngle > 0 && rotationAngle < 180)
-            {
-                stepsize = factor * ((rotationAngle + 80) / 180.0f) * Time.deltaTime;
-            }
-            else if (rotationAngle < -50 && rotationAngle > -180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
-        } else
-        {
-            if (rotationAngle > 30 && rotationAngle < 180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
-            else if (rotationAngle < -30 && rotationAngle > -180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
-        }
-
-        Vector3 newPos = Vector3.MoveTowards(depthMarker.transform.position, origin, stepsize);
-
-        depthMarker.transform.position = CheckDepthMarkerPos(newPos, origin);
-    }
-
-    private Vector3 CheckDepthMarkerPos(Vector3 newPos, Vector3 origin)
-    {
-        if (Vector3.Distance(newPos, origin) < Vector3.Distance(depthMarker.transform.position, origin)
-            && Vector3.Distance(newPos, origin) < 0.5f)
-        {
-            return depthMarker.transform.position;
-        }
-        RaycastHit hit;
-        int layerMask = 1 << LayerMask.NameToLayer("WorldLayer");
-        if (Physics.Raycast(origin, newPos - origin, out hit, Vector3.Distance(origin, newPos), layerMask))
-        {
-            newPos = hit.point - (newPos - origin).normalized * 0.05f;
-        }
-
-        return newPos;
-    }
-
-    public void MoveDepthMarkerToFocus()
-    {
-        if (pointer.End.Object == null)
-            return;
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
-        float distance = Vector3.Distance(pointer.End.Object.transform.position, origin);
-        depthMarker.transform.position = origin + direction * distance;
-    }
-
-    public void MoveDepthMarkerToUser()
-    {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
-        depthMarker.transform.position = origin + direction * 0.5f;
     }
 
     private void SelectObject()
@@ -305,7 +170,7 @@ public class DepthRayManager : MonoBehaviour
         {
             return null;
         }
-        float distanceHeadDepthMarker = Vector3.Distance(HeadPosition, depthMarker.transform.position);
+        float distanceHeadDepthMarker = Vector3.Distance(HeadPosition, DepthMarker.Position);
         // Return the minimum distance hit within the first layer that has hits.
         // In other words, sort all hit objects first by layerMask, then by distance.
         // It further first returns hits that are behind the depth marker
@@ -320,7 +185,7 @@ public class DepthRayManager : MonoBehaviour
                 if (hit.transform.gameObject.layer.IsInLayerMask(layerMasks[layerMaskIdx]))
                 {
                     bool inFrontOfDM = ((Vector3.Distance(hit.point, HeadPosition) - distanceHeadDepthMarker)<0);
-                    float newDist = Vector3.Distance(hit.point, depthMarker.transform.position);
+                    float newDist = Vector3.Distance(hit.point, DepthMarker.Position);
 
                     if (inFrontOfDM)
                     {
@@ -330,7 +195,7 @@ public class DepthRayManager : MonoBehaviour
                         }
                         else
                         {
-                            float minDist = Vector3.Distance(minHitInFrontOfDM.Value.point, depthMarker.transform.position);
+                            float minDist = Vector3.Distance(minHitInFrontOfDM.Value.point, DepthMarker.Position);
                             if (newDist < minDist)
                             {
                                 minHitInFrontOfDM = hit;
@@ -345,7 +210,7 @@ public class DepthRayManager : MonoBehaviour
                         }
                         else
                         {
-                            float minDist = Vector3.Distance(minHitBehindOfDM.Value.point, depthMarker.transform.position);
+                            float minDist = Vector3.Distance(minHitBehindOfDM.Value.point, DepthMarker.Position);
                             if (newDist < minDist)
                             {
                                 minHitBehindOfDM = hit;
@@ -396,6 +261,24 @@ public class DepthRayManager : MonoBehaviour
         }
     }
 
+    public static Vector3 StartPoint
+    {
+        get
+        {
+            return Instance.pointer.StartPoint;
+        }
+    }
+
+    public static Vector3 EndPoint
+    {
+        get
+        {
+            if(Instance.pointer.End.Object != null)
+                return Instance.pointer.End.Object.transform.position;
+            return Vector3.zero;
+        }
+    }
+
     #region events
     private void RaiseFocusExitedEvents(GameObject unfocusedObject)
     {
@@ -431,7 +314,7 @@ public class DepthRayManager : MonoBehaviour
     public float DistanceHeadDepthMarker{
         get
         {
-            return Vector3.Distance(depthMarker.transform.position, pointer.StartPoint);
+            return Vector3.Distance(DepthMarker.Position, pointer.StartPoint);
         }
     }
 
@@ -447,7 +330,10 @@ public class DepthRayManager : MonoBehaviour
     {
         get
         {
-            return Vector3.Normalize(pointer.End.Point - pointer.StartPoint);
+            if(pointer != null && pointer.End.Point != null)
+                return Vector3.Normalize(pointer.End.Point - pointer.StartPoint);
+            return
+                Vector3.zero;
         }
     }
 

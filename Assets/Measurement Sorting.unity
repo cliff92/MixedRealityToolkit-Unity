@@ -847,7 +847,7 @@ Prefab:
         type: 2}
       propertyPath: textMesh
       value: 
-      objectReference: {fileID: 2034283097}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b207e663be05fd24babb481e96034d83, type: 2}
   m_IsPrefabParent: 0
@@ -5064,6 +5064,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 102939487779015164, guid: 6d15bcd5e4572d0479287ad44314d58b,
+        type: 2}
+      propertyPath: m_Text
+      value: Measurement Sorting
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6d15bcd5e4572d0479287ad44314d58b, type: 2}
   m_IsPrefabParent: 0
@@ -6500,7 +6505,7 @@ Prefab:
         type: 2}
       propertyPath: statusText
       value: 
-      objectReference: {fileID: 2034283097}
+      objectReference: {fileID: 1852802044}
     - target: {fileID: 114471716598337566, guid: 836eb378eaf747a46b40174c0542cf3d,
         type: 2}
       propertyPath: worldCollider
@@ -8240,6 +8245,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114981379608343274, guid: 34edc3c9a22b1744babbb4b5fe592328,
+        type: 2}
+      propertyPath: rayVisual
+      value: 
+      objectReference: {fileID: 604796639}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 34edc3c9a22b1744babbb4b5fe592328, type: 2}
   m_IsPrefabParent: 0
@@ -8303,6 +8313,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1356951377868008, guid: 34edc3c9a22b1744babbb4b5fe592328,
     type: 2}
   m_PrefabInternal: {fileID: 1830504691}
+--- !u!102 &1852802044 stripped
+TextMesh:
+  m_PrefabParentObject: {fileID: 102295910283559002, guid: 6d15bcd5e4572d0479287ad44314d58b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1186579380}
 --- !u!1001 &1853012915
 Prefab:
   m_ObjectHideFlags: 0
@@ -8820,11 +8835,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4534245902375698, guid: 3ac03ead6318b7a44980555670a8c34d,
     type: 2}
   m_PrefabInternal: {fileID: 2019683071}
---- !u!102 &2034283097 stripped
-TextMesh:
-  m_PrefabParentObject: {fileID: 102669568254779812, guid: 6d15bcd5e4572d0479287ad44314d58b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1186579380}
 --- !u!1001 &2037837432
 Prefab:
   m_ObjectHideFlags: 0

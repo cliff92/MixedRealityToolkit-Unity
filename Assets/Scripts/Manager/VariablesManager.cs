@@ -12,10 +12,23 @@ public class VariablesManager : MonoBehaviour
     [SerializeField]
     private int minimumAngleBetweenTwoTargets = 10;
 
+    //Performance Parameters
     [SerializeField]
-    private float measurementDuration = 60;
+    private float trainingsTimePerformance = 300;
     [SerializeField]
-    private float trainingsDuration = 60;
+    private float measurementTimePerformance = 60;
+
+    //Occlusion Parameters
+    [SerializeField]
+    private float trainingsTimeOcclusion = 300;
+    [SerializeField]
+    private float measurementTimeOcclusion = 60;
+
+    //Sorting Parameters
+    [SerializeField]
+    private float trainingsTimeSorting = 300;
+    [SerializeField]
+    private float measurementTimeSorting = 300;
 
     [SerializeField]
     [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
@@ -29,13 +42,16 @@ public class VariablesManager : MonoBehaviour
     private InputMode inputMode = InputMode.HeadHybrid;
 
     [SerializeField]
-    private float timeUntilStored = 2.0f;
+    private float timeUntilStored = 1.0f;
 
     [SerializeField]
     private Collider worldCollider;
 
     [SerializeField]
     private Collider[] invalidSpawingAreas;
+
+    [SerializeField]
+    private Handeness handeness = Handeness.Right;
 
     public static int RandomRangeX
     {
@@ -73,26 +89,6 @@ public class VariablesManager : MonoBehaviour
         {
             if (Instance != null)
                 return Instance.minimumAngleBetweenTwoTargets;
-            return -1;
-        }
-    }
-
-    public static float MeasurementDuration
-    {
-        get
-        {
-            if (Instance != null)
-                return Instance.measurementDuration;
-            return -1;
-        }
-    }
-
-    public static float TrainingsDuration
-    {
-        get
-        {
-            if (Instance != null)
-                return Instance.trainingsDuration;
             return -1;
         }
     }
@@ -159,7 +155,9 @@ public class VariablesManager : MonoBehaviour
     {
         get
         {
-            return Instance.worldCollider;
+            if (Instance != null)
+                return Instance.worldCollider;
+            return null;
         }
     }
 
@@ -167,7 +165,70 @@ public class VariablesManager : MonoBehaviour
     {
         get
         {
-            return Instance.invalidSpawingAreas;
+            if (Instance != null)
+                return Instance.invalidSpawingAreas;
+            return null;
+        }
+    }
+
+    public static float TrainingsTimePerformance
+    {
+        get
+        {
+            return Instance.trainingsTimePerformance;
+        }
+    }
+
+    public static float MeasurementTimePerformance
+    {
+        get
+        {
+            return Instance.measurementTimePerformance;
+        }
+    }
+
+    public static float TrainingsTimeOcclusion
+    {
+        get
+        {
+            return Instance.trainingsTimeOcclusion;
+        }
+    }
+
+    public static float MeasurementTimeOcclusion
+    {
+        get
+        {
+            return Instance.measurementTimeOcclusion;
+        }
+    }
+
+    public static float TrainingsTimeSorting
+    {
+        get
+        {
+            return Instance.trainingsTimeSorting;
+        }
+    }
+
+    public static float MeasurementTimeSorting
+    {
+        get
+        {
+            return Instance.measurementTimeSorting;
+        }
+    }
+
+    public static Handeness Handeness
+    {
+        get
+        {
+            return Instance.handeness;
+        }
+
+        set
+        {
+            Instance.handeness = value;
         }
     }
 

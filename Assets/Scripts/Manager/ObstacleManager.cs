@@ -99,7 +99,7 @@ public class ObstacleManager : MonoBehaviour
         }
     }
 
-    public static int AmountOfObstacles
+    public static int NumberOfObstacles
     {
         get
         {

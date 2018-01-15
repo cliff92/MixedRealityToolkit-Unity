@@ -90,11 +90,17 @@ public class SceneHandler : MonoBehaviour
         }
         if(useDepthMarker)
         {
-            depthmarker.SetActive(true);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(true);
+            }
         }
         else
         {
-            depthmarker.SetActive(false);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
         }
     }
 

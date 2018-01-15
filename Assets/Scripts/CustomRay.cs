@@ -35,8 +35,6 @@ public class CustomRay : MonoBehaviour, IPointingSource
 
     private Quaternion startRelativeQuat = Quaternion.identity;
 
-    private RayInputDevice deviceType = RayInputDevice.Unknown;
-
     private Vector3 currentDirection = Vector3.forward;
 
     // Use this for initialization
@@ -69,8 +67,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
         Vector3 angularVelocity;
         Quaternion rotation;
 
-        if (MyoPoseManager.ClickUp ||
-            ((Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight"))&& VariablesManager.InputMode != InputMode.HeadMyoHybrid))
+        if (HandManager.IsRayRelativeUp())
         {
             foreach(GameObject part in partsVisualRay)
             {
@@ -78,38 +75,16 @@ public class CustomRay : MonoBehaviour, IPointingSource
             }
         }
 
-        Hand hand = null;
-        bool clickDown = false;
-        bool click = false;
-
-        if (MyoPoseManager.ClickDown)
+        if(HandManager.IsRayRelativeDown())
         {
-            hand = HandManager.MyoHand;
-            clickDown = true;
-            deviceType = RayInputDevice.Myo;
-        }
-        else if (Input.GetButtonDown("RelativeLeft") && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-        {
-            hand = HandManager.LeftHand;
-            clickDown = true;
-            deviceType = RayInputDevice.ControllerLeft;
-        }
-        else if(Input.GetButtonDown("RelativeRight") && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-        {
-            hand = HandManager.RightHand;
-            clickDown = true;
-            deviceType = RayInputDevice.ControllerRight;
-        }
-        if(clickDown && hand != null)
-        {
-            if (hand.TryGetRotation(out rotation))
+            if (HandManager.CurrentHand.TryGetRotation(out rotation))
             {
                 foreach (GameObject part in partsVisualRay)
                 {
                     part.GetComponent<Renderer>().material = rayActiveMaterial;
                 }
                 startRelativeQuat = rotation;
-                if (hand.TryGetAngularVelocity(out angularVelocity))
+                if (HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity))
                 {
                     GainFunction.ResetFunction(angularVelocity);
                 }
@@ -127,29 +102,13 @@ public class CustomRay : MonoBehaviour, IPointingSource
             }
         }
 
-        if (MyoPoseManager.Click || MyoPoseManager.ClickUp)
+        if (HandManager.IsRayRelative())
         {
-            hand = HandManager.MyoHand;
-            click = true;
-        }
-        else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-        {
-            hand = HandManager.LeftHand;
-            click = true;
-        }
-        else if ((Input.GetButton("RelativeRight")|| Input.GetButtonUp("RelativeRight")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-        {
-            hand = HandManager.RightHand;
-            click = true;
-        }
-
-        if (click && hand != null)
-        {
-            if (hand.TryGetAngularVelocity(out angularVelocity))
+            if (HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity))
             {
                 GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
             }
-            else if (hand.TryGetRotation(out rotation))
+            else if (HandManager.CurrentHand.TryGetRotation(out rotation))
             {
                 GainFunction.Instance.UpdateFunction(rotation, Time.time);
             }
@@ -184,37 +143,17 @@ public class CustomRay : MonoBehaviour, IPointingSource
                 {
                     rays[0] = default(RayStep);
                 }
-                else
-                {
-                    Hand hand = null;
-                    bool click = false;
-                    if (MyoPoseManager.Click || MyoPoseManager.ClickUp)
-                    {
-                        hand = HandManager.MyoHand;
-                        click = true;
-                    }
-                    else if ((Input.GetButton("RelativeLeft") || Input.GetButtonUp("RelativeLeft")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-                    {
-                        hand = HandManager.LeftHand;
-                        click = true;
-                    }
-                    else if ((Input.GetButton("RelativeRight") || Input.GetButtonUp("RelativeRight")) && VariablesManager.InputMode != InputMode.HeadMyoHybrid)
-                    {
-                        hand = HandManager.RightHand;
-                        click = true;
-                    }
-                    if (click)
+                else if (HandManager.IsRayRelative())
                     {
                         Quaternion quat;
-                        if (hand.TryGetRotation(out quat))
+                        if (HandManager.CurrentHand.TryGetRotation(out quat))
                         {
                             SetRays(quat);
                         }
                     }
-                    else
-                    {
-                        SetRaysWithHeadAsOrigin(head.transform.forward);
-                    }
+                else
+                {
+                    SetRaysWithHeadAsOrigin(head.transform.forward);
                 }
                 break;
             case InputMode.RayHeadOrigin:
@@ -340,14 +279,6 @@ public class CustomRay : MonoBehaviour, IPointingSource
         set
         {
             focusLocked = value;
-        }
-    }
-
-    public RayInputDevice DeviceType
-    {
-        get
-        {
-            return deviceType;
         }
     }
 

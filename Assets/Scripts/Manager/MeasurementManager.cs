@@ -19,21 +19,9 @@ public class MeasurementManager : MonoBehaviour
     private int totalNumberOfObjectsToSort;
     private int numberOfObjectsSorted;
 
-    public static bool MeasurementActive
-    {
-        get
-        {
-            return Instance.measurementActive;
-        }
-    }
+    private float measurementDuration = -1;
 
-    public static bool TrainingActive
-    {
-        get
-        {
-            return Instance.trainingActive;
-        }
-    }
+    private float targetsClicked = -1;
 
     private void Awake()
     {
@@ -58,9 +46,17 @@ public class MeasurementManager : MonoBehaviour
         {
             currentTime += Time.deltaTime;
 
-            if (currentTime > VariablesManager.MeasurementDuration)
+            if (currentTime > measurementDuration)
             {
                 StopMeasurement();
+            }
+        }
+        if(trainingActive)
+        {
+            currentTime += Time.deltaTime;
+            if (currentTime > measurementDuration)
+            {
+                StopTraining();
             }
         }
     }
@@ -98,28 +94,9 @@ public class MeasurementManager : MonoBehaviour
         measurementActive = true;
         UI.SetActive(false);
 
-        string logStartMeasurement;
-        logStartMeasurement = "New Run of User: " + Logger.Instance.userId;
-        logStartMeasurement += "\n Current Time: " + Time.time;
-        logStartMeasurement += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
-        logStartMeasurement += "\n Current Input method: " + VariablesManager.InputMode;
-
-        Logger.AppendString(logStartMeasurement);
-
-        string logTitle = "Name of the gameobject";
-        logTitle += "; Click Time";
-        logTitle += "; Time since Instantiate";
-        logTitle += "; Bounding Rect Area";
-        logTitle += "; Screen Position";
-        logTitle += "; Distance from last Target";
-        logTitle += "; Distance from last Target Screen";
-        logTitle += "; Angle between last and current Target";
-
-        Logger.AppendString(logTitle);
+        Logger.StartMeasurement();
 
         currentTime = 0;
-
-        statusText.text = "Measurement Active";
 
         StartScenario();
     }
@@ -128,13 +105,11 @@ public class MeasurementManager : MonoBehaviour
     {
         measurementActive = false;
         UI.SetActive(true);
-        Logger.AppendString("End of Run of User: " + Logger.Instance.userId);
-        Logger.AddCurrentTime();
+        Logger.EndMeasurement();
 
         currentTime = 0;
         TargetManager.DeactivateTargets();
         ObstacleManager.DeactivateAllObstacles();
-        statusText.text = "Menu";
 
         StopScenario();
     }
@@ -145,32 +120,7 @@ public class MeasurementManager : MonoBehaviour
         UI.SetActive(false);
         StopTrainingButton.SetActive(true);
 
-        string logStartTraining;
-        logStartTraining = "New Trainings Run of User: " + Logger.Instance.userId;
-        logStartTraining += "\n Current Time: " + Time.time;
-        logStartTraining += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
-        logStartTraining += "\n Current Input method: " + VariablesManager.InputMode;
-
-        Logger.AppendString(logStartTraining);
-
-        string logTitle = "Name of the gameobject";
-        logTitle += "; Click Time";
-        logTitle += "; Time since Instantiate";
-        logTitle += "; Bounding Rect Area";
-        logTitle += "; Screen Position";
-        logTitle += "; Distance from last Target";
-        logTitle += "; Distance from last Target Screen";
-        logTitle += "; Angle between last and current Target";
-
-        if(SceneHandler.ScenarioType == ScenarioType.Occlusion || SceneHandler.ScenarioType == ScenarioType.Sorting)
-        {
-            logTitle += "; Amount of objects in front of Target (small)";
-            logTitle += "; Amount of objects in front of Target (big)";
-            logTitle += "; Amount of objects in back of Target (small)";
-            logTitle += "; Amount of objects in back of Target (big)";
-        }
-
-        Logger.AppendString(logTitle);
+        Logger.StartTraining();
 
         statusText.text = "Training Active";
 
@@ -183,8 +133,7 @@ public class MeasurementManager : MonoBehaviour
         UI.SetActive(true);
         StopTrainingButton.SetActive(false);
 
-        Logger.AppendString("End of Trainings Run of User: " + Logger.Instance.userId);
-        Logger.AddCurrentTime();
+        Logger.EndTraining();
 
         statusText.text = "Menu";
 
@@ -193,28 +142,60 @@ public class MeasurementManager : MonoBehaviour
 
     private void StartScenario()
     {
+        targetsClicked = 0;
         switch (SceneHandler.ScenarioType)
         {
             case ScenarioType.Menu:
+                statusText.text = "Menu";
                 break;
             case ScenarioType.Performance:
                 TargetManager.ActivateSingleTarget(lastTargetDirection);
+                if(trainingActive)
+                {
+                    measurementDuration = VariablesManager.TrainingsTimePerformance;
+                }
+                if(measurementActive)
+                {
+                    measurementDuration = VariablesManager.MeasurementTimePerformance;
+                }
+                statusText.text = "Measurement Active";
                 break;
             case ScenarioType.Occlusion:
                 TargetManager.ActivateSingleTarget(lastTargetDirection);
                 ObstacleManager.MoveObjects();
+                if (trainingActive)
+                {
+                    measurementDuration = VariablesManager.TrainingsTimeOcclusion;
+                }
+                if (measurementActive)
+                {
+                    measurementDuration = VariablesManager.MeasurementTimeOcclusion;
+                }
+                statusText.text = "Measurement Active";
                 break;
             case ScenarioType.Sorting:
                 TargetManager.MoveAllTargets();
                 ObstacleManager.MoveObjects();
-                Instance.numberOfObjectsSorted = 0;
-                Instance.totalNumberOfObjectsToSort = TargetManager.CurrentTargets.Length;
+                numberOfObjectsSorted = 0;
+                totalNumberOfObjectsToSort = TargetManager.CurrentTargets.Length;
+                if (trainingActive)
+                {
+                    measurementDuration = VariablesManager.TrainingsTimeSorting;
+                }
+                if (measurementActive)
+                {
+                    measurementDuration = VariablesManager.MeasurementTimeSorting;
+                }
+                statusText.text = "Measurement Active"
+                    + "\n" + numberOfObjectsSorted + " / " + totalNumberOfObjectsToSort;
                 break;
         }
     }
 
     private void StopScenario()
     {
+        targetsClicked = -1;
+        statusText.text = "Menu";
         switch (SceneHandler.ScenarioType)
         {
             case ScenarioType.Menu:
@@ -236,15 +217,20 @@ public class MeasurementManager : MonoBehaviour
 
     private void OnTargetClicked(Target target)
     {
-        LogLeftClick(target);
+        targetsClicked++;
+        OnLeftClick(target);
         switch (SceneHandler.ScenarioType)
         {
             case ScenarioType.Menu:
                 break;
             case ScenarioType.Performance:
+                Instance.statusText.text = "Measurement Active"
+            + "\n Targets: " + targetsClicked;
                 TargetManager.ActivateSingleTarget(lastTargetDirection);
                 break;
             case ScenarioType.Occlusion:
+                Instance.statusText.text = "Measurement Active"
+            + "\n Targets: " + targetsClicked;
                 TargetManager.ActivateSingleTarget(lastTargetDirection);
                 ObstacleManager.MoveObjects();
                 break;
@@ -253,19 +239,20 @@ public class MeasurementManager : MonoBehaviour
         }
     }
 
-
-    public static void LogLeftClick(Target target)
+    public static void OnLeftClick(Target target)
     {
-        target.LogClick(Instance.lastTargetPosition, Instance.lastTargetDirection);
+        Logger.LogClick(target, Instance.lastTargetPosition, Instance.lastTargetDirection);
         Instance.lastTargetDirection = (target.transform.position - DepthRayManager.Instance.HeadPosition).normalized;
         Instance.lastTargetPosition = target.transform.position;
     }
 
-    public static void LogStoreAction(Target target)
+    public static void OnStoreAction(Target target)
     {
         Instance.numberOfObjectsSorted++;
-
-        if(Instance.numberOfObjectsSorted >= Instance.totalNumberOfObjectsToSort)
+        Instance.statusText.text = "Measurement Active"
+            + "\n" + Instance.numberOfObjectsSorted+" / "+ Instance.totalNumberOfObjectsToSort;
+        
+        if (Instance.numberOfObjectsSorted >= Instance.totalNumberOfObjectsToSort)
         {
             TargetManager.DeactivateTargets();
             ObstacleManager.DeactivateAllObstacles();
@@ -274,6 +261,22 @@ public class MeasurementManager : MonoBehaviour
             Instance.numberOfObjectsSorted = 0;
             Instance.totalNumberOfObjectsToSort = TargetManager.CurrentTargets.Length;
             //One run finished
+        }
+    }
+
+    public static bool MeasurementActive
+    {
+        get
+        {
+            return Instance.measurementActive;
+        }
+    }
+
+    public static bool TrainingActive
+    {
+        get
+        {
+            return Instance.trainingActive;
         }
     }
 }

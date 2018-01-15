@@ -18,6 +18,8 @@ public class HandManager : MonoBehaviour
     private Hand leftHand;
     private Hand rightHand;
 
+    private Hand currentHand;
+
 
     private void Awake()
     {
@@ -40,6 +42,26 @@ public class HandManager : MonoBehaviour
     {
         UpdateMyo();
         UpdateControllers();
+        UpdateCurrentHand();
+    }
+
+    private void UpdateCurrentHand()
+    {
+        if(VariablesManager.InputMode == InputMode.HeadMyoHybrid)
+        {
+            currentHand = myoHand;
+        }
+        else
+        {
+            if(VariablesManager.Handeness == Handeness.Left)
+            {
+                currentHand = leftHand;
+            }
+            else
+            {
+                currentHand = rightHand;
+            }
+        }
     }
 
 
@@ -129,6 +151,71 @@ public class HandManager : MonoBehaviour
         }
     }
 
+    public static bool IsRayRelativeDown()
+    {
+        if (Instance.currentHand == null)
+            return false;
+        if(Instance.currentHand == Instance.leftHand)
+        {
+            return Input.GetButtonDown("RelativeLeft");
+        }
+
+        if (Instance.currentHand == Instance.rightHand)
+        {
+            return Input.GetButtonDown("RelativeRight");
+        }
+
+        if(Instance.currentHand == Instance.myoHand)
+        {
+            return MyoPoseManager.ClickDown;
+        }
+
+        return false;
+    }
+
+    public static bool IsRayRelativeUp()
+    {
+        if (Instance.currentHand == null)
+            return false;
+        if (Instance.currentHand == Instance.leftHand)
+        {
+            return Input.GetButtonUp("RelativeLeft");
+        }
+
+        if (Instance.currentHand == Instance.rightHand)
+        {
+            return Input.GetButtonUp("RelativeRight");
+        }
+
+        if (Instance.currentHand == Instance.myoHand)
+        {
+            return MyoPoseManager.ClickUp;
+        }
+
+        return false;
+    }
+
+    public static bool IsRayRelative()
+    {
+        if (Instance.currentHand == null)
+            return false;
+        if (Instance.currentHand == Instance.leftHand)
+        {
+            return Input.GetButton("RelativeLeft");
+        }
+
+        if (Instance.currentHand == Instance.rightHand)
+        {
+            return Input.GetButton("RelativeRight");
+        }
+
+        if (Instance.currentHand == Instance.myoHand)
+        {
+            return MyoPoseManager.Click;
+        }
+
+        return false;
+    }
 
     public static bool IsLeftControllerTracked
     {
@@ -183,6 +270,14 @@ public class HandManager : MonoBehaviour
         get
         {
             return Instance.isMyoTracked;
+        }
+    }
+
+    public static Hand CurrentHand
+    {
+        get
+        {
+            return Instance.currentHand;
         }
     }
 }

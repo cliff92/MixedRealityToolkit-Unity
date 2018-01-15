@@ -8,7 +8,6 @@ public class Target : MonoBehaviour
     private TargetState state;
     private TargetState oldState;
 
-    private GameObject depthMarker;
     private Hand handDidNotClick;
 
     private float lastTimeInFocus;
@@ -16,12 +15,15 @@ public class Target : MonoBehaviour
 
     private float angleBetweenRayObj;
 
-    private float startTime;
+    internal float startTime;
 
     [SerializeField]
     private PrimitiveType primitiveType;
 
     private float startTimeInStorage = -1;
+    private float startTimeAttached = -1;
+
+    internal bool insideStorage = false;
 
     private void Awake()
     {
@@ -30,12 +32,6 @@ public class Target : MonoBehaviour
         State = TargetState.Default;
         lastTimeInFocus = 0;
         startTimeInFocus = 0;
-    }
-
-    private void Start()
-    {
-        depthMarker = DepthRayManager.Instance.depthMarker;
-        startTime = Time.time;
     }
 
     private void Update()
@@ -49,16 +45,18 @@ public class Target : MonoBehaviour
         }
         if (state == TargetState.Drag)
         {
-            transform.position = depthMarker.transform.position;
+            transform.position = DepthMarker.Position;
         }
     }
 
-    private void OnEnable()
+    public void Activate()
     {
         State = TargetState.Default;
+        startTime = Time.time;
+        insideStorage = false;
     }
 
-    private void OnDisable()
+    public void Deactivate()
     {
         State = TargetState.Disabled;
     }
@@ -101,47 +99,6 @@ public class Target : MonoBehaviour
         }
     }
 
-    internal void LogClick(Vector3 posLastTarget , Vector3 directionLastTarget)
-    {
-        Rect boundingRect = Helper.GUIRectWithObject(gameObject);
-        float timeClicked = Time.time;
-        float timeSinceInstantiate = timeClicked - startTime;
-        float boundingRectArea = boundingRect.size.x * boundingRect.size.y;
-        Vector3 screenPosition = Helper.WorldToGUIPoint(transform.position);
-        float distanceFromLastTarget = Vector3.Distance(transform.position, posLastTarget);
-        float distanceFromLastTargetScreen = Vector2.Distance(Helper.WorldToGUIPoint(transform.position), Helper.WorldToGUIPoint(posLastTarget));
-        float angleBetweenLastAndCurrent = Vector3.Angle(transform.position - DepthRayManager.Instance.HeadPosition, directionLastTarget);
-
-        String log = gameObject.name;
-        log += "; " + timeClicked;
-        log += "; " + timeSinceInstantiate;
-        log += "; " + boundingRectArea;
-        log += "; " + screenPosition;
-        log += "; " + distanceFromLastTarget;
-        log += "; " + distanceFromLastTargetScreen;
-        log += "; " + angleBetweenLastAndCurrent;
-
-        if (SceneHandler.ScenarioType == ScenarioType.Occlusion
-            || SceneHandler.ScenarioType == ScenarioType.Sorting)
-        {
-            int obstacleLayerMask = 1 << LayerMask.NameToLayer("ObstacleLayer");
-            int innerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, transform.position, 0.05f, obstacleLayerMask).Length;
-            int outerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, transform.position, 0.2f, obstacleLayerMask).Length;
-
-            log += "; " + innerNumberOfElementsInFront;
-            log += "; " + outerNumberOfElementsInFront;
-
-            Vector3 point2 = transform.position + (transform.position - DepthRayManager.Instance.HeadPosition) * 100;
-            int innerNumberOfElementsBehind = Physics.OverlapCapsule(point2, transform.position, 0.05f, obstacleLayerMask).Length;
-            int outerNumberOfElementsBehind = Physics.OverlapCapsule(point2, transform.position, 0.2f, obstacleLayerMask).Length;
-            log += "; " + innerNumberOfElementsBehind;
-            log += "; " + outerNumberOfElementsBehind;
-            //Debug.Log("Number of Elements In Front - Back Inner/Outer: " + innerNumberOfElementsInFront + "; "
-            //    + outerNumberOfElementsInFront + "; " + innerNumberOfElementsBehind + "; " + outerNumberOfElementsBehind);
-        }
-        Logger.AppendString(log);
-    }
-
     /// <summary>
     /// This method updates the material of the gameobject based on the targetstate.
     /// </summary>
@@ -175,26 +132,32 @@ public class Target : MonoBehaviour
             case TargetState.Disabled:
                 break;
         }
+        if(insideStorage)
+        {
+            color = new Color(1, 0, 1, 1);
+            material.color = color;
+        }
     }
 
     public void Store(PrimitiveType primitiveType)
     {
-        MeasurementManager.LogStoreAction(this);
+        MeasurementManager.OnStoreAction(this);
         if (primitiveType==this.primitiveType)
         {
             //correct stored
-            string log = "";
             // Time when stored
             // Correct or Incorrect stored
             // Information about the manipulation phase
-            Logger.AppendString(log);
+            Logger.LogStoreTarget(this, true);
             TargetManager.DetachTargetFromDepthMarker(gameObject);
             State = TargetState.Disabled;
             gameObject.SetActive(false);
+
         }
         else
         {
             //incorrect stored
+            Logger.LogStoreTarget(this, false);
             State = TargetState.Disabled;
             TargetManager.DetachTargetFromDepthMarker(gameObject);
             gameObject.SetActive(false);
@@ -220,19 +183,6 @@ public class Target : MonoBehaviour
         get
         {
             return oldState;
-        }
-    }
-
-    public GameObject DepthMarker
-    {
-        get
-        {
-            return depthMarker;
-        }
-
-        set
-        {
-            depthMarker = value;
         }
     }
 
@@ -297,6 +247,26 @@ public class Target : MonoBehaviour
         set
         {
             startTimeInStorage = value;
+        }
+    }
+
+    public bool InsideStorage
+    {
+        set
+        {
+            insideStorage = value;
+        }
+    }
+
+    public float StartTimeAttached
+    {
+        get
+        {
+            return startTimeAttached;
+        }
+        set
+        {
+            startTimeAttached = value;
         }
     }
 }

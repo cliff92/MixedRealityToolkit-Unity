@@ -1,23 +1,32 @@
 ﻿using UnityEngine;
 using System.IO;
-using System.Text;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Logger : MonoBehaviour
 {
     public static Logger Instance;
     public string userId = "ck92";
-    public string FileName = "log";
-    public TextMesh textMesh;
+    public string GeneralLog = "generalLog";
+    public string ClickLog = "clickLog";
+    public string SortingLog = "sortingLog";
     // This contains the name of the file. Don't add the ".txt"
     // Assign in inspector
     private StreamWriter writer; // This is the writer that writes to the file
-    internal static void AppendString(string appendString)
-    {
-        Instance.writer = new StreamWriter(Application.dataPath + "/StreamingAssets/" + Instance.FileName + "_" + Instance.userId + ".txt", true);
-        Instance.writer.WriteLine(appendString);
-        Instance.writer.Close();
-    }
+
+    private static float amountRayMoved = 0;
+    private static float amountDepthMarkerMovedInZ = 0;
+    private static int numberOfMissedClicks = 0;
+    private static int numberOfCorrectClicks = 0;
+    private static int numberOfWrongClicks = 0;
+
+    private static int targetsDetachedOutsideStorage = 0;
+    private static int targetsDetachedInsideStorage = 0;
+
+    private static float startTime = 0;
+
+    private Vector3 oldDirectionRay = Vector3.zero;
+
 
     private void Awake()
     {
@@ -30,16 +39,69 @@ public class Logger : MonoBehaviour
         {
             DestroyImmediate(this);
         }
-        
     }
 
-    private void Start()
+    private void Update()
     {
-        AppendString("New Run");
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            if (oldDirectionRay != Vector3.zero)
+            {
+                amountRayMoved += Vector3.Angle(CustomRay.Instance.Rays[0].direction, oldDirectionRay);
+            }
+            oldDirectionRay = CustomRay.Instance.Rays[0].direction;
+        }
     }
-    internal static void AddCurrentTime()
+
+    public static void AddStepsizeToDepthMarkerMovementInZ(float stepsize)
     {
-        AppendString("Current Time: " + Time.time);
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            amountDepthMarkerMovedInZ += stepsize;
+        }
+    }
+
+    public static void IncreaseClickCorrectCount()
+    {
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            AppendToGeneralLog("Correct Click: " + (Time.time - startTime));
+            numberOfCorrectClicks++;
+        }
+    }
+    public static void IncreaseClickWrongCount()
+    {
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            AppendToGeneralLog("Wrong Click: " + (Time.time - startTime));
+            numberOfWrongClicks++;
+        }
+    }
+    public static void IncreaseClickMissCount()
+    {
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            AppendToGeneralLog("Miss Click: " + (Time.time - startTime));
+            numberOfMissedClicks++;
+        }
+    }
+
+    public static void IncreaseDetachCountInsideStorage()
+    {
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            AppendToGeneralLog("Detached Inside Storage: " + (Time.time - startTime));
+            targetsDetachedInsideStorage++;
+        }
+    }
+
+    public static void IncreaseDetachCoutOutsideStorage()
+    {
+        if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
+        {
+            AppendToGeneralLog("Detached Outside Storage:  " + (Time.time - startTime));
+            targetsDetachedOutsideStorage++;
+        }
     }
 
     public void ChangeUserId(InputField inputfield)
@@ -47,10 +109,226 @@ public class Logger : MonoBehaviour
         Instance.userId = inputfield.text;
     }
 
-    public static void UpdateLogMesh(string log)
+    private static void AppendToGeneralLog(string appendString)
     {
-        if(Instance != null)
-            if(Instance.textMesh!= null)
-                Instance.textMesh.text = log;
+        Instance.writer = new StreamWriter(Application.persistentDataPath + "/" + Instance.GeneralLog + "_" + Instance.userId + ".txt", true);
+        Instance.writer.WriteLine(appendString);
+        Instance.writer.Close();
+    }
+    private static void AppendToClickLog(string appendString)
+    {
+        Instance.writer = new StreamWriter(Application.persistentDataPath + "/" + Instance.ClickLog + "_" + Instance.userId + ".txt", true);
+        Instance.writer.WriteLine(appendString);
+        Instance.writer.Close();
+    }
+    private static void AppendToSortingLog(string appendString)
+    {
+        Instance.writer = new StreamWriter(Application.persistentDataPath + "/" + Instance.SortingLog + "_" + Instance.userId + ".txt", true);
+        Instance.writer.WriteLine(appendString);
+        Instance.writer.Close();
+    }
+
+    private static void AppendToAllLogs(string appendString)
+    {
+        AppendToGeneralLog(appendString);
+
+        AppendToClickLog(appendString);
+
+        if (SceneHandler.ScenarioType == ScenarioType.Sorting)
+            AppendToSortingLog(appendString);
+    }
+
+    public static void StartMeasurement()
+    {
+        string logStartMeasurement;
+        logStartMeasurement = "New Run of User: " + Instance.userId;
+
+        GeneralStart(logStartMeasurement);
+    }
+
+    public static void StartTraining()
+    {
+        string logStartTraining;
+        logStartTraining = "New Trainings Run of User: " + Instance.userId;
+
+
+        GeneralStart(logStartTraining);
+    }
+
+    private static void GeneralStart(string logStart)
+    {
+        Reset();
+        logStart += "\n Current Time: " + Time.time;
+        logStart += "\n Current Scenario: " + SceneManager.GetActiveScene().name;
+        logStart += "\n Current Input method: " + VariablesManager.InputMode;
+        logStart += "\n Handeness: " + VariablesManager.Handeness;
+        logStart += "\n Delay while Click still counts: " + VariablesManager.DelayClickTime;
+        logStart += "\n Time for Right Click: " + VariablesManager.TimeRightClickController;
+        logStart += "\n Maximum Angle between two Targets: " + VariablesManager.MaximumAngleBetweenTwoTargets;
+        logStart += "\n Minimum Angle between two Targets: " + VariablesManager.MinimumAngleBetweenTwoTargets;
+        logStart += "\n Random Range x and y: " + VariablesManager.RandomRangeX + " : " + VariablesManager.RandomRangeY;
+        if (SceneHandler.ScenarioType == ScenarioType.Occlusion || SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            logStart += "\n Number of Obstacles: " + ObstacleManager.NumberOfObstacles;
+            if(SceneHandler.ScenarioType == ScenarioType.Sorting)
+            {
+                logStart += "\n Number of Targets To Sort: " + TargetManager.CurrentTargets.Length;
+                logStart += "\n Time until Stored: " + VariablesManager.TimeUntilStored;
+            }
+        }
+
+        AppendToAllLogs(logStart);
+        string logTitle = "Name of the gameobject";
+        logTitle += "; Time Target was clicked";
+        logTitle += "; Click Time";
+        logTitle += "; Target Position";
+        logTitle += "; Bounding Rect Area";
+        logTitle += "; Screen Position";
+        logTitle += "; Distance from head position";
+        logTitle += "; Distance from last Target";
+        logTitle += "; Distance from last Target Screen";
+        logTitle += "; Angle between last and current Target";
+        logTitle += "; Amount ray was moved";
+
+        if (SceneHandler.ScenarioType == ScenarioType.Occlusion || SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            logTitle += "; Amount of obstacles in front of Target (small)";
+            logTitle += "; Amount of obstacles in front of Target (big)";
+            logTitle += "; Amount of obstacles in back of Target (small)";
+            logTitle += "; Amount of obstacles in back of Target (big)";
+            logTitle += "; Amount depth marker was moved in Z";
+        }
+        AppendToClickLog(logTitle);
+
+        if (SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            logTitle = "Name of the gameobject";
+            logTitle += "; Target Type";
+            logTitle += "; Stored Correctly";
+            logTitle += "; Time between attached and stored";
+            AppendToSortingLog(logTitle);
+        }
+    }
+
+    internal static void EndMeasurement()
+    {
+        string log = "End of Measurement Run";
+
+        GeneralEnd();
+        AppendToAllLogs(log);
+    }
+
+    internal static void EndTraining()
+    {
+        string log = "End of Trainings Run";
+        
+        GeneralEnd();
+        AppendToAllLogs(log);
+    }
+
+    private static void GeneralEnd()
+    {
+        string log = "Number of Correct Clicks";
+        log += "; Number of Wrong Clicks";
+        log += "; Number of Miss Clicks";
+
+        if(SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            log += "; Number of Detached Targets Inside Storage";
+            log += "; Number of Detached Targets Outside Storage";
+        }
+
+        AppendToGeneralLog(log);
+
+        log = numberOfCorrectClicks + "; " + numberOfWrongClicks + "; " + numberOfMissedClicks;
+        if (SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            log += "; "+ targetsDetachedInsideStorage;
+            log += "; " + targetsDetachedOutsideStorage;
+        }
+
+        AppendToGeneralLog(log);
+    }
+
+    internal static void LogClick(Target target, Vector3 posLastTarget, Vector3 directionLastTarget)
+    {
+        Rect boundingRect = Helper.GUIRectWithObject(target.gameObject);
+        float timeSinceMeasurementStarted = Time.time - startTime;
+        float timeSinceActive = Time.time - target.startTime;
+        Vector3 targetPosition = target.transform.position;
+        float boundingRectArea = boundingRect.size.x * boundingRect.size.y;
+        Vector3 screenPosition = Helper.WorldToGUIPoint(target.transform.position);
+        float distanceFromHeadToTarget = Vector3.Distance(target.transform.position, DepthRayManager.Instance.HeadPosition);
+        float distanceFromLastTarget = Vector3.Distance(target.transform.position, posLastTarget);
+        float distanceFromLastTargetScreen = Vector2.Distance(Helper.WorldToGUIPoint(target.transform.position), Helper.WorldToGUIPoint(posLastTarget));
+        float angleBetweenLastAndCurrent = Vector3.Angle(target.transform.position - DepthRayManager.Instance.HeadPosition, directionLastTarget);
+
+        string log = target.gameObject.name;
+        log += "; " + timeSinceMeasurementStarted;
+        log += "; " + timeSinceActive;
+        log += "; " + targetPosition;
+        log += "; " + boundingRectArea;
+        log += "; " + screenPosition;
+        log += "; " + distanceFromHeadToTarget;
+        log += "; " + distanceFromLastTarget;
+        log += "; " + distanceFromLastTargetScreen;
+        log += "; " + angleBetweenLastAndCurrent;
+        log += "; " + amountRayMoved;
+
+        if (SceneHandler.ScenarioType == ScenarioType.Occlusion
+            || SceneHandler.ScenarioType == ScenarioType.Sorting)
+        {
+            int obstacleLayerMask = 1 << LayerMask.NameToLayer("ObstacleLayer");
+            int innerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, target.transform.position, 0.05f, obstacleLayerMask).Length;
+            int outerNumberOfElementsInFront = Physics.OverlapCapsule(DepthRayManager.Instance.HeadPosition, target.transform.position, 0.2f, obstacleLayerMask).Length;
+
+            log += "; " + innerNumberOfElementsInFront;
+            log += "; " + outerNumberOfElementsInFront;
+
+            Vector3 point2 = target.transform.position + (target.transform.position - DepthRayManager.Instance.HeadPosition) * 100;
+            int innerNumberOfElementsBehind = Physics.OverlapCapsule(point2, target.transform.position, 0.05f, obstacleLayerMask).Length;
+            int outerNumberOfElementsBehind = Physics.OverlapCapsule(point2, target.transform.position, 0.2f, obstacleLayerMask).Length;
+            log += "; " + innerNumberOfElementsBehind;
+            log += "; " + outerNumberOfElementsBehind;
+            //Debug.Log("Number of Elements In Front - Back Inner/Outer: " + innerNumberOfElementsInFront + "; "
+            //    + outerNumberOfElementsInFront + "; " + innerNumberOfElementsBehind + "; " + outerNumberOfElementsBehind);
+            log += "; " + amountDepthMarkerMovedInZ;
+        }
+        AppendToClickLog(log);
+        ResetVariablesClick();
+    }
+
+    internal static void LogStoreTarget(Target target, bool storedCorrectly)
+    {
+        float timeBetweenAttachedAndStore = Time.time - target.StartTimeAttached;
+
+        string log = target.gameObject.name;
+        log += "; " + target.PrimitiveType;
+        if (storedCorrectly)
+            log += "; 1";
+        else
+            log += "; 0";
+        log += "; " + timeBetweenAttachedAndStore;
+
+        AppendToSortingLog(log);
+    }
+
+    public static void Reset()
+    {
+        startTime = Time.time;
+        numberOfCorrectClicks = 0;
+        numberOfMissedClicks = 0;
+        numberOfWrongClicks = 0;
+        targetsDetachedInsideStorage = 0;
+        targetsDetachedOutsideStorage = 0;
+        ResetVariablesClick();
+    }
+
+
+    private static void ResetVariablesClick()
+    {
+        amountDepthMarkerMovedInZ = 0;
+        amountRayMoved = 0;
+        Instance.oldDirectionRay = Vector3.zero;
     }
 }

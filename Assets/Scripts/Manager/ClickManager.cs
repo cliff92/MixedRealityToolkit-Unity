@@ -79,7 +79,7 @@ public class ClickManager : MonoBehaviour
         if (Input.GetButtonUp("Reset") || MyoPoseManager.DoubleTapUp)
         {
             OnReset();
-            DepthRayManager.Instance.MoveDepthMarkerToUser();
+            DepthMarker.Instance.MoveDepthMarkerToUser();
         }
     }
 
@@ -97,7 +97,7 @@ public class ClickManager : MonoBehaviour
     /// </summary>
     private void CheckLeftClick()
     {
-        if (Input.GetButtonUp("RelativeLeft") || Input.GetButtonUp("RelativeRight") || MyoPoseManager.ClickUp)
+        if (HandManager.IsRayRelativeUp())
         {
             if(TargetManager.IsAnyObjectAttached())
             {
@@ -184,7 +184,7 @@ public class ClickManager : MonoBehaviour
         if (!SceneHandler.UseRightClick || currentFocusedObject == null || TargetManager.IsAnyObjectAttached())
             return false;
 
-        if (Input.GetButton("RelativeLeft") || Input.GetButton("RelativeRight") || MyoPoseManager.Click)
+        if (HandManager.IsRayRelative())
         {
             //Change time between Myo and Controller
             float timeRightClick = VariablesManager.TimeRightClickController;
@@ -235,39 +235,10 @@ public class ClickManager : MonoBehaviour
         {
             //check if update should be happen 
             // velocity under a threshold and click
-            bool update = false;
             Vector3 angularVelocity = Vector3.zero;
-            switch (CustomRay.Instance.DeviceType)
-            {
-                case RayInputDevice.Unknown:
-                    break;
-                case RayInputDevice.Myo:
-                    if (HandManager.MyoHand.TryGetAngularVelocity(out angularVelocity)
-                        && angularVelocity.magnitude < 0.5f && MyoPoseManager.Click)
-                    {
-                        update = true;
-                    }
-                    break;
-                case RayInputDevice.ControllerLeft:
-                    if (HandManager.LeftHand.TryGetAngularVelocity(out angularVelocity)
-                        && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeLeft"))
-                    {
-                        update = true;
-                    }
-                    break;
-                case RayInputDevice.ControllerRight:
-                    if (HandManager.RightHand.TryGetAngularVelocity(out angularVelocity)
-                        && angularVelocity.magnitude < 0.5f && Input.GetButton("RelativeRight"))
-                    {
-                        update = true;
-                    }
-                    break;
-            }
-            if (!update)
-            {
-                currentFocusedObject = null;
-            }
-            else
+
+            if(HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity)
+                        && angularVelocity.magnitude < 0.5f && HandManager.IsRayRelative())
             {
                 switch (newFocusedObject.tag)
                 {
@@ -288,6 +259,10 @@ public class ClickManager : MonoBehaviour
                         currentFocusedObject = null;
                         break;
                 }
+            }
+            else
+            {
+                currentFocusedObject = null;
             }
         }
         //CheckLeftClick();
