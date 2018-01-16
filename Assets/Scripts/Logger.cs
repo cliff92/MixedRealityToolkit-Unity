@@ -15,7 +15,8 @@ public class Logger : MonoBehaviour
     private StreamWriter writer; // This is the writer that writes to the file
 
     private static float amountRayMoved = 0;
-    private static float amountDepthMarkerMovedInZ = 0;
+    private static float amountDepthMarkerMovedInZRelative = 0;
+    private static float amountDepthMarkerMovedInZAbsolute = 0;
     private static int numberOfMissedClicks = 0;
     private static int numberOfCorrectClicks = 0;
     private static int numberOfWrongClicks = 0;
@@ -26,6 +27,9 @@ public class Logger : MonoBehaviour
     private static float startTime = 0;
 
     private Vector3 oldDirectionRay = Vector3.zero;
+
+    private static float numberOfPoseCorrections = 0;
+    private static float numberOfClickCorrections = 0;
 
 
     private void Awake()
@@ -57,7 +61,8 @@ public class Logger : MonoBehaviour
     {
         if (MeasurementManager.MeasurementActive || MeasurementManager.TrainingActive)
         {
-            amountDepthMarkerMovedInZ += stepsize;
+            amountDepthMarkerMovedInZRelative += stepsize;
+            amountDepthMarkerMovedInZAbsolute += Mathf.Abs(stepsize);
         }
     }
 
@@ -184,6 +189,8 @@ public class Logger : MonoBehaviour
         logTitle += "; Target Position";
         logTitle += "; Bounding Rect Area";
         logTitle += "; Screen Position";
+        logTitle += "; ViewPort Position";
+        logTitle += "; Target was in View when activated";
         logTitle += "; Distance from head position";
         logTitle += "; Distance from last Target";
         logTitle += "; Distance from last Target Screen";
@@ -196,7 +203,8 @@ public class Logger : MonoBehaviour
             logTitle += "; Amount of obstacles in front of Target (big)";
             logTitle += "; Amount of obstacles in back of Target (small)";
             logTitle += "; Amount of obstacles in back of Target (big)";
-            logTitle += "; Amount depth marker was moved in Z";
+            logTitle += "; Amount depth marker was moved in Z Absolute";
+            logTitle += "; Amount depth marker was moved in Z Relative";
         }
         AppendToClickLog(logTitle);
 
@@ -231,6 +239,7 @@ public class Logger : MonoBehaviour
         string log = "Number of Correct Clicks";
         log += "; Number of Wrong Clicks";
         log += "; Number of Miss Clicks";
+        log += "; Number of Click Corrections";
 
         if(SceneHandler.ScenarioType == ScenarioType.Sorting)
         {
@@ -238,13 +247,26 @@ public class Logger : MonoBehaviour
             log += "; Number of Detached Targets Outside Storage";
         }
 
+        if(VariablesManager.InputMode == InputMode.HeadMyoHybrid)
+        {
+            log += "; Number of times pose correction was used";
+        }
+
         AppendToGeneralLog(log);
 
-        log = numberOfCorrectClicks + "; " + numberOfWrongClicks + "; " + numberOfMissedClicks;
+        log = numberOfCorrectClicks.ToString()
+        + "; " + numberOfWrongClicks 
+        + "; " + numberOfMissedClicks
+        + "; " + numberOfClickCorrections;
         if (SceneHandler.ScenarioType == ScenarioType.Sorting)
         {
             log += "; "+ targetsDetachedInsideStorage;
             log += "; " + targetsDetachedOutsideStorage;
+        }
+
+        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
+        {
+            log += "; " + numberOfPoseCorrections;
         }
 
         AppendToGeneralLog(log);
@@ -257,18 +279,22 @@ public class Logger : MonoBehaviour
         float timeSinceActive = Time.time - target.startTime;
         Vector3 targetPosition = target.transform.position;
         float boundingRectArea = boundingRect.size.x * boundingRect.size.y;
-        Vector3 screenPosition = Helper.WorldToGUIPoint(target.transform.position);
+        Vector3 screenPositionTarget = Camera.main.WorldToScreenPoint(target.transform.position);
+        Vector3 viewPortPositionTarget = Camera.main.WorldToViewportPoint(target.transform.position);
         float distanceFromHeadToTarget = Vector3.Distance(target.transform.position, DepthRayManager.Instance.HeadPosition);
         float distanceFromLastTarget = Vector3.Distance(target.transform.position, posLastTarget);
         float distanceFromLastTargetScreen = Vector2.Distance(Helper.WorldToGUIPoint(target.transform.position), Helper.WorldToGUIPoint(posLastTarget));
         float angleBetweenLastAndCurrent = Vector3.Angle(target.transform.position - DepthRayManager.Instance.HeadPosition, directionLastTarget);
+
 
         string log = target.gameObject.name;
         log += "; " + timeSinceMeasurementStarted;
         log += "; " + timeSinceActive;
         log += "; " + targetPosition;
         log += "; " + boundingRectArea;
-        log += "; " + screenPosition;
+        log += "; " + screenPositionTarget;
+        log += "; " + viewPortPositionTarget;
+        log += "; " + target.insideCameraViewWhenActivated;
         log += "; " + distanceFromHeadToTarget;
         log += "; " + distanceFromLastTarget;
         log += "; " + distanceFromLastTargetScreen;
@@ -292,7 +318,8 @@ public class Logger : MonoBehaviour
             log += "; " + outerNumberOfElementsBehind;
             //Debug.Log("Number of Elements In Front - Back Inner/Outer: " + innerNumberOfElementsInFront + "; "
             //    + outerNumberOfElementsInFront + "; " + innerNumberOfElementsBehind + "; " + outerNumberOfElementsBehind);
-            log += "; " + amountDepthMarkerMovedInZ;
+            log += "; " + amountDepthMarkerMovedInZAbsolute;
+            log += "; " + amountDepthMarkerMovedInZRelative;
         }
         AppendToClickLog(log);
         ResetVariablesClick();
@@ -321,14 +348,37 @@ public class Logger : MonoBehaviour
         numberOfWrongClicks = 0;
         targetsDetachedInsideStorage = 0;
         targetsDetachedOutsideStorage = 0;
+        numberOfPoseCorrections = 0;
+        numberOfClickCorrections = 0;
         ResetVariablesClick();
     }
 
 
     private static void ResetVariablesClick()
     {
-        amountDepthMarkerMovedInZ = 0;
+        amountDepthMarkerMovedInZRelative = 0;
+        amountDepthMarkerMovedInZAbsolute = 0;
         amountRayMoved = 0;
         Instance.oldDirectionRay = Vector3.zero;
+    }
+
+    public static void PoseCorrectionUsed()
+    {
+        Debug.Log("Pose Correction Used");
+
+        string log = "Pose correction was used: " + Time.time;
+        numberOfPoseCorrections++;
+
+        AppendToGeneralLog(log);
+    }
+
+    public static void ClickCorrectionUsed(int type)
+    {
+        Debug.Log("Click Correction Used " + type);
+
+        string log = "Click correction was used (Type "+type+"): " + Time.time;
+        numberOfClickCorrections++;
+
+        AppendToGeneralLog(log);
     }
 }

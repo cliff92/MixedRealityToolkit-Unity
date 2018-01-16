@@ -3,5 +3,4 @@
     HeadMyoHybrid,
     HeadHybrid,
     RayControllerOrigin,
-    RayHeadOrigin
 }

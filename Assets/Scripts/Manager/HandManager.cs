@@ -20,13 +20,12 @@ public class HandManager : MonoBehaviour
 
     private Hand currentHand;
 
-
     private void Awake()
     {
         Instance = this;
-        leftHand = new Hand(Handeness.Left);
-        rightHand = new Hand(Handeness.Right);
-        myoHand = new Hand(Handeness.Unknown);
+        leftHand = new Hand(Handeness.Left, RayInputDevice.ControllerLeft);
+        rightHand = new Hand(Handeness.Right, RayInputDevice.ControllerRight);
+        myoHand = new Hand(Handeness.Unknown, RayInputDevice.Myo);
         InteractionManager.InteractionSourceDetected += InteractionManager_InteractionSourceDetected;
         InteractionManager.InteractionSourceLost += InteractionManager_InteractionSourceLost;
         UpdateControllers();
@@ -36,6 +35,11 @@ public class HandManager : MonoBehaviour
     {
         InteractionManager.InteractionSourceDetected -= InteractionManager_InteractionSourceDetected;
         InteractionManager.InteractionSourceLost -= InteractionManager_InteractionSourceLost;
+    }
+
+    private void Start()
+    {
+        UpdateCurrentHand();
     }
 
     private void Update()
@@ -123,7 +127,7 @@ public class HandManager : MonoBehaviour
         myoHand.isRotAvailable = true;
         myoHand.angularVelocity = MyoPoseManager.AngularVelocity;
         myoHand.isAngularVelAvailable = true;
-        myoHand.rollAroundZ = MyoPoseManager.Instance.RollFromZero();
+        myoHand.rollAroundZ = MyoPoseManager.RelativeRoll;
         myoHand.isRollAroundZ = true;
         isMyoTracked = (VariablesManager.InputMode == InputMode.HeadMyoHybrid);
     }
@@ -249,14 +253,6 @@ public class HandManager : MonoBehaviour
         }
     }
 
-    public static Hand RayHand
-    {
-        get
-        {
-            return Instance.rightHand;
-        }
-    }
-
     public static Hand MyoHand
     {
         get
@@ -296,8 +292,9 @@ public class Hand
     internal bool isRollAroundZ;
     internal bool isForwardAvailable;
     internal Handeness handeness;
+    internal RayInputDevice device;
 
-    public Hand(Handeness handeness)
+    public Hand(Handeness handeness, RayInputDevice device)
     {
         this.handeness = handeness;
     }
@@ -341,7 +338,7 @@ public class Hand
         return false;
     }
 
-    public void Virbrate(float intensity, float durationInSeconds)
+    public void Vibrate(float intensity, float durationInSeconds)
     {
         //InteractionSourceExtensions.StopHaptics(source);
         //InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);

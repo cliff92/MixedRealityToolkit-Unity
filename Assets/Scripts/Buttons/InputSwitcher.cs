@@ -17,6 +17,7 @@ public class InputSwitcher : MonoBehaviour, ICustomClickHandler
         {
             SwitchInput();
         }
+        UpdateText();
     }
 
     public void OnClick()
@@ -31,15 +32,18 @@ public class InputSwitcher : MonoBehaviour, ICustomClickHandler
                 VariablesManager.InputMode = InputMode.HeadHybrid;
                 break;
             case InputMode.HeadHybrid:
-                VariablesManager.InputMode = InputMode.RayHeadOrigin;
-                break;
-            case InputMode.RayHeadOrigin:
                 VariablesManager.InputMode = InputMode.RayControllerOrigin;
                 break;
             case InputMode.RayControllerOrigin:
                 VariablesManager.InputMode = InputMode.HeadMyoHybrid;
                 break;
         }
-        statusText.text = "Current Technique " + VariablesManager.InputMode;
+        
+    }
+
+    private void UpdateText()
+    {
+        if(statusText!=null)
+            statusText.text = VariablesManager.InputMode.ToString();
     }
 }

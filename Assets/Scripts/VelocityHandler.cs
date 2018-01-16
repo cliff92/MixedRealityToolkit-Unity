@@ -46,34 +46,18 @@ public class VelocityHandler
         return false;
     }
 
-    /// <summary>
-    /// Returns the timestep where the velocity is minimal. NaN when no value in the list
-    /// </summary>
-    /// <param name="velocityList"></param>
-    /// <returns></returns>
-    public float FindTimeStepWithMinVelMyo()
+    public float FindTimeStepWithMinVel()
     {
-        return FindTimeStepWithMinVel(velocityListMyo);
-    }
-
-    /// <summary>
-    /// Returns the timestep where the velocity is minimal. NaN when no value in the list
-    /// </summary>
-    /// <param name="velocityList"></param>
-    /// <returns></returns>
-    public float FindTimeStepWithMinVelLeftController()
-    {
-        return FindTimeStepWithMinVel(velocityListLeft);
-    }
-
-    /// <summary>
-    /// Returns the timestep where the velocity is minimal. NaN when no value in the list
-    /// </summary>
-    /// <param name="velocityList"></param>
-    /// <returns></returns>
-    public float FindTimeStepWithMinVelRightController()
-    {
-        return FindTimeStepWithMinVel(velocityListRight);
+        switch (HandManager.CurrentHand.device)
+        {
+            case RayInputDevice.Myo:
+                return FindTimeStepWithMinVel(velocityListMyo);
+            case RayInputDevice.ControllerLeft:
+                return FindTimeStepWithMinVel(velocityListLeft);
+            case RayInputDevice.ControllerRight:
+                return FindTimeStepWithMinVel(velocityListRight);
+        }
+        return -1;
     }
 
     private float FindTimeStepWithMinVel(List<VelocityWithTimeStep> velocityList)
@@ -97,18 +81,20 @@ public class VelocityHandler
         return timeStemp;
     }
 
-    public bool VelocityWasOverThSinceTimeStempMyo(float timeStemp)
+    public bool VelocityWasOverThSinceTimeStemp(float timeStemp)
     {
-        return VelocityWasOverThresholdSinceTimeStemp(velocityListMyo, timeStemp);
+        switch (HandManager.CurrentHand.device)
+        {
+            case RayInputDevice.Myo:
+                return VelocityWasOverThresholdSinceTimeStemp(velocityListMyo, timeStemp);
+            case RayInputDevice.ControllerLeft:
+                return VelocityWasOverThresholdSinceTimeStemp(velocityListLeft, timeStemp);
+            case RayInputDevice.ControllerRight:
+                return VelocityWasOverThresholdSinceTimeStemp(velocityListRight, timeStemp);
+        }
+        return false;
     }
-    public bool VelocityWasOverThSinceTimeStempLeftController(float timeStemp)
-    {
-        return VelocityWasOverThresholdSinceTimeStemp(velocityListLeft, timeStemp);
-    }
-    public bool VelocityWasOverThSinceTimeStempRightController(float timeStemp)
-    {
-        return VelocityWasOverThresholdSinceTimeStemp(velocityListRight, timeStemp);
-    }
+
     private bool VelocityWasOverThresholdSinceTimeStemp(List<VelocityWithTimeStep> velocityList, float timeStemp)
     {
         for (int i = velocityList.Count - 1; i >= 0; i--)

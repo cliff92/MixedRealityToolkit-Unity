@@ -176,7 +176,6 @@ GameObject:
   - component: {fileID: 33624521659981956}
   - component: {fileID: 65094506249193316}
   - component: {fileID: 23586896796655910}
-  - component: {fileID: 114683784802439980}
   - component: {fileID: 114568811047694382}
   m_Layer: 11
   m_Name: Box
@@ -921,18 +920,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   sceneNumber: 0
---- !u!114 &114683784802439980
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1797001307104158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4101065ed507774a991c1dbe8c8f66d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  focusMaterial: {fileID: 2100000, guid: 4dae3d29f0816224e80891c94e6d15e2, type: 2}
 --- !u!114 &114810363215586262
 MonoBehaviour:
   m_ObjectHideFlags: 1

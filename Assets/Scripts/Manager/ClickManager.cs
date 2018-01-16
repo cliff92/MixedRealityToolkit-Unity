@@ -1,5 +1,6 @@
 ﻿using HoloToolkit.Unity.InputModule;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -64,6 +65,7 @@ public class ClickManager : MonoBehaviour
 
     private void Update()
     {
+        
         velocityHandler.UpdateLists();
         CheckReset();
         CheckClick();
@@ -99,61 +101,36 @@ public class ClickManager : MonoBehaviour
     {
         if (HandManager.IsRayRelativeUp())
         {
-            if(TargetManager.IsAnyObjectAttached())
+            if (TargetManager.IsAnyObjectAttached())
             {
                 TargetManager.DetachTargetFromDepthMarker();
                 targetsInFoucsSinceLastClickDown = new List<Target>();
                 return;
             }
+            targetsInFoucsSinceLastClickDown = targetsInFoucsSinceLastClickDown.Distinct().ToList();
 
-            //If current object in focus is not null just make a left click on this object
-            // else check if there is some older object in the list of targets since last click down
+            GameObject clickedObj = currentFocusedObject;
+
+            // If current object in focus is null 
+            // check if there is some older object in the list of targets since last click down
             // There we also check if the velocity was over a threshold and if so no click is made
-            if (currentFocusedObject != null)
-            {
-                OnLeftClick(currentFocusedObject);
-            }
-            else if(targetsInFoucsSinceLastClickDown.Count==1 && targetsInFoucsSinceLastClickDown[0] != null)
+            // Afterwards send event OnLeftClick
+            if(currentFocusedObject == null && 
+                targetsInFoucsSinceLastClickDown.Count==1 && targetsInFoucsSinceLastClickDown[0] != null)
             {
                 Target target = targetsInFoucsSinceLastClickDown[0];
                 if (target.LastTimeInFocus > Time.time - VariablesManager.DelayClickTime)
                 {
-                    bool click = false;
-                    if (MyoPoseManager.ClickUp 
-                        && !velocityHandler.VelocityWasOverThSinceTimeStempMyo(target.LastTimeInFocus))
+                    if(!velocityHandler.VelocityWasOverThSinceTimeStemp(target.LastTimeInFocus))
                     {
-                        click = true;
-                    }
-                    else if (Input.GetButtonUp("RelativeLeft")
-                        && !velocityHandler.VelocityWasOverThSinceTimeStempLeftController(target.LastTimeInFocus))
-                    {
-                        click = true;
-                    }
-                    else if(!velocityHandler.VelocityWasOverThSinceTimeStempRightController(target.LastTimeInFocus))
-                    {
-                        click = true;
-                    }
-                    if(click)
-                    {
-                        OnLeftClick(target.gameObject);
+                        clickedObj = target.gameObject;
+                        Logger.ClickCorrectionUsed(1);
                     }
                 }
             }
-            else if(targetsInFoucsSinceLastClickDown.Count > 1)
+            else if(currentFocusedObject == null && targetsInFoucsSinceLastClickDown.Count > 1)
             {
-                float timeStempWithMinVel = -1;
-                if(MyoPoseManager.ClickUp)
-                {
-                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelMyo();
-                }
-                else if(Input.GetButtonUp("RelativeLeft"))
-                {
-                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelLeftController();
-                }
-                else
-                {
-                    timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVelRightController();
-                }
+                float timeStempWithMinVel = velocityHandler.FindTimeStepWithMinVel();
 
                 Target targetClosestToTimeStemp = null;
                 float timeDifference = float.MaxValue;
@@ -167,9 +144,12 @@ public class ClickManager : MonoBehaviour
                 }
                 if(targetClosestToTimeStemp!=null)
                 {
-                    OnLeftClick(targetClosestToTimeStemp.gameObject);
+                    clickedObj = targetClosestToTimeStemp.gameObject;
+                    Logger.ClickCorrectionUsed(2);
                 }
             }
+
+            OnLeftClick(clickedObj);
             //Reset list
             targetsInFoucsSinceLastClickDown = new List<Target>();
         }
@@ -221,7 +201,7 @@ public class ClickManager : MonoBehaviour
     /// </summary>
     public void OnUpdatePointer(GameObject newFocusedObject)
     {
-        if(currentFocusedObject == newFocusedObject)
+        if (currentFocusedObject == newFocusedObject)
         {
             return;
         }
@@ -237,8 +217,8 @@ public class ClickManager : MonoBehaviour
             // velocity under a threshold and click
             Vector3 angularVelocity = Vector3.zero;
 
-            if(HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity)
-                        && angularVelocity.magnitude < 0.5f && HandManager.IsRayRelative())
+            if(HandManager.IsRayRelative() && HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity)
+                        && angularVelocity.magnitude < 0.5f)
             {
                 switch (newFocusedObject.tag)
                 {

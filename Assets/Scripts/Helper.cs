@@ -24,13 +24,22 @@ public class Helper
             min = Vector2.Min(min, v);
             max = Vector2.Max(max, v);
         }
+
         return new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
     }
 
     public static Vector2 WorldToGUIPoint(Vector3 world)
     {
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(world);
-        screenPoint.y = (float)Screen.height - screenPoint.y;
+        Vector2 screenPoint = Camera.main.WorldToViewportPoint(world);
+        //screenPoint.y = Screen.height - screenPoint.y;
+        if (screenPoint.x < 0)
+            screenPoint.x = 0;
+        if(screenPoint.x > 1)
+            screenPoint.x = 1;
+        if (screenPoint.y < 0)
+            screenPoint.y = 0;
+        if (screenPoint.y > 1)
+            screenPoint.y = 1;
         return screenPoint;
     }
 }

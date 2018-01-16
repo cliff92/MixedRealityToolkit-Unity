@@ -1,6 +1,4 @@
-﻿using HoloToolkit.Unity;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class GainFunction : MonoBehaviour
 {
@@ -24,8 +22,6 @@ public class GainFunction : MonoBehaviour
 
     private Quaternion lastRotationData;
     private float lastTimeStep;
-
-    //public Text text;
 
     private int counter;
 
@@ -119,6 +115,7 @@ public class GainFunction : MonoBehaviour
                 if (counter > 3)
                 {
                     state = MovementState.PrimarySubMovBegin;
+                    Debug.Log("From Idle to PrimarySubMovBegin");
                     counter = 0;
                 }
                 break;
@@ -134,11 +131,13 @@ public class GainFunction : MonoBehaviour
                 if (counter > 3)
                 {
                     state = MovementState.PrimarySubMaxAfterMax;
+                    Debug.Log("From PrimarySubMovBegin to PrimarySubMaxAfterMax");
                     counter = 0;
                 }
                 else if (counter < -3)
                 {
                     state = MovementState.Idle;
+                    Debug.Log("From PrimarySubMovBegin to Idle");
                     counter = 0;
                 }
                 break;
@@ -154,11 +153,13 @@ public class GainFunction : MonoBehaviour
                 if (counter > 5)
                 {
                     state = MovementState.PrimarySubMovEnd;
+                    Debug.Log("From PrimarySubMaxAfterMax to PrimarySubMovEnd");
                     counter = 0;
                 }
                 else if(counter < -5)
                 {
                     state = MovementState.PrimarySubMovBegin;
+                    Debug.Log("From PrimarySubMaxAfterMax to PrimarySubMovBegin");
                     counter = 0;
                 }
                 break;
@@ -175,11 +176,13 @@ public class GainFunction : MonoBehaviour
                 {
                     //Debug.Log("Move End");
                     state = MovementState.MovEnd;
+                    Debug.Log("From PrimarySubMovEnd to MovEnd");
                     counter = 0;
                 } 
                 else if(counter < -2)
                 {
                     state = MovementState.PrimarySubMaxAfterMax;
+                    Debug.Log("From PrimarySubMovEnd to PrimarySubMaxAfterMax");
                     counter = 0;
                 }
                 break;
@@ -195,11 +198,13 @@ public class GainFunction : MonoBehaviour
                 if (counter > 5)
                 {
                     state = MovementState.Idle;
+                    Debug.Log("Complete Cycle");
                     counter = 0;
                 }
                 else if (counter < -10)
                 {
                     state = MovementState.PrimarySubMovEnd;
+                    Debug.Log("From MovEnd to PrimarySubMovEnd");
                     counter = 0;
                 }
                 break;

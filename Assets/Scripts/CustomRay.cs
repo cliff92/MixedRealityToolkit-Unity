@@ -143,7 +143,7 @@ public class CustomRay : MonoBehaviour, IPointingSource
                 {
                     rays[0] = default(RayStep);
                 }
-                else if (HandManager.IsRayRelative())
+                else if (HandManager.IsRayRelative() || HandManager.IsRayRelativeUp())
                     {
                         Quaternion quat;
                         if (HandManager.CurrentHand.TryGetRotation(out quat))
@@ -156,14 +156,14 @@ public class CustomRay : MonoBehaviour, IPointingSource
                     SetRaysWithHeadAsOrigin(head.transform.forward);
                 }
                 break;
-            case InputMode.RayHeadOrigin:
+            /*case InputMode.RayHeadOrigin:
                 if (HandManager.RayHand.TryGetForward(out forward))
                 {
                     SetRaysWithHeadAsOrigin(forward);
                 }
-                break;
+                break;*/
             case InputMode.RayControllerOrigin:
-                if(HandManager.RayHand.TryGetForward(out forward) && HandManager.RayHand.TryGetPos(out position))
+                if(HandManager.CurrentHand.TryGetForward(out forward) && HandManager.CurrentHand.TryGetPos(out position))
                 {
                     SetRays(forward, position);
                 }

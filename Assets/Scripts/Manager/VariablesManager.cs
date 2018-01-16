@@ -28,7 +28,7 @@ public class VariablesManager : MonoBehaviour
     [SerializeField]
     private float trainingsTimeSorting = 300;
     [SerializeField]
-    private float measurementTimeSorting = 300;
+    private float measurementTimeSorting = 120;
 
     [SerializeField]
     [Tooltip("Time where a click is still counted even when the object is not in focus anymore")]
@@ -39,7 +39,7 @@ public class VariablesManager : MonoBehaviour
     private float timeRightClickMyo = 1.0f;
 
     [SerializeField]
-    private InputMode inputMode = InputMode.HeadHybrid;
+    private static InputMode inputMode = InputMode.HeadHybrid;
 
     [SerializeField]
     private float timeUntilStored = 1.0f;
@@ -51,7 +51,7 @@ public class VariablesManager : MonoBehaviour
     private Collider[] invalidSpawingAreas;
 
     [SerializeField]
-    private Handeness handeness = Handeness.Right;
+    private static Handeness handeness = Handeness.Right;
 
     public static int RandomRangeX
     {
@@ -127,17 +127,12 @@ public class VariablesManager : MonoBehaviour
     {
         get
         {
-            if (Instance != null)
-                return Instance.inputMode;
-            return InputMode.HeadHybrid;
+            return inputMode;
         }
 
         set
         {
-            if(Instance != null)
-            {
-                Instance.inputMode = value;
-            }
+            inputMode = value;
         }
     }
 
@@ -223,12 +218,12 @@ public class VariablesManager : MonoBehaviour
     {
         get
         {
-            return Instance.handeness;
+            return handeness;
         }
 
         set
         {
-            Instance.handeness = value;
+            handeness = value;
         }
     }
 

@@ -35,7 +35,6 @@ public class TargetManager : MonoBehaviour
         ClickManager.Instance.Reset += Reset;
         targetArray = GameObject.FindGameObjectsWithTag("Target");
         DeactivateTargets();
-        Debug.Log(targetArray.Length);
     }
 
     private void OnDestroy()
@@ -61,7 +60,8 @@ public class TargetManager : MonoBehaviour
         Target target = currentFocusedObject.GetComponent<Target>();
         if (target == null || target.State == TargetState.Disabled)
         {
-            Logger.IncreaseClickWrongCount();
+            if(currentFocusedObject.tag != "UI")
+                Logger.IncreaseClickWrongCount();
             return;
         }
         Logger.IncreaseClickCorrectCount();
@@ -71,18 +71,13 @@ public class TargetManager : MonoBehaviour
 
         target.Deactivate();
         currentFocusedObject.SetActive(false);
-        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-        {
-            MyoPoseManager.Instance.Vibrate();
-        }
-        else
-        {
-            HandManager.LeftHand.Virbrate(0.5f, 0.5f);
-            HandManager.RightHand.Virbrate(0.5f, 0.5f);
-        }
+
+        HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+
         Instance.correctSound.Play();
         if (Instance.TargetClicked != null)
             Instance.TargetClicked(target);
+        Debug.LogError("Click");
     }
 
     private void RightClick(GameObject currentFocusedObject)
@@ -144,9 +139,9 @@ public class TargetManager : MonoBehaviour
             newPos = headPos + newDirection;
             target.transform.position = newPos;
             target.SetActive(true);
-            target.GetComponent<Target>().Activate();
         }
         while (!CorrectPosition(headPos, newDirection, lastTargetDirection, distance, target.GetComponent<Collider>()));
+        target.GetComponent<Target>().Activate();
     }
 
     private static bool CorrectPosition(Vector3 headPos, Vector3 newDirection, Vector3 lastTargetDirection, float distance, Collider collider)
@@ -206,15 +201,9 @@ public class TargetManager : MonoBehaviour
                 target.HandnessDidNotClick = handenessDidNotClicked;
                 Instance.currentlyAttachedObj = currentFocusedObject;
             }
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-            {
-                MyoPoseManager.Instance.Vibrate();
-            }
-            else
-            {
-                HandManager.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.RightHand.Virbrate(0.5f, 0.5f);
-            }
+
+            HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+
             Instance.correctSound.Play();
             target.StartTimeAttached = Time.time;
             MeasurementManager.OnLeftClick(target);
@@ -235,15 +224,9 @@ public class TargetManager : MonoBehaviour
         {
             Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-            {
-                MyoPoseManager.Instance.Vibrate();
-            }
-            else
-            {
-                HandManager.LeftHand.Virbrate(0.5f, 0.5f);
-                HandManager.RightHand.Virbrate(0.5f, 0.5f);
-            }
+
+            HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+
             Instance.correctSound.Play();
             Instance.currentlyAttachedObj = null;
 

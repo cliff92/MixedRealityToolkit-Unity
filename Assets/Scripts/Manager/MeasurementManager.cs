@@ -268,6 +268,8 @@ public class MeasurementManager : MonoBehaviour
     {
         get
         {
+            if (Instance == null)
+                return false;
             return Instance.measurementActive;
         }
     }
@@ -276,6 +278,8 @@ public class MeasurementManager : MonoBehaviour
     {
         get
         {
+            if (Instance == null)
+                return false;
             return Instance.trainingActive;
         }
     }

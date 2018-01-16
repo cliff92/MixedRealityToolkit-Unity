@@ -2,7 +2,6 @@
 using Pose = Thalmic.Myo.Pose;
 using Arm = Thalmic.Myo.Arm;
 using HoloToolkit.Unity.InputModule;
-using UnityEngine.UI;
 
 public class MyoPoseManager : MonoBehaviour
 {
@@ -25,6 +24,8 @@ public class MyoPoseManager : MonoBehaviour
     // A reference angle representing how the armband is rotated about the wearer's arm, i.e. roll.
     // Set by making the fingers spread pose or pressing "r".
     private float referenceRoll = 0.0f;
+
+    private float relativeRoll = 0.0f;
 
     private readonly FloatRollingStatistics velocityRollingStats = new FloatRollingStatistics();
     private int StoredSamples = 50;
@@ -52,8 +53,6 @@ public class MyoPoseManager : MonoBehaviour
     private bool fingersSpread;
     private bool fingersSpreadUp;
     private bool fingersSpreadDown;
-
-    public Text text;
 
     private void Awake()
     {
@@ -84,9 +83,14 @@ public class MyoPoseManager : MonoBehaviour
     private void UpdatePose()
     {
         // This is done to reduce movement induced gesture changes
-        if (velocityRollingStats.Average>10 && lastPose==Pose.FingersSpread)
+        if ((velocityRollingStats.Average>10)
+            && lastPose==Pose.FingersSpread)
         {
-            currentPose = Pose.FingersSpread;
+            if(currentPose != Pose.FingersSpread)
+            {
+                currentPose = Pose.FingersSpread;
+                Logger.PoseCorrectionUsed();
+            }
         }
         switch (currentPose)
         {
@@ -164,7 +168,7 @@ public class MyoPoseManager : MonoBehaviour
 
     private void UpdateRotation()
     {
-        if (!ClickDown && !Click)
+        if (ClickDown || ClickUp)
         {
             UpdateReference();
         }
@@ -174,7 +178,7 @@ public class MyoPoseManager : MonoBehaviour
 
         // The relative roll is simply how much the current roll has changed relative to the reference roll.
         // adjustAngle simply keeps the resultant value within -180 to 180 degrees.
-        float relativeRoll = NormalizeAngle(roll - referenceRoll);
+        relativeRoll = NormalizeAngle(roll - referenceRoll);
 
         // antiRoll represents a rotation about the myo Armband's forward axis adjusting for reference roll.
         Quaternion antiRoll = Quaternion.AngleAxis(relativeRoll, myo.transform.forward);
@@ -194,10 +198,6 @@ public class MyoPoseManager : MonoBehaviour
                                                 -transform.localRotation.y,
                                                 transform.localRotation.z,
                                                 -transform.localRotation.w);
-        }
-        if (fistDown)
-        {
-            Debug.Log("MyoPoseManager: "+ transform.rotation.eulerAngles);
         }
     }
 
@@ -549,6 +549,14 @@ public class MyoPoseManager : MonoBehaviour
         get
         {
             return false;
+        }
+    }
+
+    public static float RelativeRoll
+    {
+        get
+        {
+            return Instance.relativeRoll;
         }
     }
 }

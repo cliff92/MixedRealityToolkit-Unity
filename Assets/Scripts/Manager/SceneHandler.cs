@@ -52,21 +52,12 @@ public class SceneHandler : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(this);
-        }
-        else if(Instance != this)
-        {
-            Destroy(this);
-            return;
-        }
-        UpdateScenarioType(SceneManager.GetActiveScene().buildIndex);
+        Instance = this;
     }
 
     private void Start()
     {
+        UpdateScenarioType(SceneManager.GetActiveScene().buildIndex);
         useDepthMarker = false;
         useRightClick = false;
         useLeftClick = false;
@@ -88,16 +79,16 @@ public class SceneHandler : MonoBehaviour
                 useRightClick = true;
                 break;
         }
-        if(useDepthMarker)
+        if (useDepthMarker)
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in depthmarker.transform)
             {
                 child.gameObject.SetActive(true);
             }
         }
         else
         {
-            foreach (Transform child in transform)
+            foreach (Transform child in depthmarker.transform)
             {
                 child.gameObject.SetActive(false);
             }

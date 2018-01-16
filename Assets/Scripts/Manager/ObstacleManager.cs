@@ -17,7 +17,6 @@ public class ObstacleManager : MonoBehaviour
     {
         obstacleArray = GameObject.FindGameObjectsWithTag("Obstacle");
         DeactivateAllObstacles();
-        Debug.Log(obstacleArray.Length);
     }
 
     public static void MoveObjects()

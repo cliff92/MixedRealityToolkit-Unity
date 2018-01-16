@@ -330,7 +330,7 @@ public class DepthRayManager : MonoBehaviour
     {
         get
         {
-            if(pointer != null && pointer.End.Point != null)
+            if(pointer != null && pointer.End.Point != Vector3.zero)
                 return Vector3.Normalize(pointer.End.Point - pointer.StartPoint);
             return
                 Vector3.zero;

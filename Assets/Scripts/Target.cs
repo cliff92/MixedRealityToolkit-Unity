@@ -25,6 +25,8 @@ public class Target : MonoBehaviour
 
     internal bool insideStorage = false;
 
+    internal bool insideCameraViewWhenActivated = false;
+
     private void Awake()
     {
         material = GetComponent<Renderer>().material;
@@ -54,6 +56,17 @@ public class Target : MonoBehaviour
         State = TargetState.Default;
         startTime = Time.time;
         insideStorage = false;
+        Vector3 screenPosition = Camera.main.WorldToViewportPoint(transform.position);
+        if (screenPosition.x > 0 && screenPosition.x < 1
+            && screenPosition.y > 0 && screenPosition.y < 1
+            && screenPosition.z > 0)
+        {
+            insideCameraViewWhenActivated = true;
+        }
+        else
+        {
+            insideCameraViewWhenActivated = false;
+        }
     }
 
     public void Deactivate()

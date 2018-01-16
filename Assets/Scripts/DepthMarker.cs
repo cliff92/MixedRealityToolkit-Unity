@@ -19,26 +19,16 @@ public class DepthMarker : MonoBehaviour
     private void Update()
     {
         float rotationAngle;
-        if (HandManager.IsMyoTracked)
+        if (HandManager.CurrentHand.TryGetRotationAroundZ(out rotationAngle))
         {
-            if (HandManager.MyoHand.TryGetRotationAroundZ(out rotationAngle))
-            {
-                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
-            }
-        }
-        else
-        {
-            if (HandManager.RightHand.TryGetRotationAroundZ(out rotationAngle))
-            {
-                MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
-            }
+            MoveDepthRayRelZ(Mathf.RoundToInt(rotationAngle));
         }
 
-
+        /*
         if (Input.GetButtonUp("JumpToFocus") || MyoPoseManager.Jump)
         {
             MoveDepthMarkerToFocus();
-        }
+        }*/
 
         MoveAndScaleDepthMarker();
         MoveRayVisual();
@@ -80,25 +70,13 @@ public class DepthMarker : MonoBehaviour
         float stepsize = 0;
         if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
         {
-            if (rotationAngle > 0 && rotationAngle < 180)
-            {
-                stepsize = factor * ((rotationAngle + 80) / 180.0f) * Time.deltaTime;
-            }
-            else if (rotationAngle < -50 && rotationAngle > -180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
+            if(rotationAngle>10 || rotationAngle <-10)
+                stepsize = Mathf.Sign(rotationAngle) * Mathf.Abs(factor * Mathf.Pow((rotationAngle / 90.0f),2) * Time.deltaTime);
         }
         else
         {
-            if (rotationAngle > 30 && rotationAngle < 180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
-            else if (rotationAngle < -30 && rotationAngle > -180)
-            {
-                stepsize = factor * (rotationAngle / 180.0f) * Time.deltaTime;
-            }
+            if (rotationAngle > 10 || rotationAngle < -10)
+                stepsize = Mathf.Sign(rotationAngle) * Mathf.Abs(factor * Mathf.Pow((rotationAngle / 90.0f),2) * Time.deltaTime);
         }
         Logger.AddStepsizeToDepthMarkerMovementInZ(stepsize);
 
