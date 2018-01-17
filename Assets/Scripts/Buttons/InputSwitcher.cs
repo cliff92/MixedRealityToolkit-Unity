@@ -13,10 +13,14 @@ public class InputSwitcher : MonoBehaviour, ICustomClickHandler
 
     private void Update()
     {
-        if (Input.GetButtonUp("Switch") && !MeasurementManager.MeasurementActive)
+        if(SceneHandler.ScenarioType == ScenarioType.Menu)
         {
-            SwitchInput();
+            if (Input.GetButtonUp("Switch") || MyoPoseManager.DoubleTapUp)
+            {
+                SwitchInput();
+            }
         }
+
         UpdateText();
     }
 

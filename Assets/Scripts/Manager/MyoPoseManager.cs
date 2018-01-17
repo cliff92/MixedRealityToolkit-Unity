@@ -72,10 +72,7 @@ public class MyoPoseManager : MonoBehaviour
         Reset();
         
         currentPose = thalmicMyo.pose;
-        if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-        {
-            UpdatePose();
-        }
+        UpdatePose();
         lastPose = currentPose;
         UpdateRotation();
     }
@@ -346,9 +343,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if(VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fistDown;
-            return false;
+            return Instance.fistDown;
         }
     }
 
@@ -356,9 +351,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fist;
-            return false;
+            return Instance.fist;
         }
     }
 
@@ -366,9 +359,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fistUp;
-            return false;
+            return Instance.fistUp;
         }
     }
 
@@ -376,9 +367,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.doubleTap;
-            return false;
+            return Instance.doubleTap;
         }
     }
 
@@ -386,9 +375,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.doubleTapUp;
-            return false;
+            return Instance.doubleTapUp;
         }
     }
 
@@ -396,9 +383,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.doubleTapDown;
-            return false;
+            return Instance.doubleTapDown;
         }
     }
 
@@ -406,9 +391,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveIn;
-            return false;
+            return Instance.waveIn;
         }
     }
 
@@ -416,9 +399,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveInUp;
-            return false;
+            return Instance.waveInUp;
         }
     }
 
@@ -426,9 +407,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveInDown;
-            return false;
+            return Instance.waveInDown;
         }
     }
 
@@ -436,9 +415,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveOut;
-            return false;
+            return Instance.waveOut;
         }
     }
 
@@ -446,9 +423,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveOutUp;
-            return false;
+            return Instance.waveOutUp;
         }
     }
 
@@ -456,9 +431,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.waveOutDown;
-            return false;
+            return Instance.waveOutDown;
         }
     }
 
@@ -466,9 +439,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fingersSpread;
-            return false;
+            return Instance.fingersSpread;
         }
     }
 
@@ -476,9 +447,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fingersSpreadUp;
-            return false;
+            return Instance.fingersSpreadUp;
         }
     }
 
@@ -486,9 +455,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.fingersSpreadDown;
-            return false;
+            return Instance.fingersSpreadDown;
         }
     }
 
@@ -496,9 +463,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.rest;
-            return false;
+            return Instance.rest;
         }
     }
 
@@ -506,9 +471,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.restUp;
-            return false;
+            return Instance.restUp;
         }
     }
 
@@ -516,9 +479,7 @@ public class MyoPoseManager : MonoBehaviour
     {
         get
         {
-            if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
-                return Instance.restDown;
-            return false;
+            return Instance.restDown;
         }
     }
 

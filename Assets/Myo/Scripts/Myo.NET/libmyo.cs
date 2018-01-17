@@ -16,8 +16,6 @@ namespace Thalmic.Myo
         private const string MYO_DLL = "myo64.dll";
 #elif WIN32
         private const string MYO_DLL = "myo32.dll";
-#else
-        private const string MYO_DLL = "myo.dll";
 #endif
 
         public enum Result

@@ -18,12 +18,22 @@ PluginImporter:
         Exclude Linux: 0
         Exclude Linux64: 0
         Exclude LinuxUniversal: 0
-        Exclude OSXIntel: 0
-        Exclude OSXIntel64: 0
         Exclude OSXUniversal: 0
         Exclude Win: 0
         Exclude Win64: 0
         Exclude WindowsStoreApps: 0
+  - first:
+      '': OSXIntel
+    second:
+      enabled: 0
+      settings:
+        CPU: None
+  - first:
+      '': OSXIntel64
+    second:
+      enabled: 1
+      settings:
+        CPU: AnyCPU
   - first:
       Any: 
     second:
@@ -67,18 +77,6 @@ PluginImporter:
       enabled: 1
       settings:
         CPU: x86_64
-  - first:
-      Standalone: OSXIntel
-    second:
-      enabled: 1
-      settings:
-        CPU: None
-  - first:
-      Standalone: OSXIntel64
-    second:
-      enabled: 1
-      settings:
-        CPU: AnyCPU
   - first:
       Standalone: OSXUniversal
     second:
