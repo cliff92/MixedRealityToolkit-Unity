@@ -51,9 +51,9 @@ public class Logger : MonoBehaviour
         {
             if (oldDirectionRay != Vector3.zero)
             {
-                amountRayMoved += Vector3.Angle(CustomRay.Instance.Rays[0].direction, oldDirectionRay);
+                amountRayMoved += Vector3.Angle(CustomRay.Instance.Rays[0].Direction, oldDirectionRay);
             }
-            oldDirectionRay = CustomRay.Instance.Rays[0].direction;
+            oldDirectionRay = CustomRay.Instance.Rays[0].Direction;
         }
     }
 

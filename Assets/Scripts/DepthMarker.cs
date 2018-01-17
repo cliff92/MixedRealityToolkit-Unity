@@ -36,8 +36,8 @@ public class DepthMarker : MonoBehaviour
 
     private void MoveAndScaleDepthMarker()
     {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].Origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].Direction;
         float distance = Vector3.Distance(depthMarkerObj.transform.position, origin);
         Vector3 newPos = origin + direction * distance;
 
@@ -50,8 +50,8 @@ public class DepthMarker : MonoBehaviour
 
     private void MoveRayVisual()
     {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].Origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].Direction;
         Quaternion rotation = Quaternion.LookRotation(direction);
         rayVisual.transform.rotation = rotation;
         rayVisual.transform.position = origin;
@@ -106,16 +106,16 @@ public class DepthMarker : MonoBehaviour
     {
         if(DepthRayManager.EndPoint == Vector3.zero)
             return;
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].Origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].Direction;
         float distance = Vector3.Distance(DepthRayManager.EndPoint, origin);
         depthMarkerObj.transform.position = origin + direction * distance;
     }
 
     public void MoveDepthMarkerToUser()
     {
-        Vector3 origin = CustomRay.Instance.Rays[0].origin;
-        Vector3 direction = CustomRay.Instance.Rays[0].direction;
+        Vector3 origin = CustomRay.Instance.Rays[0].Origin;
+        Vector3 direction = CustomRay.Instance.Rays[0].Direction;
         depthMarkerObj.transform.position = origin + direction * 0.5f;
     }
 

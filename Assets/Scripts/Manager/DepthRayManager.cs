@@ -147,12 +147,12 @@ public class DepthRayManager : MonoBehaviour
         // If there is only one priority, don't prioritize
         if (prioritizedLayerMasks.Length == 1)
         {
-            isHit = Physics.Raycast(step.origin, step.direction, out physicsHit, step.length, prioritizedLayerMasks[0]);
+            isHit = Physics.Raycast(step.Origin, step.Direction, out physicsHit, step.Length, prioritizedLayerMasks[0]);
         }
         else
         {
             // Raycast across all layers and prioritize
-            RaycastHit? hit = PrioritizeHits(Physics.RaycastAll(step.origin, step.direction, step.length, Physics.AllLayers), prioritizedLayerMasks);
+            RaycastHit? hit = PrioritizeHits(Physics.RaycastAll(step.Origin, step.Direction, step.Length, Physics.AllLayers), prioritizedLayerMasks);
             isHit = hit.HasValue;
 
             if (isHit)
@@ -368,7 +368,7 @@ public class DepthRayManager : MonoBehaviour
             PreviousEndObject = End.Object;
             RayStepIndex = rayStepIndex;
 
-            StartPoint = sourceRay.origin;
+            StartPoint = sourceRay.Origin;
             End = new FocusDetails
             {
                 Point = hit.point,
@@ -383,7 +383,7 @@ public class DepthRayManager : MonoBehaviour
             // it's already been updated in the first physics raycast.
 
             RayStepIndex = rayStepIndex;
-            StartPoint = sourceRay.origin;
+            StartPoint = sourceRay.Origin;
             End = new FocusDetails
             {
                 Point = hit.point,
@@ -400,11 +400,11 @@ public class DepthRayManager : MonoBehaviour
             RayStep finalStep = PointingSource.Rays[PointingSource.Rays.Length - 1];
             RayStepIndex = 0;
 
-            StartPoint = firstStep.origin;
+            StartPoint = firstStep.Origin;
             End = new FocusDetails
             {
-                Point = finalStep.terminus,
-                Normal = (-finalStep.direction),
+                Point = finalStep.Terminus,
+                Normal = (-finalStep.Direction),
                 Object = null
             };
         }
