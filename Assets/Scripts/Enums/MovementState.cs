@@ -1,5 +1,5 @@
 ﻿public enum MovementState
 {
-    Idle, PrimarySubMovBegin, PrimarySubMaxAfterMax, PrimarySubMovEnd, MovEnd
+    Idle, PrimarySubMovBegin, PrimarySubMovAfterMax, PrimarySubMovEnd, MovEnd
 }
 

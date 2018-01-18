@@ -37,6 +37,7 @@ public class CustomButton : MonoBehaviour
     {
         if (currentFocusedObject == gameObject)
         {
+            AudioManager.PlayCorrectSound();
             customClickHandler.OnClick();
         }
     }

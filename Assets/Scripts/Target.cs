@@ -175,6 +175,7 @@ public class Target : MonoBehaviour
             TargetManager.DetachTargetFromDepthMarker(gameObject);
             gameObject.SetActive(false);
         }
+        gameObject.transform.position = Vector3.zero;
     }
 
     public TargetState State

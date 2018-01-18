@@ -179,6 +179,7 @@ public class ClickManager : MonoBehaviour
             {
                 timeTargetInFocusAndButtonDown += Time.deltaTime;
                 rightClickIndicator.transform.localScale = scaleRCIndicatorDefault + Mathf.Min(1f,timeTargetInFocusAndButtonDown / timeRightClick) * differenceRCIandDM;
+                HandManager.CurrentHand.Vibrate(Thalmic.Myo.VibrationType.Short);
                 if (timeTargetInFocusAndButtonDown > timeRightClick)
                 {
                     OnRightClick(currentFocusedObject);

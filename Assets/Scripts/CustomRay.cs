@@ -34,6 +34,8 @@ public class CustomRay : MonoBehaviour, IPointingSource
     public Material rayActiveMaterial;
 
     private Quaternion startRelativeQuat = Quaternion.identity;
+    private Quaternion currentRelativeRotation = Quaternion.identity;
+    private Quaternion lastRelativeRotation = Quaternion.identity;
 
     private Vector3 currentDirection = Vector3.forward;
 
@@ -79,11 +81,13 @@ public class CustomRay : MonoBehaviour, IPointingSource
         {
             if (HandManager.CurrentHand.TryGetRotation(out rotation))
             {
+                currentRelativeRotation = Quaternion.identity;
+                lastRelativeRotation = rotation;
+                startRelativeQuat = rotation;
                 foreach (GameObject part in partsVisualRay)
                 {
                     part.GetComponent<Renderer>().material = rayActiveMaterial;
                 }
-                startRelativeQuat = rotation;
                 if (HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity))
                 {
                     GainFunction.ResetFunction(angularVelocity);
@@ -102,11 +106,11 @@ public class CustomRay : MonoBehaviour, IPointingSource
             }
         }
 
-        if (HandManager.IsRayRelative())
+        if (HandManager.IsRayRelative() || HandManager.IsRayRelativeUp())
         {
             if (HandManager.CurrentHand.TryGetAngularVelocity(out angularVelocity))
             {
-                GainFunction.Instance.UpdateFunction(angularVelocity.magnitude);
+                GainFunction.Instance.UpdateFunction(Mathf.Rad2Deg*angularVelocity.magnitude);
             }
             else if (HandManager.CurrentHand.TryGetRotation(out rotation))
             {
@@ -171,10 +175,15 @@ public class CustomRay : MonoBehaviour, IPointingSource
         }
         
     }
-    private void SetRays(Quaternion roation)
+    private void SetRays(Quaternion rotation)
     {
-        roation = Quaternion.Inverse(startRelativeQuat) * roation;
-        Vector3 gazeDirection = head.transform.rotation * roation * Vector3.forward * GainFunction.RelativeFactor;
+        Quaternion deltaRotation = Quaternion.Inverse(lastRelativeRotation) * rotation;
+        deltaRotation = Quaternion.SlerpUnclamped(Quaternion.identity, deltaRotation, GainFunction.RelativeFactor);
+        currentRelativeRotation *= deltaRotation;
+
+        lastRelativeRotation = rotation;
+        
+        Vector3 gazeDirection = head.transform.rotation * currentRelativeRotation * Vector3.forward;
         SetRaysWithHeadAsOrigin(gazeDirection);
     }
 

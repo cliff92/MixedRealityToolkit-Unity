@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4362212322676932}
+  - component: {fileID: 114041135327277834}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -349,7 +350,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: a309897a13f8a304f8788eca83627bc9, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 0804b8739ee318b419c27e52e8c4733e, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -434,6 +435,18 @@ MonoBehaviour:
   obstacleNotInFocusMat: {fileID: 2100000, guid: a5e47154b1bb82a418052dbf0b68e0f7,
     type: 2}
   objectInFocusMat: {fileID: 2100000, guid: 18730c47ded1fa04fbc93615a2302083, type: 2}
+--- !u!114 &114041135327277834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1769875594025154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf4b60feebedc034d94a64b69ae0193f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  correctSound: {fileID: 82649528578735912}
 --- !u!114 &114337765438468450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -446,7 +459,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myo: {fileID: 0}
-  text: {fileID: 0}
 --- !u!114 &114379051282594168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,11 +496,9 @@ MonoBehaviour:
   delayClickTime: 0.1
   timeRightClickController: 1
   timeRightClickMyo: 1
-  inputMode: 1
   timeUntilStored: 2
   worldCollider: {fileID: 0}
   invalidSpawingAreas: []
-  handeness: 1
 --- !u!114 &114489921902396852
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,7 +564,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetInFocusMat: {fileID: 2100000, guid: 2e51fd1c629e9b04385b0de346a31560, type: 2}
   targetNotInFocusMat: {fileID: 2100000, guid: 0545f9d30a7f61b4087ad12158e58a3b, type: 2}
-  correctSound: {fileID: 82649528578735912}
   targets: {fileID: 0}
 --- !u!114 &114963763194817316
 MonoBehaviour:

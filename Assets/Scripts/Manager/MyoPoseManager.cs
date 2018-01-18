@@ -70,7 +70,6 @@ public class MyoPoseManager : MonoBehaviour
     private void Update()
     {
         Reset();
-        
         currentPose = thalmicMyo.pose;
         UpdatePose();
         lastPose = currentPose;
@@ -112,6 +111,7 @@ public class MyoPoseManager : MonoBehaviour
             case Pose.Unknown:
                 break;
         }
+        
         if (currentPose != lastPose)
         {
             switch (currentPose)
@@ -231,9 +231,9 @@ public class MyoPoseManager : MonoBehaviour
         restUp = false;
     }
 
-    public void Vibrate()
+    public void Vibrate(Thalmic.Myo.VibrationType vibrationType)
     {
-        thalmicMyo.Vibrate(Thalmic.Myo.VibrationType.Short);
+        thalmicMyo.Vibrate(vibrationType);
     }
 
     public float RollFromZero()

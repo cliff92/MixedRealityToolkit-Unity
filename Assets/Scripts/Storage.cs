@@ -9,7 +9,7 @@ public class Storage : MonoBehaviour
         if (other.tag == "Target")
         {
             Target target = other.GetComponent<Target>();
-            if (target != null)
+            if (target != null && target.gameObject.activeSelf)
             {
                 target.InsideStorage = true;
                 if(target.State != TargetState.Drag)
@@ -23,7 +23,7 @@ public class Storage : MonoBehaviour
         if(other.tag == "Target")
         {
             Target target = other.GetComponent<Target>();
-            if(target != null)
+            if(target != null && target.gameObject.activeSelf)
             {
                 target.InsideStorage = true;
                 if (target.StartTimeInStorage>0 && target.State != TargetState.Drag)

@@ -25,10 +25,10 @@ namespace HoloToolkit.Unity.SpatialMapping
             base.OnInspectorGUI();
             serializedObject.Update();
 
-            drawPlanesMask.intValue = (int)((PlaneTypes)EditorGUILayout.EnumMaskField("Draw Planes",
+            drawPlanesMask.intValue = (int)((PlaneTypes)EditorGUILayout.EnumFlagsField("Draw Planes",
                 (PlaneTypes)drawPlanesMask.intValue));
 
-            destroyPlanesMask.intValue = (int)((PlaneTypes)EditorGUILayout.EnumMaskField("Destroy Planes",
+            destroyPlanesMask.intValue = (int)((PlaneTypes)EditorGUILayout.EnumFlagsField("Destroy Planes",
                 (PlaneTypes)destroyPlanesMask.intValue));
 
             serializedObject.ApplyModifiedProperties();

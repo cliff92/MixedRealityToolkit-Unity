@@ -338,10 +338,28 @@ public class Hand
         return false;
     }
 
-    public void Vibrate(float intensity, float durationInSeconds)
+    public void Vibrate(Thalmic.Myo.VibrationType vibrationType)
     {
-        //InteractionSourceExtensions.StopHaptics(source);
-        //InteractionSourceExtensions.StartHaptics(source, intensity, durationInSeconds);
+        if (device != RayInputDevice.Myo)
+        {
+            InteractionSourceExtensions.StopHaptics(source);
+            switch (vibrationType)
+            {
+                case Thalmic.Myo.VibrationType.Short:
+                    InteractionSourceExtensions.StartHaptics(source, 0.25f, 0.1f);
+                    break;
+                case Thalmic.Myo.VibrationType.Medium:
+                    InteractionSourceExtensions.StartHaptics(source, 0.5f, 0.1f);
+                    break;
+                case Thalmic.Myo.VibrationType.Long:
+                    InteractionSourceExtensions.StartHaptics(source, 0.75f, 0.1f);
+                    break;
+            }
+        }
+        else
+        {
+            MyoPoseManager.Instance.Vibrate(vibrationType);
+        }
     }
 
     public void Reset()

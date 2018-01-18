@@ -5,8 +5,11 @@ public class AutoFocusInputField : MonoBehaviour
 {
     private void Start()
     {
-        if(GetComponent<InputField>()!=null)
+        if (GetComponent<InputField>() != null)
+        {
             GetComponent<InputField>().ActivateInputField();
+            GetComponent<InputField>().text = Logger.Instance.userId;
+        }            
     }
 
     private void Update()

@@ -6,8 +6,6 @@ public class TargetManager : MonoBehaviour
     public Material targetInFocusMat;
     public Material targetNotInFocusMat;
 
-    public AudioSource correctSound;
-
     private GameObject currentlyAttachedObj;
     private GameObject[] targetArray;
 
@@ -72,12 +70,12 @@ public class TargetManager : MonoBehaviour
         target.Deactivate();
         currentFocusedObject.SetActive(false);
 
-        HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+        HandManager.CurrentHand.Vibrate(Thalmic.Myo.VibrationType.Short);
 
-        Instance.correctSound.Play();
+        AudioManager.PlayCorrectSound();
         if (Instance.TargetClicked != null)
             Instance.TargetClicked(target);
-        Debug.LogError("Click");
+        Debug.LogError("Click "+ Time.time);
     }
 
     private void RightClick(GameObject currentFocusedObject)
@@ -202,9 +200,9 @@ public class TargetManager : MonoBehaviour
                 Instance.currentlyAttachedObj = currentFocusedObject;
             }
 
-            HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+            HandManager.CurrentHand.Vibrate(Thalmic.Myo.VibrationType.Short);
 
-            Instance.correctSound.Play();
+            AudioManager.PlayCorrectSound();
             target.StartTimeAttached = Time.time;
             MeasurementManager.OnLeftClick(target);
         }
@@ -225,9 +223,9 @@ public class TargetManager : MonoBehaviour
             Target target = Instance.currentlyAttachedObj.GetComponent<Target>();
             target.State = TargetState.Default;
 
-            HandManager.CurrentHand.Vibrate(0.5f, 0.5f);
+            HandManager.CurrentHand.Vibrate(Thalmic.Myo.VibrationType.Short);
 
-            Instance.correctSound.Play();
+            AudioManager.PlayCorrectSound();
             Instance.currentlyAttachedObj = null;
 
             if (target.insideStorage)

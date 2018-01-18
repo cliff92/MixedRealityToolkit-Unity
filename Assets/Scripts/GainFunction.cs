@@ -7,10 +7,13 @@ public class GainFunction : MonoBehaviour
     [Range(1, 100)]
     public int StoredSamples = 20;
 
+    [SerializeField]
     private AnimationCurve functionCurveController = new AnimationCurve(new Keyframe[] 
-    { new Keyframe(0,0.1f), new Keyframe(0.25f, 1f), new Keyframe(0.5f, 0.5f), new Keyframe(0.75f, 0.01f), new Keyframe(1, 0.05f) });
+    { new Keyframe(0,0.6f), new Keyframe(0.25f, 1.2f), new Keyframe(0.5f, 1f), new Keyframe(0.75f, 0.5f), new Keyframe(1, 0.6f) });
+
+    [SerializeField]
     private AnimationCurve functionCurveMyo = new AnimationCurve(new Keyframe[]
-    { new Keyframe(0,0.5f), new Keyframe(0.25f, 3f), new Keyframe(0.5f, 1f), new Keyframe(0.75f, 0.1f), new Keyframe(1, 0.25f) });
+    { new Keyframe(0,0.7f), new Keyframe(0.25f, 1.2f), new Keyframe(0.5f, 1f), new Keyframe(0.75f, 0.5f), new Keyframe(1, 0.7f) });
 
     /// <summary>
     /// Calculates standard deviation and averages for the gaze position.
@@ -18,20 +21,31 @@ public class GainFunction : MonoBehaviour
     private readonly FloatRollingStatistics velocityRollingStats = new FloatRollingStatistics();
 
     private MovementState state;
-    private float currentVelocity;
+    private float curVel;
 
     private Quaternion lastRotationData;
     private float lastTimeStep;
 
     private int counter;
 
-    private float idleVelocityTH = 0.85f;
-    private float idleAvgVelocityTH = 1.5f;
-    private float primaryBeginAvgVelTH = 0.85f;
-    private float primaryAfterVelTH = 0.85f;
-    private float primaryEndVelTH = 0.2f;
-    private float primaryEndAvgVelTH = 0.85f;
-    private float moveEndAvgVelTH = 0.1f;
+    private float idleVelTH = 50;
+    private float idleAvgVelTH = 85;
+    private float primaryBeginAvgVelTH = 50;
+    private float primaryAfterVelTH = 50;
+    private float primaryEndVelTH = 12;
+    private float primaryEndAvgVelTH = 50;
+    private float moveEndAvgVelTH = 6;
+
+    private int idleToPrimarySubMovBegin = 3;
+    private int subMovBeginToSubMovAfterMax = 5;
+    private int subMovAfterMaxToSubMoveEnd = 5;
+    private int subMoveEndToMoveEnd = 5;
+    private int moveEndToIdle = 5;
+
+    private int subMovBeginToIdle = -3;
+    private int subMovAfterMaxToSubMovBegin = -5;
+    private int subMovEndToSubMovAfterMax = -2;
+    private int moveEndToSubMoveEnd = -10;
 
     private void Awake()
     {
@@ -52,29 +66,51 @@ public class GainFunction : MonoBehaviour
 
     private void SetControllerVariables()
     {
-        idleVelocityTH = 0.85f;
-        idleAvgVelocityTH = 1.5f;
-        primaryBeginAvgVelTH = 0.85f;
-        primaryAfterVelTH = 0.85f;
-        primaryEndVelTH = 0.2f;
-        primaryEndAvgVelTH = 0.85f;
-        moveEndAvgVelTH = 0.1f;
-    }
+        idleVelTH = 50;
+        idleAvgVelTH = 85;
+        primaryBeginAvgVelTH = 50;
+        primaryAfterVelTH = 50;
+        primaryEndVelTH = 12;
+        primaryEndAvgVelTH = 50;
+        moveEndAvgVelTH = 6;
+
+        idleToPrimarySubMovBegin = 3;
+        subMovBeginToSubMovAfterMax = 5;
+        subMovAfterMaxToSubMoveEnd = 5;
+        subMoveEndToMoveEnd = 5;
+        moveEndToIdle = 5;
+
+        subMovBeginToIdle = -3;
+        subMovAfterMaxToSubMovBegin = -5;
+        subMovEndToSubMovAfterMax = -2;
+        moveEndToSubMoveEnd = -10;
+}
 
     private void SetMyoVariables()
     {
-        idleVelocityTH = 0.5f;
-        idleAvgVelocityTH = 1.25f;
-        primaryBeginAvgVelTH = 0.5f;
-        primaryAfterVelTH = 0.5f;
-        primaryEndVelTH = 0.2f;
-        primaryEndAvgVelTH = 0.85f;
-        moveEndAvgVelTH = 0.1f;
+        idleVelTH = 30;
+        idleAvgVelTH = 70;
+        primaryBeginAvgVelTH = 30;
+        primaryAfterVelTH = 30;
+        primaryEndVelTH = 12;
+        primaryEndAvgVelTH = 50;
+        moveEndAvgVelTH = 6;
+
+        idleToPrimarySubMovBegin = 3;
+        subMovBeginToSubMovAfterMax = 5;
+        subMovAfterMaxToSubMoveEnd = 5;
+        subMoveEndToMoveEnd = 5;
+        moveEndToIdle = 5;
+
+        subMovBeginToIdle = -3;
+        subMovAfterMaxToSubMovBegin = -5;
+        subMovEndToSubMovAfterMax = -2;
+        moveEndToSubMoveEnd = -10;
     }
 
     public void UpdateFunction(Quaternion currentRotation, float time)
     {
-        float angleDelta = Mathf.Deg2Rad * Quaternion.Angle(currentRotation, lastRotationData);
+        float angleDelta = Quaternion.Angle(currentRotation, lastRotationData);
 
         float currentAngularVelocity = angleDelta / (time - lastTimeStep);
 
@@ -84,7 +120,7 @@ public class GainFunction : MonoBehaviour
         lastTimeStep = time;
     }
 
-    //Angularvelocity in rad/s
+    //Angularvelocity in degree/s
     public void UpdateFunction(float currentAngularVelocity)
     {
         if (VariablesManager.InputMode == InputMode.HeadMyoHybrid)
@@ -95,16 +131,16 @@ public class GainFunction : MonoBehaviour
         {
             SetControllerVariables();
         }
-        currentVelocity = currentAngularVelocity;
-        velocityRollingStats.AddSample(currentVelocity);
+        curVel = currentAngularVelocity;
+        velocityRollingStats.AddSample(curVel);
 
-        float avgVelocity = velocityRollingStats.Average;
+        float avgVel = velocityRollingStats.Average;
 
         switch (state)
         {
             case MovementState.Idle:
-                if((currentVelocity > avgVelocity && currentVelocity > idleVelocityTH) 
-                    || avgVelocity > idleAvgVelocityTH)
+                if((curVel > avgVel && curVel > idleVelTH) 
+                    || avgVel > idleAvgVelTH)
                 {
                     counter++;
                 }
@@ -112,15 +148,15 @@ public class GainFunction : MonoBehaviour
                 {
                     counter--;
                 }
-                if (counter > 3)
+                if (counter > idleToPrimarySubMovBegin)
                 {
                     state = MovementState.PrimarySubMovBegin;
-                    Debug.Log("From Idle to PrimarySubMovBegin");
+                    Debug.Log("Movement Started "+RelativeFactor);
                     counter = 0;
                 }
                 break;
             case MovementState.PrimarySubMovBegin:
-                if (currentVelocity < avgVelocity || avgVelocity < primaryBeginAvgVelTH)
+                if (curVel < avgVel || avgVel < primaryBeginAvgVelTH)
                 {
                     counter++;
                 }
@@ -128,21 +164,20 @@ public class GainFunction : MonoBehaviour
                 {
                     counter--;
                 }
-                if (counter > 3)
+                if (counter > subMovBeginToSubMovAfterMax)
                 {
-                    state = MovementState.PrimarySubMaxAfterMax;
-                    Debug.Log("From PrimarySubMovBegin to PrimarySubMaxAfterMax");
+                    state = MovementState.PrimarySubMovAfterMax;
                     counter = 0;
                 }
-                else if (counter < -3)
+                else if (counter < subMovBeginToIdle)
                 {
                     state = MovementState.Idle;
-                    Debug.Log("From PrimarySubMovBegin to Idle");
+                    Debug.Log("Back to Idle" + RelativeFactor);
                     counter = 0;
                 }
                 break;
-            case MovementState.PrimarySubMaxAfterMax:
-                if (currentVelocity < primaryAfterVelTH)
+            case MovementState.PrimarySubMovAfterMax:
+                if (curVel < primaryAfterVelTH)
                 {
                     counter++;
                 }
@@ -150,44 +185,40 @@ public class GainFunction : MonoBehaviour
                 {
                     counter--;
                 }
-                if (counter > 5)
+                if (counter > subMovAfterMaxToSubMoveEnd)
                 {
                     state = MovementState.PrimarySubMovEnd;
-                    Debug.Log("From PrimarySubMaxAfterMax to PrimarySubMovEnd");
                     counter = 0;
                 }
-                else if(counter < -5)
+                else if(counter < subMovAfterMaxToSubMovBegin)
                 {
                     state = MovementState.PrimarySubMovBegin;
-                    Debug.Log("From PrimarySubMaxAfterMax to PrimarySubMovBegin");
                     counter = 0;
                 }
                 break;
             case MovementState.PrimarySubMovEnd:
-                if (avgVelocity < primaryEndVelTH)
+                if (avgVel < primaryEndVelTH)
                 {
                     counter++;
                 }
-                else if(avgVelocity > primaryEndAvgVelTH)
+                else if(avgVel > primaryEndAvgVelTH)
                 {
                     counter--;
                 }
-                if (counter > 5)
+                if (counter > subMoveEndToMoveEnd)
                 {
-                    //Debug.Log("Move End");
                     state = MovementState.MovEnd;
-                    Debug.Log("From PrimarySubMovEnd to MovEnd");
+                    Debug.LogWarning("Move End");
                     counter = 0;
                 } 
-                else if(counter < -2)
+                else if(counter < subMovEndToSubMovAfterMax)
                 {
-                    state = MovementState.PrimarySubMaxAfterMax;
-                    Debug.Log("From PrimarySubMovEnd to PrimarySubMaxAfterMax");
+                    state = MovementState.PrimarySubMovAfterMax;
                     counter = 0;
                 }
                 break;
             case MovementState.MovEnd:
-                if (avgVelocity < moveEndAvgVelTH)
+                if (avgVel < moveEndAvgVelTH)
                 {
                     counter++;
                 }
@@ -195,21 +226,19 @@ public class GainFunction : MonoBehaviour
                 {
                     counter--;
                 }
-                if (counter > 5)
+                if (counter > moveEndToIdle)
                 {
                     state = MovementState.Idle;
-                    Debug.Log("Complete Cycle");
+                    Debug.Log("Complete Cycle" + RelativeFactor);
                     counter = 0;
                 }
-                else if (counter < -10)
+                else if (counter < moveEndToSubMoveEnd)
                 {
                     state = MovementState.PrimarySubMovEnd;
-                    Debug.Log("From MovEnd to PrimarySubMovEnd");
                     counter = 0;
                 }
                 break;
         }
-        //text.text = "State: " +state.ToString() +"\n Velocity: "+currentVelocity;
     }
 
     public static void ResetFunction(Vector3 currentAngularVelocity)
@@ -242,13 +271,13 @@ public class GainFunction : MonoBehaviour
             switch (Instance.state)
             {
                 case MovementState.Idle:
-                    return functionCurve.Evaluate(Instance.counter / 3 * 0.25f);
+                    return functionCurve.Evaluate(Instance.counter / Instance.idleToPrimarySubMovBegin * 0.25f);
                 case MovementState.PrimarySubMovBegin:
-                    return functionCurve.Evaluate(0.25f + Instance.counter / 3 * 0.25f);
-                case MovementState.PrimarySubMaxAfterMax:
-                    return functionCurve.Evaluate(0.5f + Instance.counter / 30 * 0.25f);
+                    return functionCurve.Evaluate(0.25f + Instance.counter / Instance.subMovBeginToSubMovAfterMax * 0.25f);
+                case MovementState.PrimarySubMovAfterMax:
+                    return functionCurve.Evaluate(0.5f + Instance.counter / Instance.subMovAfterMaxToSubMoveEnd * 0.25f);
                 case MovementState.PrimarySubMovEnd:
-                    return functionCurve.Evaluate(0.75f + Instance.counter / 10 * 0.25f);
+                    return functionCurve.Evaluate(0.75f + Instance.counter / Instance.subMoveEndToMoveEnd * 0.25f);
                 case MovementState.MovEnd:
                     return functionCurve.Evaluate(1);
                 default:
@@ -269,7 +298,7 @@ public class GainFunction : MonoBehaviour
     {
         get
         {
-            return Instance.currentVelocity;
+            return Instance.curVel;
         }
     }
 }
